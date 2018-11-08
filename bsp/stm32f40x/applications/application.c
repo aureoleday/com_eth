@@ -84,7 +84,7 @@ int rt_application_init()
 
     if (tid != RT_NULL)
         rt_thread_startup(tid);
-
+    
     result = rt_thread_init(&tcpclient_thread,
                             "th_tcp",
                             tcpclient_thread_entry,
@@ -92,7 +92,8 @@ int rt_application_init()
                             (rt_uint8_t*)&tcpclient_stack[0],
                             sizeof(tcpclient_stack),
                             TCPCLIENT_THREAD_PRIO,
-                            6);
+                            8);
+
     if (result == RT_EOK)
     {
         rt_thread_startup(&tcpclient_thread);
