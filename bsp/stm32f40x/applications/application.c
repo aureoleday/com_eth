@@ -92,7 +92,7 @@ int rt_application_init()
                             (rt_uint8_t*)&tcpclient_stack[0],
                             sizeof(tcpclient_stack),
                             TCPCLIENT_THREAD_PRIO,
-                            6);
+                            5);
     if (result == RT_EOK)
     {
         rt_thread_startup(&tcpclient_thread);
