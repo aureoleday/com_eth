@@ -231,7 +231,6 @@ void load_conf(uint8_t conf_opt)
         {
             init_load_default();
             save_conf(CONF_OPT_USR);
-            save_conf(CONF_OPT_FACT);
             set_startup_flag(CONF_OPT_USR);
             init_load_default();
             rt_kprintf("CONF_DEFAULT loaded successfully.\n");
