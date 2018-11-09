@@ -5,6 +5,7 @@
 #include "lcd.h"
 #include "display.h"
 #include "hanzi.h"
+#include "stdio.h"
 /*
 0:    barometric pressure (mbar)
 1:    temprature(C) x 100
@@ -218,7 +219,7 @@ static void update_sensor(uint8_t addr_ex,uint8_t type)
         }
     }
 }
-#include "stdio.h"
+
 static void disp_data(uint16_t x,uint16_t y,uint16_t size, uint32_t data,uint16_t dn)
 {
     float   temp;
@@ -351,14 +352,6 @@ void LCD_ShowChinese_fill(u16 x,u16 y,u8 fontSize,u16 pointColor,u16 backColor,u
     }
 }
 
-static void lcd_refresh(uint16_t bgc, uint16_t brc)
-{
-    LCD_Clear(bgc);
-    BACK_COLOR=bgc;
-    BRUSH_COLOR=brc;
-    disp_cname();
-    disp_unit();  
-}
 
 static void lcd_print_time(uint16_t x,uint16_t y,uint16_t size)
 {
@@ -372,11 +365,8 @@ static void lcd_print_time(uint16_t x,uint16_t y,uint16_t size)
         
 }
 
-
-
 #ifdef RT_USING_FINSH
 #include <finsh.h>
-FINSH_FUNCTION_EXPORT(lcd_refresh, lcd color test);
 FINSH_FUNCTION_EXPORT(disp_info, dispaly general info.);
 #endif
 

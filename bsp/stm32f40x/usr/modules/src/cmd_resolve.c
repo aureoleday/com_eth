@@ -100,6 +100,37 @@ static void cmd_buf_init(void)
 
 
 /**
+  * @brief  digital input sample interval timeout callback function, calls di_read() each time to update di buffer queue
+  * @param  none
+  * @retval none
+  */
+static void cmd_timeout(void* parameter)
+{
+    uint16_t report_data(void);
+    report_data();
+}
+
+/**
+  * @brief   sample interval timer initialization, expires in 6 miliseconds pieriod
+  * @param  none
+  * @retval none
+  */
+rt_timer_t tm_tcp_repo;
+static uint16_t	cmd_timer_init(void)
+{   
+    extern sys_reg_st  g_sys; 
+//		rt_timer_t tm_tcp_repo;
+		tm_tcp_repo = rt_timer_create("tm_tcp_repo", 
+									cmd_timeout, 
+									RT_NULL,
+									g_sys.conf.eth.tcp_period,
+									RT_TIMER_FLAG_PERIODIC); 
+		rt_timer_start(tm_tcp_repo);
+		return 1;
+}
+
+
+/**
   * @brief  cmd uart send interface
 	* @param  tx_buf_ptr: tx src buffer pointer
 						tx_cnt: tx src buffer transmitt count
@@ -108,6 +139,7 @@ static void cmd_buf_init(void)
 void cmd_dev_init(void)
 {
 		cmd_buf_init();
+    cmd_timer_init();
 }
 
 /**
@@ -614,7 +646,7 @@ static int16_t get_report_data(uint32_t * buf_ptr)
 uint16_t report_data(void)
 {
     extern sys_reg_st	  g_sys;
-    static uint32_t     time_cnt=0;
+//    static uint32_t     time_cnt=0;
 		uint8_t err_code;
 		uint16_t rd_cnt;
 	
@@ -622,11 +654,11 @@ uint16_t report_data(void)
     if(bit_op_get(g_sys.stat.gen.status_bm,GBM_TCP) == 0)
         return CMD_NOT_READY;
 
-    time_cnt++;
-    if(time_cnt >= g_sys.conf.eth.tcp_period)
-        time_cnt = 0;
-    else
-        return 0;
+//    time_cnt++;
+//    if(time_cnt >= g_sys.conf.eth.tcp_period)
+//        time_cnt = 0;
+//    else
+//        return 0;
   
     rd_cnt = get_report_data(&cmd_reg_inst.tx_buf[FRAME_D_AL_POS]);
     

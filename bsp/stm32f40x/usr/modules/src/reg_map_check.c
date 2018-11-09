@@ -65,6 +65,13 @@ uint16_t plc_conf_opt(uint32_t pram)
         return 0;
 }
 
+uint16_t tcp_timer_opt(uint32_t pram)
+{
+    extern rt_timer_t tm_tcp_repo;
+    rt_timer_control(tm_tcp_repo,RT_TIMER_CTRL_SET_TIME,(void*)&pram);
+    return 1;
+}
+
 static void sys_reset(void)
 {
     NVIC_SystemReset();
