@@ -373,33 +373,12 @@ static void mbm_info(void)
             rt_kprintf(" %2d   |  %4d   |  %4d   |  %2d   |  %4d\n",(i+1),reg_base, reg_cnt, ((mbm_dev_inst.sts_bitmap_input&(((uint16)1<<i)))>>i), mbm_dev_inst.err_code_ih[i]>>16);
     }    
 }
- 
-static void mbm_set_reg(uint8_t slave_id, uint16_t reg_base, uint16_t reg_cnt,uint8_t mode)
-{
-    if(mode == 0)
-    {
-        g_sys.conf.mbm.arr_slave_hbase_regn[slave_id - 1] = (reg_base<<16) | (reg_cnt);
-    }
-    else
-    {
-        g_sys.conf.mbm.arr_slave_ibase_regn[slave_id - 1] = (reg_base<<16) | (reg_cnt);
-    }    
-}
 
-static void mbm_set_dev_bm(uint32_t dev_map, uint8_t mode)
-{
-    if(mode == 0)
-        g_sys.conf.mbm.dev_bitmap_holding = dev_map;
-    else
-        g_sys.conf.mbm.dev_bitmap_input = dev_map;
-}
+MSH_CMD_EXPORT(mbm_info, show mbm reg info);
 
 #ifdef RT_USING_FINSH
 #include <finsh.h>
 FINSH_FUNCTION_EXPORT(mbm_show_reg, list mbm regs);
-//FINSH_FUNCTION_EXPORT(mbm_show_ireg, list input regs);
 FINSH_FUNCTION_EXPORT(mbm_info, show mbm reg info);
-FINSH_FUNCTION_EXPORT(mbm_set_reg, set mbm regs);
-FINSH_FUNCTION_EXPORT(mbm_set_dev_bm, set mbm bitmap);
 #endif
 

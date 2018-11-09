@@ -68,7 +68,9 @@ uint16_t plc_conf_opt(uint32_t pram)
 uint16_t tcp_timer_opt(uint32_t pram)
 {
     extern rt_timer_t tm_tcp_repo;
-    rt_timer_control(tm_tcp_repo,RT_TIMER_CTRL_SET_TIME,(void*)&pram);
+    uint32_t period;
+    period = pram*RT_TICK_PER_SECOND;
+    rt_timer_control(tm_tcp_repo,RT_TIMER_CTRL_SET_TIME,(void*)&period);
     return 1;
 }
 

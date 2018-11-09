@@ -123,7 +123,7 @@ static uint16_t	cmd_timer_init(void)
 		tm_tcp_repo = rt_timer_create("tm_tcp_repo", 
 									cmd_timeout, 
 									RT_NULL,
-									g_sys.conf.eth.tcp_period,
+									(g_sys.conf.eth.tcp_period*RT_TICK_PER_SECOND),
 									RT_TIMER_FLAG_PERIODIC); 
 		rt_timer_start(tm_tcp_repo);
 		return 1;
