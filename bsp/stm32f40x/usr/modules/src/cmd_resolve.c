@@ -281,7 +281,6 @@ static uint16_t cmd_wr_reg(void)
   
 		err_code = reg_map_write(tx_addr,&cmd_reg_inst.rx_buf[FRAME_D_PL_POS],tx_cnt); 																			//write conf reg map	
 
-//		cmd_reg_inst.tx_buf[FRAME_C_ATL_POS] = (cmd_reg_inst.tx_buf[FRAME_C_ATL_POS]&0x00ffffff)|(err_code<<24);
     cmd_reg_inst.tx_buf[FRAME_D_AL_POS] = cmd_reg_inst.rx_buf[FRAME_D_AL_POS];
   
     cmd_reg_inst.tx_cnt = 1;
@@ -324,11 +323,8 @@ static uint16_t cmd_rd_reg(void)
 		else
 		{
 				err_code = reg_map_read(rd_addr,&cmd_reg_inst.tx_buf[FRAME_D_PL_POS],rd_cnt);
-//        for(i=0;i<rd_cnt;i++)
-//            rt_kprintf("rd_data %d: %x\n",i,cmd_reg_inst.tx_buf[FRAME_D_PL_POS+i]);
 				cmd_reg_inst.tx_cnt = rd_cnt + 1;				
-		}		
-//    cmd_reg_inst.tx_buf[FRAME_C_ATL_POS] = (cmd_reg_inst.tx_buf[FRAME_C_ATL_POS]&0x00ffffff)|(err_code<<24);
+		}
     cmd_reg_inst.tx_buf[FRAME_D_AL_POS] =  cmd_reg_inst.rx_buf[FRAME_D_AL_POS];
     
     cmd_reg_inst.tx_cmd	= (cmd_reg_inst.rx_buf[FRAME_C_ATL_POS]>>16)&0x00ff;
@@ -603,8 +599,6 @@ static int16_t get_report_data(uint32_t * buf_ptr)
     uint16_t i,j,k;    
     
     ret = 0;
-//    hold_bitmap = g_sys.conf.mbm.dev_bitmap_holding;
-//    input_bitmap = g_sys.conf.mbm.dev_bitmap_input;
     hold_bitmap = mbm_dev_inst.sts_bitmap_hold;
     input_bitmap = mbm_dev_inst.sts_bitmap_input;
   
@@ -616,7 +610,6 @@ static int16_t get_report_data(uint32_t * buf_ptr)
         {
             *(buf_ptr+j) = (g_sys.conf.mbm.arr_slave_hbase_regn[i]&0x0000ffff)|(i<<16);
             j++;
-//            rt_kprintf("hbase : %x\n",g_sys.conf.mbm.arr_slave_hbase_regn[i]);
             for(k=0;k<(g_sys.conf.mbm.arr_slave_hbase_regn[i]&0x0000ffff);k++)
             {
                 buf_temp = mbm_dev_inst.holdbuf_reg[i][k];
@@ -646,19 +639,12 @@ static int16_t get_report_data(uint32_t * buf_ptr)
 uint16_t report_data(void)
 {
     extern sys_reg_st	  g_sys;
-//    static uint32_t     time_cnt=0;
 		uint8_t err_code;
 		uint16_t rd_cnt;
 	
     err_code = CMD_ERR_NOERR;
     if(bit_op_get(g_sys.stat.gen.status_bm,GBM_TCP) == 0)
         return CMD_NOT_READY;
-
-//    time_cnt++;
-//    if(time_cnt >= g_sys.conf.eth.tcp_period)
-//        time_cnt = 0;
-//    else
-//        return 0;
   
     rd_cnt = get_report_data(&cmd_reg_inst.tx_buf[FRAME_D_AL_POS]);
     

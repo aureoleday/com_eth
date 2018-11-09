@@ -15,7 +15,6 @@ void cmd_thread_entry(void* parameter)
 		{
         recv_frame_fsm();
 				cmd_frame_resolve();
-//        report_data();
 				rt_thread_delay(10);
 		}
 }
