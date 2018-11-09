@@ -84,7 +84,7 @@ int rt_application_init()
 
     if (tid != RT_NULL)
         rt_thread_startup(tid);
-    
+        
     result = rt_thread_init(&tcpclient_thread,
                             "th_tcp",
                             tcpclient_thread_entry,
