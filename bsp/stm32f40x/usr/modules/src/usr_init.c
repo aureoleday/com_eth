@@ -296,6 +296,94 @@ static int16_t set_serial_id(uint32_t serial_id)
     return ret;
 }
 
+uint32_t get_reset_cnt(void)
+{
+    int16_t ret;
+    int fd, fsize;
+    uint32_t reset_cnt;
+  
+    fsize = sizeof(uint32_t);
+  
+    fd = open("/data/sys.dat", O_RDONLY);    
+    
+    if(fd>=0)
+    {
+        ret = read(fd,(void*)&reset_cnt,fsize); 
+        if(ret<=0)
+        {
+            rt_kprintf("Reset count read file error!\n");
+            reset_cnt = 0;
+        }
+        close(fd);
+    }
+    else
+    {
+        rt_kprintf("Reset count open file error!\n");
+        reset_cnt = (uint32_t)-1;
+    }
+    return reset_cnt; 
+}
+
+int32_t update_reset_cnt(uint8_t flag)
+{
+    DIR *dirp;
+    int32_t ret;
+    int fd, fsize;
+    uint32_t reset_cnt;
+  
+    ret = 0;
+    fsize = sizeof(uint32_t);
+    
+    dirp = opendir("/data");
+    if (dirp == RT_NULL)
+    {
+        rt_kprintf("dir /conf not exist, creat one\n");
+        ret = mkdir("/data", 0x777);
+        if(ret < 0)
+        {
+            rt_kprintf("mkdir /data fail\n");
+            ret = -1;
+            return ret;
+        }
+        else
+        {
+            rt_kprintf("mkdir /data ok\n");
+            dirp = opendir("/data");
+        }
+    }    
+    
+    fd = open("/data/sys.dat", O_RDWR|O_CREAT);
+    if(fd>=0)
+    {
+        ret = read(fd,(void*)&reset_cnt,fsize);        
+        if(ret == 0)
+        {
+            reset_cnt = 1;
+            rt_kprintf("Create sys.dat file, initialize reset count to 1.\n");
+        }
+        else
+        {
+            if(flag == 0)
+                reset_cnt += 1;
+            else
+                reset_cnt = 0;            
+            rt_kprintf("System reset count: %d\n",reset_cnt);
+        }
+        if(lseek(fd,0,SEEK_SET)==-1)
+            rt_kprintf("move file pointer error!\n");
+        write(fd,(void*)&reset_cnt,fsize);
+        
+        close(fd);
+        
+        ret = reset_cnt;
+    }
+    else
+        ret = -1;
+    closedir(dirp);
+    return ret;
+}
+
+
 uint32_t get_serial_id(void)
 {
     int32_t ret;
@@ -315,10 +403,11 @@ uint32_t get_serial_id(void)
     return ret;
 }
 
-  
 #ifdef RT_USING_FINSH
 #include <finsh.h>
 FINSH_FUNCTION_EXPORT(set_serial_id, uint32 type ID.);
+FINSH_FUNCTION_EXPORT(get_reset_cnt, rest_cnt get.);
+FINSH_FUNCTION_EXPORT(update_reset_cnt, rest_cnt update.);
 FINSH_FUNCTION_EXPORT(set_startup_flag,1:usr 2:fact 3:debut 4:default.);
 FINSH_FUNCTION_EXPORT(save_conf, 1:usr 2:fact else:default.);
 FINSH_FUNCTION_EXPORT(load_conf, load conf regs from file.);

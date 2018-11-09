@@ -124,7 +124,7 @@ const sts_reg_map_st status_reg_map_inst[STAT_REG_MAP_NUM]=
   {	6,    &g_sys.stat.man.dev_type,					  DEVICE_TYPE},
   {	7,    NULL,						                    0},
   {	8,    NULL,						                    0},
-  {	9,    NULL,						                    0},
+  {	9,    &g_sys.stat.gen.reset_counts,				0},
 	{	10,		&g_sys.stat.gen.time,   						0},
 	{	11,		&g_sys.stat.gen.status_bm,          0},
 	{	12,		&g_sys.stat.eth.dns_ip,             0},
@@ -196,10 +196,11 @@ void init_load_status(void)
 						*(status_reg_map_inst[i].reg_ptr) = status_reg_map_inst[i].dft;
 				}
 		}    
+//    g_sys.stat.gen.reset_counts = get_reset_counts();
     g_sys.stat.man.serial_no = get_serial_id();
     g_sys.stat.man.man_date = get_comp_date();
+    g_sys.stat.gen.reset_counts = update_reset_cnt(0);
     bit_op_set(&g_sys.stat.gen.status_bm,GBM_FLASH,1);
-//    g_sys.stat.gen.status_bm |= (0x00000001<<GBM_FLASH);
 }
 
 

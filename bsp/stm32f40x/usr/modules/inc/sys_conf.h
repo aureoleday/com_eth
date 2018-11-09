@@ -59,6 +59,7 @@ typedef struct
     uint32_t    software_ver;
     uint32_t    hardware_ver;
     uint32_t    status_bm;
+    uint32_t    reset_counts;
     uint32_t 		time;
 }stat_gen_st;
 

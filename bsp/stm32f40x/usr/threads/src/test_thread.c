@@ -29,5 +29,5 @@ void test_thread_entry(void* parameter)
 
 //#ifdef RT_USING_FINSH
 //#include <finsh.h>
-//FINSH_FUNCTION_EXPORT(get_comp_date, print compile date.);
+//FINSH_FUNCTION_EXPORT(ini_test, print compile date.);
 //#endif

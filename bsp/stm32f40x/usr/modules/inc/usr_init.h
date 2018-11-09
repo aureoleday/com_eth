@@ -17,5 +17,6 @@ void load_conf(uint8_t conf_opt);
 uint16_t plc_conf_opt(uint32_t pram);
 uint32_t get_serial_id(void);
 uint32_t get_comp_date(void);
+int32_t update_reset_cnt(uint8_t flag);
 
 #endif //	__USR_INIT
