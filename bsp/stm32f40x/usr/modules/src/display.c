@@ -61,8 +61,8 @@ sensor_namesting_st csname_inst =
     "ÈÜ½âÑõ",
     "ÑõÈÜÁ¿",
     "Éî¶È",
-    "ÏõËáÑÎ",
-    "ï§Àë×Ó"   
+    "Ïõµª",
+    "ï§µª"   
 };
 
 sensor_namesting_st sunit_inst = 

@@ -101,8 +101,8 @@ typedef struct
     int8_t 		desolved_oxigen[24];
     int8_t 		desolved_oxigen_air[24];
     int8_t 		probe_depth[24];
-    int8_t 		ammonia_concentration[24];
     int8_t 		nitrate_concentration[24];
+    int8_t 		ammonia_concentration[24];    
 }sensor_namesting_st;
 
 void disp_init(void);
