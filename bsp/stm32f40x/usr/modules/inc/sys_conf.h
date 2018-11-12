@@ -7,10 +7,10 @@
 #define		CMD_THREAD_DELAY            400
 #define		BKG_THREAD_DELAY            400
 #define		LCD_THREAD_DELAY            400
-#define		TCPCLIENT_THREAD_DELAY      500
+#define		TCPCLIENT_THREAD_DELAY      600
 #define		TEST_THREAD_DELAY		        400
-#define		MBM_THREAD_DELAY		        400
-#define		MBM_FSM_THREAD_DELAY        400
+#define		MBM_THREAD_DELAY		        500
+#define		MBM_FSM_THREAD_DELAY        500
 
 typedef struct
 {	

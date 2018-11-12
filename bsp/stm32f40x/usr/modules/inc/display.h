@@ -42,6 +42,7 @@ typedef struct
     uint32_t 		desolved_oxigen_air;
     uint32_t 		probe_depth;
     uint32_t 		ammonia_concentration;
+    uint32_t 		nitrate_concentration;
 }sensor_multi_st;
 
 typedef struct
@@ -60,6 +61,7 @@ typedef struct
     char 		desolved_oxigen_air[16];
     char 		probe_depth[16];
     char 		ammonia_concentration[16];
+    char 		nitrate_concentration[16];    
 }sensor_multi_str_st;
 
 typedef struct
@@ -100,6 +102,7 @@ typedef struct
     int8_t 		desolved_oxigen_air[24];
     int8_t 		probe_depth[24];
     int8_t 		ammonia_concentration[24];
+    int8_t 		nitrate_concentration[24];
 }sensor_namesting_st;
 
 void disp_init(void);

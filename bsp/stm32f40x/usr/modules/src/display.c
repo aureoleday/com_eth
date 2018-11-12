@@ -52,7 +52,7 @@ sensor_namesting_st csname_inst =
     "温度",
     "酸碱度",
     "氧化还原电位",    
-    "浊度",
+    "硝酸盐",
     "电导率",
     "电阻率",
     "盐度",
@@ -61,7 +61,8 @@ sensor_namesting_st csname_inst =
     "溶解氧",
     "氧溶量",
     "深度",
-    "氨浓度"   
+    "硝酸盐",
+    "铵离子"   
 };
 
 sensor_namesting_st sunit_inst = 
@@ -70,7 +71,7 @@ sensor_namesting_st sunit_inst =
     "~C",
     "N/A",
     "mv",
-    "NTU",
+    "mg/L",
     "uS/cm",
     "=.cm",
     "PSU",
@@ -79,6 +80,7 @@ sensor_namesting_st sunit_inst =
     "mg/L",
     "%",
     "cm",
+    "mg/L",
     "mg/L"   
 };
 
@@ -119,15 +121,16 @@ static void disp_cname(void)
     LCD_DisplayCString(10,40, (char*)&csname_inst.temprature);
     LCD_DisplayCString(10,60, (char*)&csname_inst.ph);
     LCD_DisplayCString(10,80, (char*)&csname_inst.oxidation);
-    LCD_DisplayCString(10,100,(char*)&csname_inst.turbidity);
-    LCD_DisplayCString(10,120,(char*)&csname_inst.condutivity);
-    LCD_DisplayCString(10,140,(char*)&csname_inst.resistivity);
-    LCD_DisplayCString(10,160,(char*)&csname_inst.sanility);
-    LCD_DisplayCString(10,180,(char*)&csname_inst.tds);
+//    LCD_DisplayCString(10,100,(char*)&csname_inst.turbidity);
+    LCD_DisplayCString(10,100,(char*)&csname_inst.condutivity);
+    LCD_DisplayCString(10,120,(char*)&csname_inst.resistivity);
+    LCD_DisplayCString(10,140,(char*)&csname_inst.sanility);
+    LCD_DisplayCString(10,160,(char*)&csname_inst.tds);
 //    LCD_DisplayCString(10,200,(char*)&csname_inst.ssg);
-    LCD_DisplayCString(10,200,(char*)&csname_inst.desolved_oxigen);
-//    LCD_DisplayCString(10,240,(char*)&csname_inst.desolved_oxigen_air);
-    LCD_DisplayCString(10,220,(char*)&csname_inst.probe_depth);
+    LCD_DisplayCString(10,180,(char*)&csname_inst.desolved_oxigen);
+//    LCD_DisplayCString(10,200,(char*)&csname_inst.desolved_oxigen_air);
+    LCD_DisplayCString(10,200,(char*)&csname_inst.probe_depth);
+    LCD_DisplayCString(10,220,(char*)&csname_inst.nitrate_concentration);
     LCD_DisplayCString(10,240,(char*)&csname_inst.ammonia_concentration);    
 }
 
@@ -137,15 +140,16 @@ static void disp_unit(void)
     LCD_DisplayString(200,40, 16, (u8*)&sunit_inst.temprature);
     LCD_DisplayString(200,60, 16, (u8*)&sunit_inst.ph);
     LCD_DisplayString(200,80, 16, (u8*)&sunit_inst.oxidation);
-    LCD_DisplayString(200,100,16, (u8*)&sunit_inst.turbidity);
-    LCD_DisplayString(200,120,16,(u8*)&sunit_inst.condutivity);
-    LCD_DisplayString(200,140,16,(u8*)&sunit_inst.resistivity);
-    LCD_DisplayString(200,160,16,(u8*)&sunit_inst.sanility);
-    LCD_DisplayString(200,180,16,(u8*)&sunit_inst.tds);
+//    LCD_DisplayString(200,100,16, (u8*)&sunit_inst.turbidity);
+    LCD_DisplayString(200,100,16,(u8*)&sunit_inst.condutivity);
+    LCD_DisplayString(200,120,16,(u8*)&sunit_inst.resistivity);
+    LCD_DisplayString(200,140,16,(u8*)&sunit_inst.sanility);
+    LCD_DisplayString(200,160,16,(u8*)&sunit_inst.tds);
 //    LCD_DisplayString(200,200,16,(u8*)&sunit_inst.ssg);
-    LCD_DisplayString(200,200,16,(u8*)&sunit_inst.desolved_oxigen);
+    LCD_DisplayString(200,180,16,(u8*)&sunit_inst.desolved_oxigen);
 //    LCD_DisplayString(200,240,16,(u8*)&sunit_inst.desolved_oxigen_air);
-    LCD_DisplayString(200,220,16,(u8*)&sunit_inst.probe_depth);
+    LCD_DisplayString(200,200,16,(u8*)&sunit_inst.probe_depth);
+    LCD_DisplayString(200,220,16,(u8*)&sunit_inst.nitrate_concentration);  
     LCD_DisplayString(200,240,16,(u8*)&sunit_inst.ammonia_concentration);    
 }
 
@@ -191,7 +195,8 @@ static void update_sensor(uint8_t addr_ex,uint8_t type)
                 disp_inst.multi.desolved_oxigen = mbm_dev_inst.inputbuf_reg[addr][17];
                 disp_inst.multi.desolved_oxigen_air = mbm_dev_inst.inputbuf_reg[addr][18];
                 disp_inst.multi.probe_depth = mbm_dev_inst.inputbuf_reg[addr][19];
-                disp_inst.multi.ammonia_concentration = (mbm_dev_inst.inputbuf_reg[addr][32]<<16)| mbm_dev_inst.inputbuf_reg[addr][33];
+                disp_inst.multi.nitrate_concentration = (mbm_dev_inst.inputbuf_reg[addr][20]<<16)| mbm_dev_inst.inputbuf_reg[addr][21];
+                disp_inst.multi.ammonia_concentration = (mbm_dev_inst.inputbuf_reg[addr][22]<<16)| mbm_dev_inst.inputbuf_reg[addr][23];
             }
             break;
         }
@@ -280,15 +285,16 @@ void disp_fresh(void)
     disp_data(135,40, 16,disp_inst.multi.temprature,100);
     disp_data(135,60, 16,disp_inst.multi.ph,100);
     disp_data(135,80, 16,disp_inst.multi.oxidation,10);
-    disp_data(135,100,16,disp_inst.multi.turbidity,10);
-    disp_data(135,120,16,disp_inst.multi.condutivity,1);
-    disp_data(135,140,16,disp_inst.multi.resistivity,1);
-    disp_data(135,160,16,disp_inst.multi.sanility,100);
-    disp_data(135,180,16,disp_inst.multi.tds,1);
+//    disp_data(135,100,16,disp_inst.multi.turbidity,10);
+    disp_data(135,100,16,disp_inst.multi.condutivity,1);
+    disp_data(135,120,16,disp_inst.multi.resistivity,1);
+    disp_data(135,140,16,disp_inst.multi.sanility,100);
+    disp_data(135,160,16,disp_inst.multi.tds,1);
 //    disp_data(135,200,16,disp_inst.multi.ssg,10);
-    disp_data(135,200,16,disp_inst.multi.desolved_oxigen,100);
+    disp_data(135,180,16,disp_inst.multi.desolved_oxigen,100);
 //    disp_data(135,240,16,disp_inst.multi.desolved_oxigen_air,10);
-    disp_data(135,220,16,disp_inst.multi.probe_depth,1);
+    disp_data(135,200,16,disp_inst.multi.probe_depth,1);
+    disp_data(135,220,16,disp_inst.multi.nitrate_concentration,1);
     disp_data(135,240,16,disp_inst.multi.ammonia_concentration,1);
     lcd_print_time(0,300,16);
 }

@@ -45,11 +45,13 @@ static int16_t dir_init(void)
         if(ret < 0)
             rt_kprintf("mkdir /conf fail\n");
         else
-            rt_kprintf("mkdir /conf ok\n");
+//            rt_kprintf("mkdir /conf ok\n");
         ret |= 1;
     }
     else
         closedir(dirp);
+    
+    rt_thread_delay(50);
     
     dirp = opendir("/data");
     if (dirp == RT_NULL)
@@ -59,25 +61,27 @@ static int16_t dir_init(void)
         if(ret < 0)
             rt_kprintf("mkdir /data fail\n");
         else
-            rt_kprintf("mkdir /data ok\n");
+//            rt_kprintf("mkdir /data ok\n");
         ret |= 2;
     }
     else
         closedir(dirp);
     
-    dirp = opendir("/log");
-    if (dirp == RT_NULL)
-    {
-        rt_kprintf("dir /log not exist, creat one\n");
-        ret = mkdir("/log", 0x777);
-        if(ret < 0)
-            rt_kprintf("mkdir /log fail\n");
-        else
-            rt_kprintf("mkdir /log ok\n");
-        ret |= 4;
-    }
-    else
-        closedir(dirp);
+    rt_thread_delay(50);
+    
+//    dirp = opendir("/log");
+//    if (dirp == RT_NULL)
+//    {
+//        rt_kprintf("dir /log not exist, creat one\n");
+//        ret = mkdir("/log", 0x777);
+//        if(ret < 0)
+//            rt_kprintf("mkdir /log fail\n");
+//        else
+//            rt_kprintf("mkdir /log ok\n");
+//        ret |= 4;
+//    }
+//    else
+//        closedir(dirp);
     
     return ret;
 }
@@ -197,6 +201,8 @@ void load_conf(uint8_t conf_opt)
             {
                 rt_kprintf("Error open usr conf file\n");
                 rt_kprintf("CONF_USR loaded fail.\n");
+                init_load_default();
+                rt_kprintf("Reload form default.\n");
             }
             break;
         }
@@ -215,6 +221,8 @@ void load_conf(uint8_t conf_opt)
             {
                 rt_kprintf("Error open fact conf file\n");
                 rt_kprintf("CONF_FACT loaded fail.\n");
+                init_load_default();
+                rt_kprintf("Reload form default.\n");
             }
             break;
         }
@@ -243,18 +251,18 @@ void load_conf(uint8_t conf_opt)
 void usr_init(void)
 {
     int16_t ret;
-    ret = dir_init();  
-  
-    init_load_status();
+    ret = dir_init();         
     
     if(ret != 0)
     {
-        load_conf(CONF_OPT_DEBUT);
+        load_conf(CONF_OPT_DEBUT);        
     }
     else
     {
         load_conf(load_startup_flag());
     }
+    
+    init_load_status();
 }
 
 static int16_t set_serial_id(uint32_t serial_id)

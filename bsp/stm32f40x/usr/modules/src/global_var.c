@@ -77,7 +77,7 @@ const conf_reg_map_st conf_reg_map_inst[CONF_REG_MAP_NUM]=
 	{	61,		&g_sys.conf.mbm.arr_slave_hbase_regn[29],    0,		    0xffffffff,		0x00000004,		0,      NULL   	          },
 	{	62,		&g_sys.conf.mbm.arr_slave_hbase_regn[30],    0,		    0xffffffff,		0x00000004,		0,      NULL   	          },
 	{	63,		&g_sys.conf.mbm.arr_slave_hbase_regn[31],    0,		    0xffffffff,		0x00000004,		0,      NULL   	          },  
-	{	64,		&g_sys.conf.mbm.arr_slave_ibase_regn[0],     0,		    0xffffffff,		0x00000022, 	0,      NULL   	          },
+	{	64,		&g_sys.conf.mbm.arr_slave_ibase_regn[0],     0,		    0xffffffff,		0x00000018, 	0,      NULL   	          },
 	{	65,		&g_sys.conf.mbm.arr_slave_ibase_regn[1],     0,		    0xffffffff,		0x00000004,		0,      NULL   	          },
 	{	66,		&g_sys.conf.mbm.arr_slave_ibase_regn[2],     0,		    0xffffffff,		0x00000004,		0,      NULL   	          },
 	{	67,		&g_sys.conf.mbm.arr_slave_ibase_regn[3],     0,		    0xffffffff,		0x00000004,		0,      NULL   	          },
