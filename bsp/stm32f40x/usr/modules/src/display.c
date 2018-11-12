@@ -159,10 +159,8 @@ void disp_init(void)
     extern sys_reg_st  g_sys;
     if(LCD_Init() == 0)
         bit_op_set(&g_sys.stat.gen.status_bm,GBM_LCD,1);
-//        g_sys.stat.gen.status_bm |= (0x00000001<<GBM_LCD);
     else
         bit_op_set(&g_sys.stat.gen.status_bm,GBM_LCD,0);
-//        g_sys.stat.gen.status_bm &= ~(0x00000001<<GBM_LCD);
     LCD_Clear(color_bkg);
     BACK_COLOR=color_bkg;
     BRUSH_COLOR=color_brush; 
@@ -238,7 +236,7 @@ static void disp_data(uint16_t x,uint16_t y,uint16_t size, uint32_t data,uint16_
     else
     {
         temp = data;
-        sprintf(dbuf,"%d",(uint32_t)temp);
+        sprintf(dbuf,"%d.",(uint32_t)temp);
     }
         
     LCD_DisplayString_color(x,y,size, (u8 *)dbuf,color_value,color_bkg);    
@@ -314,50 +312,8 @@ static void disp_info(void)
     rt_kprintf("desolved_oxigen: %d\n",disp_inst.multi.desolved_oxigen);
     rt_kprintf("desolved_oxigen_air: %d\n",disp_inst.multi.desolved_oxigen_air);
     rt_kprintf("probe_depth: %d\n",disp_inst.multi.probe_depth);
-    rt_kprintf("ammonia_concentration: %d\n",disp_inst.multi.ammonia_concentration);
-    
+    rt_kprintf("ammonia_concentration: %d\n",disp_inst.multi.ammonia_concentration);    
 }
-
-
-uint8_t cp[] = 
-{
-    0x08,0x00,0x08,0x00,0x08,0x00,0x13,0xFC,
-    0x10,0x00,0x30,0x00,0x30,0x00,0x50,0x00,
-    0x90,0x00,0x10,0x00,0x10,0x00,0x10,0x00,
-    0x17,0xFE,0x10,0x00,0x10,0x00,0x10,0x00
-};
-
-void LCD_ShowChinese_fill(u16 x,u16 y,u8 fontSize,u16 pointColor,u16 backColor,u8 *pChineseData)
-{
-    u32 i;  
-    u8 j =0;
-    u8 k =0;     
-    u8 d =0;     
-    for(i=0;i<(fontSize*fontSize);i++)
-    {
-        if((*pChineseData)&(1<<(7-j)))
-        {
-            LCD_Color_DrawPoint(x+j+k*8, y+d, pointColor);
-        }
-        else
-        {
-            LCD_Color_DrawPoint(x+j+k*8, y+d, backColor);
-        }
-        j = j +1;
-        if(j ==8)
-        {
-            j =0;
-            pChineseData++;
-            k++;       
-            if(k>=(fontSize/8))
-            {
-                k=0;
-                d++;
-            }
-        }
-    }
-}
-
 
 static void lcd_print_time(uint16_t x,uint16_t y,uint16_t size)
 {
