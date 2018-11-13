@@ -420,11 +420,6 @@
               <FilePath>drivers\gpio.c</FilePath>
             </File>
             <File>
-              <FileName>common.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\drivers\common.c</FilePath>
-            </File>
-            <File>
               <FileName>lcd.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\drivers\lcd.c</FilePath>
@@ -448,6 +443,11 @@
               <FileName>drv_wtd.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\drivers\drv_wtd.c</FilePath>
+            </File>
+            <File>
+              <FileName>common.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\drivers\common.c</FilePath>
             </File>
           </Files>
         </Group>

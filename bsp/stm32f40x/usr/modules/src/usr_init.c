@@ -411,8 +411,20 @@ uint32_t get_serial_id(void)
     return ret;
 }
 
+#include "lwip/ip_addr.h"
+
+void set_r_ip_port(char * ip_addr, uint16_t port)
+{
+    extern sys_reg_st  g_sys;
+    ip4_addr_t addr;
+    ip4addr_aton(ip_addr, &addr);
+    g_sys.conf.eth.remote_ip = addr.addr;
+    g_sys.conf.eth.remote_port = port;
+}
+
 #ifdef RT_USING_FINSH
 #include <finsh.h>
+FINSH_FUNCTION_EXPORT(set_r_ip_port, set remote ip and port.);
 FINSH_FUNCTION_EXPORT(set_serial_id, uint32 type ID.);
 FINSH_FUNCTION_EXPORT(get_reset_cnt, rest_cnt get.);
 FINSH_FUNCTION_EXPORT(update_reset_cnt, rest_cnt update.);

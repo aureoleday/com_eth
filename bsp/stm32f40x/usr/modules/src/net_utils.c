@@ -94,16 +94,7 @@ int32_t get_remote_ip(void)
 }
 
 
-
-void fdns_test(void)
-{
-    uint8_t dbuf[32];
-    fget_sdn(dbuf);
-}
-
-
 #ifdef RT_USING_FINSH
 #include <finsh.h>
 FINSH_FUNCTION_EXPORT(fset_sdn, server_dns write .);
-FINSH_FUNCTION_EXPORT(fdns_test, dns file test.);
 #endif

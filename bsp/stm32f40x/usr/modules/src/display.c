@@ -231,12 +231,12 @@ static void disp_data(uint16_t x,uint16_t y,uint16_t size, uint32_t data,uint16_
     if(dn>1)
     {
         temp = (float)data/dn;
-        sprintf(dbuf,"%.2f",temp);
+        sprintf(dbuf,"%7.2f",temp);
     }
     else
     {
         temp = data;
-        sprintf(dbuf,"%d.",(uint32_t)temp);
+        sprintf(dbuf,"%7d",(uint32_t)temp);
     }
         
     LCD_DisplayString_color(x,y,size, (u8 *)dbuf,color_value,color_bkg);    
