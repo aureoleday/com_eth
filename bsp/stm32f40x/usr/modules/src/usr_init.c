@@ -3,6 +3,7 @@
 #include "sys_conf.h"
 #include "usr_init.h"
 #include "global_var.h"
+#include "lwip/ip_addr.h"
 
 void get_man_date(uint8_t *year, uint8_t *month, uint8_t *day)
 {
@@ -411,7 +412,6 @@ uint32_t get_serial_id(void)
     return ret;
 }
 
-#include "lwip/ip_addr.h"
 
 void set_r_ip_port(char * ip_addr, uint16_t port)
 {

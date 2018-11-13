@@ -75,6 +75,11 @@ BOOL xMBMasterPortSerialInit(UCHAR ucPORT, ULONG ulBaudRate, UCHAR ucDataBits,
 #if defined(RT_USING_UART5)
         extern struct rt_serial_device serial5;
         serial = &serial5;
+      #endif
+    } else if (ucPORT == 6) {
+#if defined(RT_USING_UART6)
+        extern struct rt_serial_device serial6;
+        serial = &serial6;
 #endif
     } else if (ucPORT == 3) {
 #if defined(RT_USING_UART3)

@@ -51,7 +51,7 @@ void mbm_thread_entry(void* parameter)
 
     rt_kprintf("MBM baudrate: %d\n",mbm_baudrate);
     
-    eStatus = eMBMasterInit(MB_RTU, 5, mbm_baudrate, MB_PAR_NONE);
+    eStatus = eMBMasterInit(MB_RTU, 6, mbm_baudrate, MB_PAR_NONE);
 		if(eStatus != MB_ENOERR)
 		{
 				rt_kprintf("MBM init fail\n");
