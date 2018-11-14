@@ -19,7 +19,7 @@ static rt_err_t plc_rx(rt_device_t dev, rt_size_t size)
     {        
         rt_device_read(uart_device, 0, &ch, 1);
         fifo8_push(&plc_rx_fifo,&ch);
-//        rt_kprintf("s1: %x\n",ch);
+        rt_kprintf("s1: %x\n",ch);
     }
     return RT_EOK;
 }

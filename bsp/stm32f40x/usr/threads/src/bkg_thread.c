@@ -42,7 +42,7 @@ static void update_sys_status(void)
 
     g_sys.stat.gen.time = time(RT_NULL);
     temp = get_plc_status();
-    if(temp>1)
+    if(temp>=0)
         g_sys.stat.mbm.plc_bitmap = temp;
 }
 
