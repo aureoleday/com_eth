@@ -52,14 +52,16 @@ uint16_t set_timestamp(uint32_t pram)
 
 uint16_t plc_conf_opt(uint32_t pram)
 {
-    uint8_t temp[2];
+    uint8_t temp[4];
     rt_err_t ret = -RT_ERROR;
-    temp[0] = (pram>>8);
-    temp[1] = pram;
+    temp[0] = (pram>>24)&0x000000ff;
+    temp[1] = (pram>>16)&0x000000ff;
+    temp[2] = (pram>>8)&0x000000ff;
+    temp[3] = pram&0x000000ff;
   
-    ret = plc_tx(temp,2);
+    ret = plc_tx(temp,4);
   
-    if(ret == 2)
+    if(ret == 4)
         return 1;
     else
         return 0;

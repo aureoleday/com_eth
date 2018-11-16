@@ -154,7 +154,7 @@ void delay_us(u32 us)
         else
             current_delay = SysTick->LOAD + delta - SysTick->VAL;
     } while( current_delay < us );
-    rt_kprintf("us: %d, delta:%d\n",us,delta);
+//    rt_kprintf("us: %d, delta:%d\n",us,delta);
 }
 
 /****************************************************************************

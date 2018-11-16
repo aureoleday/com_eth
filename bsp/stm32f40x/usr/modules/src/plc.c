@@ -19,7 +19,7 @@ static rt_err_t plc_rx(rt_device_t dev, rt_size_t size)
     {        
         rt_device_read(uart_device, 0, &ch, 1);
         fifo8_push(&plc_rx_fifo,&ch);
-        rt_kprintf("s1: %x\n",ch);
+//        rt_kprintf("s1: %x\n",ch);
     }
     return RT_EOK;
 }
@@ -61,8 +61,8 @@ int32_t get_plc_status(void)
         {
             fifo8_pop(&plc_rx_fifo,&rx_buf[i]);
         }
-        ret = (rx_buf[i-2]<<8)|rx_buf[i-1];
-//        rt_kprintf("ret: %x\n",ret);
+        ret = (rx_buf[i-4]<<24)|(rx_buf[i-3]<<16)|(rx_buf[i-2]<<8)|rx_buf[i-1];
+//        rt_kprintf("fifo_len: %x\n",fifo_len);
     }      
     return ret;
 }

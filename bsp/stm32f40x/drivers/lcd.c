@@ -1,6 +1,7 @@
 #include "lcd.h"
 #include "cfont.h"
 #include <rtthread.h>
+#include "sys_conf.h"
 
 /*********************************************************************************
 **********************启明欣欣 STM32F407应用开发板(高配版)************************
@@ -508,6 +509,7 @@ u16 ILI9341_Read_id(void)
 //初始化lcd
 int16_t LCD_Init(void)
 {
+    extern sys_reg_st					g_sys;
     int16_t ret;
     ret = 0;
     LCD_FSMC_Config();  //配置好FSMC就可以驱动液晶屏
@@ -516,19 +518,27 @@ int16_t LCD_Init(void)
     
     if(lcd_id!=0x9341)		//如果不是9341，读看看是不是1963驱动	 
 		{
-      rt_kprintf("LCD not set\n");
-      ret = -1;
-      return ret;      
-//			LCD_CMD=(0xA1);   //1963读ID命令  
-//			lcd_id=LCD_DATA;
-//			lcd_id=LCD_DATA;	//0x57
-//			lcd_id<<=8;	 
-//			lcd_id|=LCD_DATA;	//0x61	
-//			if(lcd_id==0x5761)
-//				 lcd_id=0x1963;  //SSD1963实际读出的ID是0x5761,为了直观，这边设置为1963
+      LCD_CMD=(0xA1);   //1963读ID命令  
+      lcd_id=LCD_DATA;
+      lcd_id=LCD_DATA;	//0x57
+      lcd_id<<=8;	 
+      lcd_id|=LCD_DATA;	//0x61	
+      if(lcd_id==0x5761)
+         lcd_id=0x1963;  //SSD1963实际读出的ID是0x5761,为了直观，这边设置为1963
+      else
+        ret = -1;      
 		}
-
-  rt_kprintf("LCD type: %x\n",lcd_id);
+    
+    
+   if(ret<0)
+   {
+     rt_kprintf("LCD not set\n");
+     g_sys.stat.gen.lcd_type = 0;
+   }
+   else
+      g_sys.stat.gen.lcd_type = lcd_id;
+  
+  rt_kprintf("LCD type: %x\n",g_sys.stat.gen.lcd_type);
   if(lcd_id==0X9341) //此驱动,设置写时序为最快
 	{	 							    
 		FSMC_Bank1E->BWTR[6]&=~(0XF<<0); //地址建立时间清零 	 

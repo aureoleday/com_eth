@@ -5,8 +5,8 @@
 
 //application delay
 #define		CMD_THREAD_DELAY            400
-#define		BKG_THREAD_DELAY            400
-#define		LCD_THREAD_DELAY            400
+#define		BKG_THREAD_DELAY            700
+#define		LCD_THREAD_DELAY            300
 #define		TCPCLIENT_THREAD_DELAY      600
 #define		TEST_THREAD_DELAY		        400
 #define		MBM_THREAD_DELAY		        500
@@ -61,6 +61,7 @@ typedef struct
     uint32_t    status_bm;
     uint32_t    reset_counts;
     uint32_t 		time;
+    uint32_t    lcd_type;
 }stat_gen_st;
 
 typedef struct

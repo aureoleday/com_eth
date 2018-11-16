@@ -10,6 +10,8 @@
 *.idb
 *.ilk
 *.old
+*.tmp
+*.TMP
 build
 Debug
 documentation/html
