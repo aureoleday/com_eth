@@ -449,6 +449,26 @@
               <FileType>1</FileType>
               <FilePath>.\drivers\common.c</FilePath>
             </File>
+            <File>
+              <FileName>ft5426.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\drivers\ft5426.c</FilePath>
+            </File>
+            <File>
+              <FileName>touch.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\drivers\touch.c</FilePath>
+            </File>
+            <File>
+              <FileName>xpt2046.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\drivers\xpt2046.c</FilePath>
+            </File>
+            <File>
+              <FileName>drv_led.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\drivers\drv_led.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
