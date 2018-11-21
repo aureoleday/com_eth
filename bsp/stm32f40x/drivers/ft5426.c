@@ -3,6 +3,7 @@
 #include "touch.h"
 #include "string.h" 
 #include "lcd.h"
+#include <rtdevice.h>
 
 u16 x[5]; 	//´¥ÃþµãÆÁÄ»×ø±ê  ÓÉÓÚFT5426ÊÇ5µã´¥¿ØµÄµçÈÝÆÁ ËùÒÔÕâ±ß¶¨ÒåÊý×é³ÉÔ±Îª5¸ö
 u16 y[5];
@@ -33,19 +34,22 @@ const u16 Touch_Point_COLOR[5]={RED,BLUE,BLACK,GREEN,YELLOW}; //5µã´¥¿Ø¶ÔÓ¦ÑÕÉ«Ö
 *******************************************************************************/
 //FT5426Ð¾Æ¬IIC½Ó¿Ú³õÊ¼»¯
 void FT_IIC_Init(void)
-{			
-  GPIO_InitTypeDef  GPIO_InitStructure;	
-	
-  RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA|RCC_AHB1Periph_GPIOB, ENABLE);
-	
-  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_5;
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;  //Êä³öÄ£Ê½
-  GPIO_InitStructure.GPIO_OType = GPIO_OType_PP; //ÍÆÍìÊä³ö
-  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;   //ÉÏÀ­
-  GPIO_Init(GPIOA, &GPIO_InitStructure);         //³õÊ¼»¯
-		
-  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_1;      
-	GPIO_Init(GPIOB, &GPIO_InitStructure); 
+{
+  rt_pin_mode(41,0); 
+  rt_pin_mode(47,0); 
+//  GPIO_InitTypeDef  GPIO_InitStructure;	
+//	
+//  RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA|RCC_AHB1Periph_GPIOB, ENABLE);
+//	
+//  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_5;
+//	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;  //Êä³öÄ£Ê½
+//  GPIO_InitStructure.GPIO_OType = GPIO_OType_PP; //ÍÆÍìÊä³ö
+//  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;   //ÉÏÀ­
+//  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;   //100MHz
+//  GPIO_Init(GPIOA, &GPIO_InitStructure);         //³õÊ¼»¯
+//		
+//  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_1;      
+//	GPIO_Init(GPIOB, &GPIO_InitStructure); 
 
 	 FT_IIC_Stop();
 }
@@ -53,23 +57,25 @@ void FT_IIC_Init(void)
 //ÅäÖÃSDAÊý¾ÝÏßÎªÊäÈë
 void FT_IICSDA_IN(void)
 {
-  GPIO_InitTypeDef  GPIO_InitStructure;
-	
-	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB, ENABLE);
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_1; 
-  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN; //ÊäÈëÄ£Ê½
-	GPIO_Init(GPIOB, &GPIO_InitStructure);      
+//  GPIO_InitTypeDef  GPIO_InitStructure;
+//	
+//	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB, ENABLE);
+//	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_1; 
+//  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN; //ÊäÈëÄ£Ê½
+//	GPIO_Init(GPIOB, &GPIO_InitStructure);     
+    rt_pin_mode(47,1); 
 }	
 
 //ÅäÖÃSDAÊý¾ÝÏßÎªÊä³ö
 void FT_IICSDA_OUT()
 {
-  GPIO_InitTypeDef  GPIO_InitStructure;
-	
-	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB, ENABLE);
-  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_1; 
-  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;//Êä³öÄ£Ê½
-	GPIO_Init(GPIOB, &GPIO_InitStructure);  
+//  GPIO_InitTypeDef  GPIO_InitStructure;
+//	
+//	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB, ENABLE);
+//  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_1; 
+//  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;//Êä³öÄ£Ê½
+//	GPIO_Init(GPIOB, &GPIO_InitStructure);  
+  rt_pin_mode(47,0); 
 }
 
 //IICÆðÊ¼ÐÅºÅ
