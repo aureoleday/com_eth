@@ -2532,7 +2532,7 @@
 
   <Group>
     <GroupName>threads</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -2756,7 +2756,7 @@
 
   <Group>
     <GroupName>emlib</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -2767,8 +2767,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\EMWIN\STemWinLibrary522\Lib\STemWin522_CM4_Keil.lib</PathWithFileName>
-      <FilenameWithoutPath>STemWin522_CM4_Keil.lib</FilenameWithoutPath>
+      <PathWithFileName>.\EMWIN\STemWinLibrary522\Lib\STemWin522_CM4_OS_Keil.lib</PathWithFileName>
+      <FilenameWithoutPath>STemWin522_CM4_OS_Keil.lib</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -2776,7 +2776,7 @@
 
   <Group>
     <GroupName>emconf</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -2844,7 +2844,7 @@
 
   <Group>
     <GroupName>dsp_lib</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -2876,7 +2876,7 @@
 
   <Group>
     <GroupName>emdemo</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>

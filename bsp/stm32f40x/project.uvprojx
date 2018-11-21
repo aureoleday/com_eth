@@ -1475,9 +1475,9 @@
           <GroupName>emlib</GroupName>
           <Files>
             <File>
-              <FileName>STemWin522_CM4_Keil.lib</FileName>
+              <FileName>STemWin522_CM4_OS_Keil.lib</FileName>
               <FileType>4</FileType>
-              <FilePath>.\EMWIN\STemWinLibrary522\Lib\STemWin522_CM4_Keil.lib</FilePath>
+              <FilePath>.\EMWIN\STemWinLibrary522\Lib\STemWin522_CM4_OS_Keil.lib</FilePath>
             </File>
           </Files>
         </Group>
