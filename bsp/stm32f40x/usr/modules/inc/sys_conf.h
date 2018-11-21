@@ -8,7 +8,7 @@
 #define		BKG_THREAD_DELAY            700
 #define		LCD_THREAD_DELAY            300
 #define		TCPCLIENT_THREAD_DELAY      600
-#define		TEST_THREAD_DELAY		        400
+#define		TEST_THREAD_DELAY		        800
 #define		MBM_THREAD_DELAY		        500
 #define		MBM_FSM_THREAD_DELAY        500
 

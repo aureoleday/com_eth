@@ -62,7 +62,7 @@ void Draw_Point(u16 x,u16 y,u16 color)
 	u8 i=0;
   u16 color_temp;
   
-  color_temp = BRUSH_COLOR;
+//  color_temp = BRUSH_COLOR;
 	BRUSH_COLOR=color;
 	for(i=0;i<4;i++)
 	{
@@ -71,7 +71,7 @@ void Draw_Point(u16 x,u16 y,u16 color)
 	 LCD_DrawPoint(x+2,y+i);
 	 LCD_DrawPoint(x+3,y+i);
 	} 	  	
-  BRUSH_COLOR = color_temp;
+//  BRUSH_COLOR = color_temp;
 }	
 
 //µç×è´¥ÃþÆÁ²âÊÔº¯Êý

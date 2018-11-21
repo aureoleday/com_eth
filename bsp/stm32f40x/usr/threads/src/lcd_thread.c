@@ -9,7 +9,7 @@ void lcd_thread_entry(void* parameter)
 //    pic_test();
 	while(1)
 	{   
-		disp_fresh();
+//		disp_fresh();
 		rt_thread_delay(1000);
 	}
 }

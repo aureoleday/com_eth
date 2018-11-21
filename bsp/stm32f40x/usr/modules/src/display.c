@@ -6,6 +6,9 @@
 #include "display.h"
 #include "hanzi.h"
 #include "stdio.h"
+#include "drv_timer.h"
+#include "GUI.h"
+#include "GUIDemo.h"
 /*
 0:    barometric pressure (mbar)
 1:    temprature(C) x 100
@@ -161,11 +164,17 @@ void disp_init(void)
         bit_op_set(&g_sys.stat.gen.status_bm,GBM_LCD,1);
     else
         bit_op_set(&g_sys.stat.gen.status_bm,GBM_LCD,0);
-    LCD_Clear(color_bkg);
-    BACK_COLOR=color_bkg;
-    BRUSH_COLOR=color_brush; 
-    disp_cname();
-    disp_unit();
+    drv_timer_init();
+    WM_SetCreateFlags(WM_CF_MEMDEV);
+    GUI_Init();
+    GUI_DispStringAt("hello ykj", 0, 200);
+    GUI_DispStringAt("Hello emWin!", 0, 216);
+    GUIDEMO_Main();
+//    LCD_Clear(color_bkg);
+//    BACK_COLOR=color_bkg;
+//    BRUSH_COLOR=color_brush; 
+//    disp_cname();
+//    disp_unit();
 }
 
 static void update_sensor(uint8_t addr_ex,uint8_t type)

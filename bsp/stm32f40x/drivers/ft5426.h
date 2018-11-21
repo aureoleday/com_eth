@@ -40,6 +40,7 @@ void FT_MCU_NOAck(void);					  //不发送ACK信号
 void FT5426_WriteReg(u16 FT_reg,u8 date);
 u8 FT5426_ReadReg(u16 FT_reg);
 void FT5426_Init(void);
+void Read_Touch_Point(u16 addr,u8 *pBuffer);
 void FT5426_Scan(void);   //FT5426触摸扫描函数
 
 #endif

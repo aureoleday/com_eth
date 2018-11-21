@@ -343,9 +343,30 @@ void LCD_DrawPoint(u16 x,u16 y)
 ****************************************************************************/
 void LCD_Color_DrawPoint(u16 x,u16 y,u16 color)
 {	       
-	 LCD_DrawPoint(x,y);
-	 LCD_CMD=write_gramcmd; 
-	 LCD_DATA=color;  
+//	 LCD_DrawPoint(x,y);
+//	 LCD_CMD=write_gramcmd; 
+//	 LCD_DATA=color;  
+		if(lcd_id==0X9341)
+		{
+			LCD_CMD=setxcmd; 
+			LCD_DATA=(x>>8); 
+			LCD_DATA=(x&0XFF);	 
+			LCD_CMD=setycmd; 
+			LCD_DATA=(y>>8); 
+			LCD_DATA=(y&0XFF);
+		}
+		else if(lcd_id==0X1963)
+		{
+			if(dir_flag==0)x=lcd_width-1-x;
+			LCD_CMD=(setxcmd); 
+			LCD_DATA=x>>8;LCD_DATA=x&0XFF; 		
+			LCD_DATA=x>>8;LCD_DATA=x&0XFF; 		
+			LCD_CMD=setycmd; 
+			LCD_DATA=y>>8;LCD_DATA=y&0XFF; 		
+			LCD_DATA=y>>8;LCD_DATA=y&0XFF; 		
+		}			
+	  LCD_CMD=write_gramcmd; 
+	  LCD_DATA=color; 
 }	
 
 /****************************************************************************

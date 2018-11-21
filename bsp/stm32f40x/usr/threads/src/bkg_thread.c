@@ -29,7 +29,7 @@ void bkg_thread_entry(void* parameter)
     drv_led_init();
     lcd_bl(1);  
     Touch_Init();
-    touch_timer_init();
+//    touch_timer_init();
  
     watchdog_init();
 		
