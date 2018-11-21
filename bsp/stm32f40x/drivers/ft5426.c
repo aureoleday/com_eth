@@ -37,44 +37,18 @@ void FT_IIC_Init(void)
 {
   rt_pin_mode(41,0); 
   rt_pin_mode(47,0); 
-//  GPIO_InitTypeDef  GPIO_InitStructure;	
-//	
-//  RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA|RCC_AHB1Periph_GPIOB, ENABLE);
-//	
-//  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_5;
-//	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;  //输出模式
-//  GPIO_InitStructure.GPIO_OType = GPIO_OType_PP; //推挽输出
-//  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;   //上拉
-//  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;   //100MHz
-//  GPIO_Init(GPIOA, &GPIO_InitStructure);         //初始化
-//		
-//  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_1;      
-//	GPIO_Init(GPIOB, &GPIO_InitStructure); 
-
 	 FT_IIC_Stop();
 }
 
 //配置SDA数据线为输入
 void FT_IICSDA_IN(void)
-{
-//  GPIO_InitTypeDef  GPIO_InitStructure;
-//	
-//	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB, ENABLE);
-//	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_1; 
-//  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN; //输入模式
-//	GPIO_Init(GPIOB, &GPIO_InitStructure);     
+{    
     rt_pin_mode(47,1); 
 }	
 
 //配置SDA数据线为输出
 void FT_IICSDA_OUT()
 {
-//  GPIO_InitTypeDef  GPIO_InitStructure;
-//	
-//	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB, ENABLE);
-//  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_1; 
-//  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;//输出模式
-//	GPIO_Init(GPIOB, &GPIO_InitStructure);  
   rt_pin_mode(47,0); 
 }
 
@@ -133,14 +107,14 @@ u8 FT_MCU_WaitAck(void)
 //产生ACK应答
 void FT_MCU_Send_Ack(void)
 {
-	FT_IIC_SCL=0;
-	FT_IICSDA_OUT();
-	delay_us(2);
-	FT_IIC_SDAOUT=0;
-	delay_us(2);
-	FT_IIC_SCL=1;
-	delay_us(2);
-	FT_IIC_SCL=0;
+    FT_IIC_SCL=0;
+    FT_IICSDA_OUT();
+    delay_us(2);
+    FT_IIC_SDAOUT=0;
+    delay_us(2);
+    FT_IIC_SCL=1;
+    delay_us(2);
+    FT_IIC_SCL=0;
 }
 
 //不产生ACK应答		    

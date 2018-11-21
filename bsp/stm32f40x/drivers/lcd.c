@@ -720,7 +720,7 @@ int16_t LCD_Init(void)
 
 		Ssd1963_Set_BackLight(255);//背光设置
 	}
-	Set_Display_Mode(0);		 //初始化为竖屏		
+	Set_Display_Mode(1);		 //初始化为竖屏		
 	LCD_Clear(WHITE);        //清屏白色
   return ret;
 } 

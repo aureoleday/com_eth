@@ -469,6 +469,16 @@
               <FileType>1</FileType>
               <FilePath>.\drivers\drv_led.c</FilePath>
             </File>
+            <File>
+              <FileName>pic.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\drivers\pic.c</FilePath>
+            </File>
+            <File>
+              <FileName>bkg.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\drivers\bkg.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
