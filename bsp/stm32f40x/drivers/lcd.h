@@ -87,7 +87,7 @@ void LCD_DisplayString(u16 x,u16 y,u8 size,u8 *p);		           //显示一个12/16/2
 void LCD_DisplayString_color(u16 x,u16 y,u8 size,u8 *p,u16 brushcolor,u16 backcolor); //显示一个12/16/24字体自定义颜色的字符串
 void LCD_DisplayNum(u16 x,u16 y,u32 num,u8 len,u8 size,u8 mode);				//显示 数字
 void LCD_DisplayNum_color(u16 x,u16 y,u32 num,u8 len,u8 size,u8 mode,u16 brushcolor,u16 backcolor); //显示自定义颜色数字	  	   																			 
-							  		 
+void pic_test(void);
 #endif  
 	 
 	 

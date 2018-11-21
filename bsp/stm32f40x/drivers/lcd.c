@@ -948,5 +948,30 @@ void LCD_DisplayNum_color(u16 x,u16 y,u32 num,u8 len,u8 size,u8 mode,u16 brushco
 	BACK_COLOR=bk_color;
 }
 
+void pic_draw(u16 S_x,u16 S_y,const unsigned char *pic)
+{
+    u32 i=8,len;
+    u16 temp,x,y,D_x=0,D_y=0;
+    
+    x=(uint16_t)((pic[2]<<8)+pic[3])-1;       //获取图片的宽度
+    y=(uint16_t)((pic[4]<<8)+pic[5])-1;       //获取图片的高度
+    
+    len=2*x*y;        //获取图片像素点数
+    
+    while(i<(len+8))      //显示所有像素点
+    {
+        temp=(uint16_t)((pic[i]<<8)+pic[i+1]);      //image2lcd生成的是8位数组，十六位真彩色图像生成为高8位和低8位，这儿将其转换成16位数据，
+        if(D_x>x) {D_x=0;D_y++;}         //逐行显示
+        LCD_Color_DrawPoint(S_x+D_x,S_y+D_y,temp);    //画点，拼凑图像，调用正点原子快速画点函数
+        D_x++;
+        i=i+2;
+    }       
+}
+
+//void pic_test(void)
+//{
+//    extern const unsigned char gImage_pic[84488];
+//    pic_draw(0,0,gImage_pic);
+//}
 
 

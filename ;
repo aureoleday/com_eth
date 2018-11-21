@@ -1,0 +1,10 @@
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, d
+nd an empty message aborts the commit.
+#
+# On branch dev_gui
+# Changes to be committed:
+#	deleted:    bsp/stm32f40x/drivers/ft5426.h
+#	modified:   bsp/stm32f40x/project.uvguix.Administrator
+#
