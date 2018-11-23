@@ -9,6 +9,7 @@
 #include "drv_led.h"
 #include "touch.h"
 #include "lcd.h"
+#include "display.h"
 
 static void update_sys_status(void);
 static uint16_t	touch_timer_init(void);
@@ -29,12 +30,14 @@ void bkg_thread_entry(void* parameter)
     drv_led_init();
     lcd_bl(1);  
     Touch_Init();
+    
 //    touch_timer_init();
  
     watchdog_init();
 		
 		while(1)
 		{
+        disp_fresh();
         usr_net_status();
         update_sys_status();
         dog();

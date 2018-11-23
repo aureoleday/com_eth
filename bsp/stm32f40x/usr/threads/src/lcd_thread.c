@@ -8,9 +8,8 @@ void lcd_thread_entry(void* parameter)
     disp_init();
 //    pic_test();
 	while(1)
-	{   
-//		disp_fresh();
-		rt_thread_delay(1000);
+	{         
+      rt_thread_delay(1000);
 	}
 }
 

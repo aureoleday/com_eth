@@ -207,7 +207,7 @@ static void update_sensor(uint8_t addr_ex,uint8_t type)
     extern  mbm_dev_st mbm_dev_inst;
     uint8_t addr;
     addr = addr_ex - 1;
-      
+  
     switch(type)
     {
         case(SENSOR_MULTI):
@@ -328,23 +328,23 @@ void disp_fresh(void)
 {
     extern  sys_reg_st  g_sys;
     update_sensor(1,SENSOR_MULTI);
-    disp_xdata(220, 300, 16,g_sys.stat.gen.status_bm,1);
-    disp_data(135,20, 16,disp_inst.multi.barometric,1);
-    disp_data(135,40, 16,disp_inst.multi.temprature,100);
-    disp_data(135,60, 16,disp_inst.multi.ph,100);
-    disp_data(135,80, 16,disp_inst.multi.oxidation,10);
-//    disp_data(135,100,16,disp_inst.multi.turbidity,10);
-    disp_data(135,100,16,disp_inst.multi.condutivity,1);
-    disp_data(135,120,16,disp_inst.multi.resistivity,1);
-    disp_data(135,140,16,disp_inst.multi.sanility,100);
-    disp_data(135,160,16,disp_inst.multi.tds,1);
-//    disp_data(135,200,16,disp_inst.multi.ssg,10);
-    disp_data(135,180,16,disp_inst.multi.desolved_oxigen,100);
-//    disp_data(135,240,16,disp_inst.multi.desolved_oxigen_air,10);
-    disp_data(135,200,16,disp_inst.multi.probe_depth,1);
-    disp_data(135,220,16,disp_inst.multi.nitrate_concentration,1);
-    disp_data(135,240,16,disp_inst.multi.ammonia_concentration,1);
-    lcd_print_time(0,300,16);
+//    disp_xdata(220, 300, 16,g_sys.stat.gen.status_bm,1);
+//    disp_data(135,20, 16,disp_inst.multi.barometric,1);
+//    disp_data(135,40, 16,disp_inst.multi.temprature,100);
+//    disp_data(135,60, 16,disp_inst.multi.ph,100);
+//    disp_data(135,80, 16,disp_inst.multi.oxidation,10);
+////    disp_data(135,100,16,disp_inst.multi.turbidity,10);
+//    disp_data(135,100,16,disp_inst.multi.condutivity,1);
+//    disp_data(135,120,16,disp_inst.multi.resistivity,1);
+//    disp_data(135,140,16,disp_inst.multi.sanility,100);
+//    disp_data(135,160,16,disp_inst.multi.tds,1);
+////    disp_data(135,200,16,disp_inst.multi.ssg,10);
+//    disp_data(135,180,16,disp_inst.multi.desolved_oxigen,100);
+////    disp_data(135,240,16,disp_inst.multi.desolved_oxigen_air,10);
+//    disp_data(135,200,16,disp_inst.multi.probe_depth,1);
+//    disp_data(135,220,16,disp_inst.multi.nitrate_concentration,1);
+//    disp_data(135,240,16,disp_inst.multi.ammonia_concentration,1);
+//    lcd_print_time(0,300,16);
 }
 
 static void disp_info(void)
