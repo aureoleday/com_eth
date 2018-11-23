@@ -766,11 +766,7 @@ void GUIDEMO_Main(void) {
   HEADER_SetDefaultSkin    (HEADER_SKIN_FLEX);
   GUI_SetTextMode          (GUI_TM_TRANS);
   GUIDEMO_Config(&_GUIDemoConfig);
-  #if GUIDEMO_USE_VNC
-    if (GUIDEMO_GetConfFlag(GUIDEMO_CF_USE_VNC)) {
-      _GUIDemoConfig.pGUI_VNC_X_StartServer(0, 0);
-    }
-  #endif
+
   #if GUIDEMO_USE_AUTO_BK
     //
     // Determine if HW has enough memory to draw the gradient circle as background

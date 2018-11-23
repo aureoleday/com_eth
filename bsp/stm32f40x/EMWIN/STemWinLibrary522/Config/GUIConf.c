@@ -52,6 +52,7 @@ Purpose     : Display controller initialization
   */
 #include <rtthread.h>
 #include "GUI.h"
+#include "malloc.h"
 /*********************************************************************
 *
 *       Defines
@@ -62,9 +63,10 @@ Purpose     : Display controller initialization
 // Define the available number of bytes available for the GUI
 #define INSRAM	0	  //内部内存 
 #define EXSRAM  1	  //外部内存 
-#define USE_EXRAM  0    //    "1" 使用外部RAM
+#define USE_EXRAM  1    //    "1" 使用外部RAM
 //设置EMWIN内存大小
-#define GUI_NUMBYTES  (24*1024)
+#define GUI_NUMBYTES  (480*800*2)
+//#define GUI_NUMBYTES  (20*1024)
 #define GUI_BLOCKSIZE 0X80  //块大小
 
 
@@ -73,10 +75,10 @@ Purpose     : Display controller initialization
 void GUI_X_Config(void) {
 	if(USE_EXRAM) //使用外部RAM
 	{
-		U32 *aMemory = rt_malloc(GUI_NUMBYTES); //从外部SRAM中分配GUI_NUMBYTES字节的内存
+		U32 *aMemory = Mem_malloc(EXSRAM,GUI_NUMBYTES);//从外部SRAM中分配GUI_NUMBYTES字节的内存
 		GUI_ALLOC_AssignMemory((void*)aMemory, GUI_NUMBYTES); //为存储管理系统分配一个存储块
 		GUI_ALLOC_SetAvBlockSize(GUI_BLOCKSIZE); //设置存储快的平均尺寸,该区越大,可用的存储快数量越少
-		GUI_SetDefaultFont(GUI_FONT_6X8); //设置默认字体
+		GUI_SetDefaultFont(GUI_FONT_8X16); //设置默认字体
 	}else        //使用内部RAM
 	{
 		U32 *aMemory = rt_malloc(GUI_NUMBYTES); //从内部RAM中分配GUI_NUMBYTES字节的内存

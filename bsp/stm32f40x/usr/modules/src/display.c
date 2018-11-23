@@ -155,7 +155,8 @@ static void disp_unit(void)
     LCD_DisplayString(200,220,16,(u8*)&sunit_inst.nitrate_concentration);  
     LCD_DisplayString(200,240,16,(u8*)&sunit_inst.ammonia_concentration);    
 }
-
+#include "sram.h"
+#include "malloc.h"
 
 void disp_init(void)
 {
@@ -165,11 +166,12 @@ void disp_init(void)
     else
         bit_op_set(&g_sys.stat.gen.status_bm,GBM_LCD,0);
     drv_timer_init();
-    WM_SetCreateFlags(WM_CF_MEMDEV);
-    GUI_Init();
-    GUI_DispStringAt("hello ykj", 0, 200);
-    GUI_DispStringAt("Hello emWin!", 0, 216);
-    GUIDEMO_Main();
+    FSMC_SRAM_Init();
+    Memory_Init(EXSRAM);
+    MainTask();
+//    WM_SetCreateFlags(WM_CF_MEMDEV);
+//    GUI_Init();
+//    GUIDEMO_Main();
 //    LCD_Clear(color_bkg);
 //    BACK_COLOR=color_bkg;
 //    BRUSH_COLOR=color_brush; 

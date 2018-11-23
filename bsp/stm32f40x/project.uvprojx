@@ -474,6 +474,16 @@
               <FileType>1</FileType>
               <FilePath>.\drivers\drv_timer.c</FilePath>
             </File>
+            <File>
+              <FileName>malloc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\drivers\malloc.c</FilePath>
+            </File>
+            <File>
+              <FileName>sram.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\drivers\sram.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1630,11 +1640,6 @@
               <FilePath>.\EMWIN\Demo\GUIDEMO_Speedometer.c</FilePath>
             </File>
             <File>
-              <FileName>GUIDEMO_Start.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\EMWIN\Demo\GUIDEMO_Start.c</FilePath>
-            </File>
-            <File>
               <FileName>GUIDEMO_TransparentDialog.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\EMWIN\Demo\GUIDEMO_TransparentDialog.c</FilePath>
@@ -1658,6 +1663,41 @@
               <FileName>GUIDEMO_ZoomAndRotate.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\EMWIN\Demo\GUIDEMO_ZoomAndRotate.c</FilePath>
+            </File>
+            <File>
+              <FileName>em_main.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\EMWIN\Demo\em_main.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>fonts</GroupName>
+          <Files>
+            <File>
+              <FileName>song16.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\usr\fonts\song16.c</FilePath>
+            </File>
+            <File>
+              <FileName>youyuan16.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\usr\fonts\youyuan16.c</FilePath>
+            </File>
+            <File>
+              <FileName>youyuan18.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\usr\fonts\youyuan18.c</FilePath>
+            </File>
+            <File>
+              <FileName>youyuan20.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\usr\fonts\youyuan20.c</FilePath>
+            </File>
+            <File>
+              <FileName>youyuan24.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\usr\fonts\youyuan24.c</FilePath>
             </File>
           </Files>
         </Group>
