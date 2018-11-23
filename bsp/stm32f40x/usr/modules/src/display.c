@@ -87,6 +87,24 @@ sensor_namesting_st sunit_inst =
     "mg/L"   
 };
 
+const uint16_t opt_list[] =
+{ 1,
+  100,
+  100,
+  10,
+  10,
+  1,
+  1,
+  100,
+  1,
+  10,
+  100,
+  10,
+  1,
+  1,
+  1,
+};
+
 uint16_t color_bkg = BLACK;
 uint16_t color_title = 0x463f;
 uint16_t color_brush = WHITE;
@@ -95,6 +113,7 @@ uint16_t color_value = YELLOW;
 uint16_t color_time = GRAY;
 
 disp_st disp_inst;
+disp_sen_st disp_sen_inst;
 static void lcd_print_time(uint16_t x,uint16_t y,uint16_t size);
 //static void disp_name(void)
 //{
@@ -115,6 +134,17 @@ static void lcd_print_time(uint16_t x,uint16_t y,uint16_t size);
 //}
 
 static void disp_ver(uint16_t x,uint16_t y,uint16_t size);
+
+
+static void disp_sen_inst_init(void)
+{
+    int i = 0;
+    for(i=0;i<DPOS_SENSOR_MAX;i++)
+    {
+        disp_sen_inst.sid[i].val = 0;
+        disp_sen_inst.sid[i].opt = opt_list[i];
+    }
+}
 
 static void disp_cname(void)
 {
@@ -165,18 +195,11 @@ void disp_init(void)
         bit_op_set(&g_sys.stat.gen.status_bm,GBM_LCD,1);
     else
         bit_op_set(&g_sys.stat.gen.status_bm,GBM_LCD,0);
+    disp_sen_inst_init();
     drv_timer_init();
     FSMC_SRAM_Init();
     Memory_Init(EXSRAM);
     MainTask();
-//    WM_SetCreateFlags(WM_CF_MEMDEV);
-//    GUI_Init();
-//    GUIDEMO_Main();
-//    LCD_Clear(color_bkg);
-//    BACK_COLOR=color_bkg;
-//    BRUSH_COLOR=color_brush; 
-//    disp_cname();
-//    disp_unit();
 }
 
 static void update_sensor(uint8_t addr_ex,uint8_t type)
@@ -184,7 +207,7 @@ static void update_sensor(uint8_t addr_ex,uint8_t type)
     extern  mbm_dev_st mbm_dev_inst;
     uint8_t addr;
     addr = addr_ex - 1;
-    
+      
     switch(type)
     {
         case(SENSOR_MULTI):
@@ -206,6 +229,22 @@ static void update_sensor(uint8_t addr_ex,uint8_t type)
                 disp_inst.multi.probe_depth = mbm_dev_inst.inputbuf_reg[addr][19];
                 disp_inst.multi.nitrate_concentration = (mbm_dev_inst.inputbuf_reg[addr][20]<<16)| mbm_dev_inst.inputbuf_reg[addr][21];
                 disp_inst.multi.ammonia_concentration = (mbm_dev_inst.inputbuf_reg[addr][22]<<16)| mbm_dev_inst.inputbuf_reg[addr][23];
+              
+                disp_sen_inst.sid[DPOS_BARO].val = mbm_dev_inst.inputbuf_reg[addr][0];
+                disp_sen_inst.sid[DPOS_TEMP].val = mbm_dev_inst.inputbuf_reg[addr][1];
+                disp_sen_inst.sid[DPOS_OXIDATION].val= mbm_dev_inst.inputbuf_reg[addr][2];
+                disp_sen_inst.sid[DPOS_PH].val = mbm_dev_inst.inputbuf_reg[addr][3];
+                disp_sen_inst.sid[DPOS_TURB].val = mbm_dev_inst.inputbuf_reg[addr][4];              
+                disp_sen_inst.sid[DPOS_CONDUCTIVITY].val = (mbm_dev_inst.inputbuf_reg[addr][5]<<16)| mbm_dev_inst.inputbuf_reg[addr][6];
+                disp_sen_inst.sid[DPOS_RESISTIVITY].val = (mbm_dev_inst.inputbuf_reg[addr][11]<<16)| mbm_dev_inst.inputbuf_reg[addr][12];
+                disp_sen_inst.sid[DPOS_SANILITY].val = mbm_dev_inst.inputbuf_reg[addr][13];
+                disp_sen_inst.sid[DPOS_TDS].val = (mbm_dev_inst.inputbuf_reg[addr][14]<<16)| mbm_dev_inst.inputbuf_reg[addr][15];
+                disp_sen_inst.sid[DPOS_SSG].val = mbm_dev_inst.inputbuf_reg[addr][16];
+                disp_sen_inst.sid[DPOS_DESOVLED_OXIGEN].val = mbm_dev_inst.inputbuf_reg[addr][17];
+                disp_sen_inst.sid[DPOS_DESOVLED_OXIGEN_AIR].val = mbm_dev_inst.inputbuf_reg[addr][18];
+                disp_sen_inst.sid[DPOS_PROBE_DEPTH].val = mbm_dev_inst.inputbuf_reg[addr][19];
+                disp_sen_inst.sid[DPOS_AMMOIA_CONCTRA].val = (mbm_dev_inst.inputbuf_reg[addr][20]<<16)| mbm_dev_inst.inputbuf_reg[addr][21];
+                disp_sen_inst.sid[DPOS_NITRAT_CONCTRA].val = (mbm_dev_inst.inputbuf_reg[addr][22]<<16)| mbm_dev_inst.inputbuf_reg[addr][23];              
             }
             break;
         }

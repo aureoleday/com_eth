@@ -1,6 +1,7 @@
 #include "GUI.h"
 #include "stdio.h"
 #include "DIALOG.h"
+#include "sys_conf.h"
 
 extern GUI_CONST_STORAGE GUI_FONT GUI_Fontsong16;
 extern GUI_CONST_STORAGE GUI_FONT GUI_Fontyouyuan16;
@@ -14,7 +15,7 @@ extern GUI_CONST_STORAGE GUI_FONT GUI_Fontyouyuan24;
 //*/
 //static const GUI_WIDGET_CREATE_INFO _aDialogCreate1[] = 
 //{
-//    {WINDOW_CreateIndirect,     "", 0,  0,  0,  800,480,0,0},
+//    {WINDOW_CreateIndirect,    "", 0,  0,  0,  800,480,0,0},
 //    {BUTTON_CreateIndirect,    "hi",          GUI_ID_BUTTON0,          350,20,420,150,0,0},
 //    {TEXT_CreateIndirect,      "硝酸",        GUI_ID_TEXT0,            5, 10, 300, 33, 0,0},
 //    {TEXT_CreateIndirect,      "温度",        GUI_ID_TEXT1,            5, 40,250, 50, 0,0},
@@ -153,11 +154,40 @@ extern GUI_CONST_STORAGE GUI_FONT GUI_Fontyouyuan24;
 *
 **********************************************************************
 */
-#define ID_WINDOW_0   (GUI_ID_USER + 0x00)
-#define ID_TEXT_0   (GUI_ID_USER + 0x01)
-#define ID_TEXT_1   (GUI_ID_USER + 0x02)
-#define ID_TEXT_2   (GUI_ID_USER + 0x03)
+#define ID_WINDOW_0     (GUI_ID_USER + 0x00 )
+#define ID_TEXT_0       (GUI_ID_USER + 0x01 )
+#define ID_TEXT_0_U     (GUI_ID_USER + 0x02 )
+#define ID_TEXT_1       (GUI_ID_USER + 0x03 )
+#define ID_TEXT_1_U     (GUI_ID_USER + 0x04 )
+#define ID_TEXT_2       (GUI_ID_USER + 0x05 )
+#define ID_TEXT_2_U     (GUI_ID_USER + 0x06 )
+#define ID_TEXT_3       (GUI_ID_USER + 0x07 )
+#define ID_TEXT_3_U     (GUI_ID_USER + 0x08 )
+#define ID_TEXT_4       (GUI_ID_USER + 0x09 )
+#define ID_TEXT_4_U     (GUI_ID_USER + 0x10 )
+#define ID_TEXT_5       (GUI_ID_USER + 0x11 )
+#define ID_TEXT_5_U     (GUI_ID_USER + 0x12 )
+#define ID_TEXT_6       (GUI_ID_USER + 0x13 )
+#define ID_TEXT_6_U     (GUI_ID_USER + 0x14 )
+#define ID_TEXT_7       (GUI_ID_USER + 0x15 )
+#define ID_TEXT_7_U     (GUI_ID_USER + 0x16 )
+#define ID_TEXT_8       (GUI_ID_USER + 0x17 )
+#define ID_TEXT_8_U     (GUI_ID_USER + 0x18 )
+#define ID_TEXT_9       (GUI_ID_USER + 0x19 )
+#define ID_TEXT_9_U     (GUI_ID_USER + 0x20 )
+#define ID_TEXT_10      (GUI_ID_USER + 0x21 )
+#define ID_TEXT_10_U    (GUI_ID_USER + 0x22 )
+#define ID_TEXT_11      (GUI_ID_USER + 0x23 )
+#define ID_TEXT_11_U    (GUI_ID_USER + 0x24 )
 
+
+typedef struct
+{
+    char*     name[16];
+    char*     value[16];
+    char*     uinit[8];
+    uint16_t  text_id;
+}sensor_label_st;
 
 // USER START (Optionally insert additional defines)
 // USER END
@@ -177,10 +207,31 @@ extern GUI_CONST_STORAGE GUI_FONT GUI_Fontyouyuan24;
 *       _aDialogCreate
 */
 static const GUI_WIDGET_CREATE_INFO _aDialogCreate[] = {
-  { WINDOW_CreateIndirect, "Window", ID_WINDOW_0, 0, 0, 800, 480, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "温度", ID_TEXT_0, 20, 40, 80, 20, 0, 0x64, 0 },  
-  { TEXT_CreateIndirect, "气压", ID_TEXT_1, 20, 65, 80, 20, 0, 0x64, 0 },
-  { TEXT_CreateIndirect, "硝酸", ID_TEXT_2, 80, 40, 80, 20, 0, 0x64, 0 },
+  { WINDOW_CreateIndirect, 	"",    			ID_WINDOW_0, 	0, 		0, 		800, 	480, 	0, 0x0,  0 },
+  { TEXT_CreateIndirect, 	"温度",        	ID_TEXT_0, 		20, 	40, 	80, 	20, 	0, 0x64, 0 },
+  { TEXT_CreateIndirect, 	"C",        	ID_TEXT_0_U, 	220, 	40, 	80, 	20, 	0, 0x64, 0 },  
+  { TEXT_CreateIndirect, 	"大气压口",    	ID_TEXT_1, 		420, 	40, 	80, 	20, 	0, 0x64, 0 },
+  { TEXT_CreateIndirect, 	"mbar",        	ID_TEXT_1_U, 	620, 	40, 	80, 	20, 	0, 0x64, 0 }, 
+  { TEXT_CreateIndirect, 	"PH",          	ID_TEXT_2, 		20, 	70, 	80, 	20, 	0, 0x64, 0 },
+  { TEXT_CreateIndirect, 	"NA",        	ID_TEXT_2_U, 	220,	70, 	80, 	20, 	0, 0x64, 0 }, 
+  { TEXT_CreateIndirect, 	"ORP",        	ID_TEXT_3, 		420,	70, 	80, 	20, 	0, 0x64, 0 },
+  { TEXT_CreateIndirect, 	"mv",        	ID_TEXT_3_U, 	620,	70, 	80, 	20, 	0, 0x64, 0 }, 
+  { TEXT_CreateIndirect, 	"电导率口",    	ID_TEXT_4, 		20, 	100, 	80, 	20, 	0, 0x64, 0 },
+  { TEXT_CreateIndirect, 	"uS/cm",       	ID_TEXT_4_U, 	220,	100, 	80, 	20, 	0, 0x64, 0 }, 
+  { TEXT_CreateIndirect, 	"电阻率口",    	ID_TEXT_5, 		420,	100, 	80, 	20, 	0, 0x64, 0 },
+  { TEXT_CreateIndirect, 	"Ω.cm",        	ID_TEXT_5_U, 	620,	100, 	80, 	20, 	0, 0x64, 0 }, 
+  { TEXT_CreateIndirect, 	"盐度",        	ID_TEXT_6, 		20, 	130, 	80, 	20, 	0, 0x64, 0 },
+  { TEXT_CreateIndirect, 	"PSU",        	ID_TEXT_6_U, 	220,	130, 	80, 	20, 	0, 0x64, 0 }, 
+  { TEXT_CreateIndirect, 	"SSD",        	ID_TEXT_7, 		420,	130, 	80, 	20, 	0, 0x64, 0 },
+  { TEXT_CreateIndirect, 	"mg/L",        	ID_TEXT_7_U, 	620,	130, 	80, 	20, 	0, 0x64, 0 }, 
+  { TEXT_CreateIndirect, 	"溶解氧口",    	ID_TEXT_8, 		20, 	160, 	80, 	20, 	0, 0x64, 0 },
+  { TEXT_CreateIndirect, 	"mg/L",        	ID_TEXT_8_U, 	220,	160, 	80, 	20, 	0, 0x64, 0 }, 
+  { TEXT_CreateIndirect, 	"深度",        	ID_TEXT_9, 		420,	160, 	80, 	20, 	0, 0x64, 0 },
+  { TEXT_CreateIndirect, 	"cm",        	ID_TEXT_9_U, 	620,	160, 	80, 	20, 	0, 0x64, 0 }, 
+  { TEXT_CreateIndirect, 	"硝氮",        	ID_TEXT_10, 	20, 	190, 	80, 	20, 	0, 0x64, 0 },
+  { TEXT_CreateIndirect, 	"mg/L",        	ID_TEXT_10_U, 	220,	190, 	80, 	20, 	0, 0x64, 0 }, 
+  { TEXT_CreateIndirect, 	"铵氮",        	ID_TEXT_11, 	420,	190, 	80, 	20, 	0, 0x64, 0 },
+  { TEXT_CreateIndirect, 	"mg/L",        	ID_TEXT_11_U, 	620,	190, 	80, 	20, 	0, 0x64, 0 }, 
   // USER START (Optionally insert additional widgets)
   // USER END
 };
@@ -201,6 +252,9 @@ static const GUI_WIDGET_CREATE_INFO _aDialogCreate[] = {
 */
 static void _cbDialog(WM_MESSAGE * pMsg) {
   WM_HWIN hItem;
+  WM_HWIN hitem;
+  static int i=0;
+  char dbuf[32];
   // USER START (Optionally insert additional variables)
   // USER END
 
@@ -222,6 +276,13 @@ static void _cbDialog(WM_MESSAGE * pMsg) {
     //
     // Initialization of 'Text'
     //
+	for(i=ID_TEXT_1;i<ID_TEXT_11,i=i+2)
+	{
+		hItem = WM_GetDialogItem(pMsg->hWin, i);
+		TEXT_SetTextColor(hItem, (0x00FFFFFF));
+		TEXT_SetTextAlign(hItem, GUI_TA_LEFT | GUI_TA_VCENTER);
+		TEXT_SetFont(hItem,&GUI_Fontyouyuan18);		
+	}
     hItem = WM_GetDialogItem(pMsg->hWin, ID_TEXT_1);
 //    TEXT_SetText(hItem, "wolrd");
     TEXT_SetTextColor(hItem, (0x00FFFFFF));
@@ -238,6 +299,13 @@ static void _cbDialog(WM_MESSAGE * pMsg) {
     break;
   // USER START (Optionally insert additional message handling)
   // USER END
+  case WM_TIMER:
+    WM_RestartTimer(pMsg->Data.v, 1000);
+    hitem = WM_GetDialogItem(pMsg->hWin, ID_TEXT_2);
+    sprintf(dbuf,"V%d\r",i);
+    TEXT_SetText(hitem, dbuf);
+    i++;
+    break;
   default:
     WM_DefaultProc(pMsg);
     break;
@@ -273,9 +341,8 @@ WM_HWIN CreateWindow(void) {
 void MainTask(void) 
 {
   WM_HWIN hwin;
-  WM_HWIN hitem;
-  int i=0;
-  char dbuf[32];
+  WM_HWIN hitem,htimer;
+
 	/* 初始化 */
 	GUI_Init();
 
@@ -290,14 +357,11 @@ void MainTask(void)
 	/* 创建对话框 */
   hwin = CreateWindow();
 //	GUI_CreateDialogBox(_aDialogCreate1, GUI_COUNTOF(_aDialogCreate1), &_cbCallback, 0, 0, 0);
+  htimer = WM_CreateTimer(WM_GetClientWindow(hwin),0,1000,0);
 	
 	while(1) 
 	{
-    hitem = WM_GetDialogItem(hwin, ID_TEXT_2);
-    sprintf(dbuf,"V%d\r",i);
-    TEXT_SetText(hitem, dbuf);
-    i++;
-		GUI_Delay(1000);
+		GUI_Delay(10);
 	}
 }
 

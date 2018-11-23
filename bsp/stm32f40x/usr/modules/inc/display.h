@@ -27,6 +27,37 @@
 */
 
 typedef struct
+{
+    uint32_t  val;
+    uint16_t  opt;
+}sensor_col_st;
+
+enum
+{
+    DPOS_BARO = 0,
+    DPOS_TEMP,
+    DPOS_PH,
+    DPOS_OXIDATION,    
+    DPOS_CONDUCTIVITY,
+    DPOS_RESISTIVITY,
+    DPOS_SANILITY,
+    DPOS_TDS,    
+    DPOS_DESOVLED_OXIGEN,    
+    DPOS_PROBE_DEPTH,
+    DPOS_AMMOIA_CONCTRA,
+    DPOS_NITRAT_CONCTRA,    
+    DPOS_TURB,
+    DPOS_SSG,
+    DPOS_DESOVLED_OXIGEN_AIR,
+    DPOS_SENSOR_MAX,
+};
+
+typedef struct
+{
+    sensor_col_st sid[DPOS_SENSOR_MAX];
+}disp_sen_st;
+
+typedef struct
 {	
     uint32_t 		barometric;
     uint32_t 		temprature;

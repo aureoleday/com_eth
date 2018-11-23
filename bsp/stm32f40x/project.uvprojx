@@ -1454,6 +1454,11 @@
               <FileType>1</FileType>
               <FilePath>.\usr\modules\src\net_utils.c</FilePath>
             </File>
+            <File>
+              <FileName>em_main.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\usr\modules\src\em_main.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1663,11 +1668,6 @@
               <FileName>GUIDEMO_ZoomAndRotate.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\EMWIN\Demo\GUIDEMO_ZoomAndRotate.c</FilePath>
-            </File>
-            <File>
-              <FileName>em_main.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\EMWIN\Demo\em_main.c</FilePath>
             </File>
           </Files>
         </Group>
