@@ -87,23 +87,25 @@ sensor_namesting_st sunit_inst =
     "mg/L"   
 };
 
+
 const uint16_t opt_list[] =
-{ 1,
-  100,
-  100,
-  10,
-  10,
-  1,
-  1,
-  100,
-  1,
-  10,
-  100,
-  10,
+{ 1,      //barometer
+  100,    //tempreture
+  100,    //PH
+  10,     //oxidation
+  10,     //conductivity
+  1,      //resistivity
+  100,    //salinity
+  1,      //tds
+  100,    //disolved oxigen
+  1,      //depth
+  1,      //nitrite
+  1,     //ammonia
   1,
   1,
   1,
 };
+
 
 uint16_t color_bkg = BLACK;
 uint16_t color_title = 0x463f;
@@ -232,8 +234,8 @@ static void update_sensor(uint8_t addr_ex,uint8_t type)
               
                 disp_sen_inst.sid[DPOS_BARO].val = mbm_dev_inst.inputbuf_reg[addr][0];
                 disp_sen_inst.sid[DPOS_TEMP].val = mbm_dev_inst.inputbuf_reg[addr][1];
-                disp_sen_inst.sid[DPOS_OXIDATION].val= mbm_dev_inst.inputbuf_reg[addr][2];
-                disp_sen_inst.sid[DPOS_PH].val = mbm_dev_inst.inputbuf_reg[addr][3];
+                disp_sen_inst.sid[DPOS_PH].val= mbm_dev_inst.inputbuf_reg[addr][2];
+                disp_sen_inst.sid[DPOS_OXIDATION].val = mbm_dev_inst.inputbuf_reg[addr][3];
                 disp_sen_inst.sid[DPOS_TURB].val = mbm_dev_inst.inputbuf_reg[addr][4];              
                 disp_sen_inst.sid[DPOS_CONDUCTIVITY].val = (mbm_dev_inst.inputbuf_reg[addr][5]<<16)| mbm_dev_inst.inputbuf_reg[addr][6];
                 disp_sen_inst.sid[DPOS_RESISTIVITY].val = (mbm_dev_inst.inputbuf_reg[addr][11]<<16)| mbm_dev_inst.inputbuf_reg[addr][12];

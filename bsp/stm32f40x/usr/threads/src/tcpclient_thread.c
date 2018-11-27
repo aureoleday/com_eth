@@ -124,7 +124,7 @@ void tcpclient_thread_entry(void* parameter)
                 
                 while (1)
                 {
-                    if((tcp_flag != 0)||(g_sys.conf.eth.tcp_client_en == 0))
+                    if((tcp_flag != 0)||(g_sys.conf.eth.tcp_client_en == 0)||(!bit_op_get(g_sys.stat.gen.status_bm,GBM_LINK))||(!bit_op_get(g_sys.stat.gen.status_bm,GBM_LINK)))
                     {
                         rt_thread_detach(&tcp_rx_thread);
                         rt_thread_detach(&tcp_tx_thread);

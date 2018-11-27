@@ -71,7 +71,7 @@ extern "C" {     /* Make sure we have C-declarations in C++ programs */
 
 /* Support for transparency. Switching it off makes Wm smaller and faster */
 #ifndef   WM_SUPPORT_TRANSPARENCY
-  #define WM_SUPPORT_TRANSPARENCY 1 /* Should be defined outside of GUI_WINSUPPORT because of '#if GUI_WINSUPPORT && WM_SUPPORT_TRANSPARENCY' in some files */
+  #define WM_SUPPORT_TRANSPARENCY 0 /* Should be defined outside of GUI_WINSUPPORT because of '#if GUI_WINSUPPORT && WM_SUPPORT_TRANSPARENCY' in some files */
 #endif
 
 /* This is for tests only. It will fill the invalid area of a window.

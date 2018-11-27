@@ -220,6 +220,32 @@ GUI_CONST_STORAGE unsigned char acGUI_Fontyouyuan24_53F8[ 72] = { /* code 53F8 *
   ________,_____XXX,____XX__,
   ________,_______X,XXXXX___};
 
+GUI_CONST_STORAGE unsigned char acGUI_Fontyouyuan24_56FA[ 72] = { /* code 56FA */
+  ________,________,________,
+  ________,________,________,
+  ________,________,________,
+  ___XXXXX,XXXXXXXX,XXXXX___,
+  __XX____,________,_____X__,
+  __X_____,___XX___,_____X__,
+  __X_____,___XX___,_____X__,
+  __X_____,___XX___,_____X__,
+  __X_XXXX,XXXXXXXX,XXXX_X__,
+  __X_____,___XX___,_____X__,
+  __X_____,___XX___,_____X__,
+  __X_____,___XX___,_____X__,
+  __X____X,XXXXXXXX,X____X__,
+  __X___XX,________,_X___X__,
+  __X___X_,________,_X___X__,
+  __X___X_,________,_X___X__,
+  __X___X_,________,_X___X__,
+  __X___X_,________,_X___X__,
+  __X___X_,________,_X___X__,
+  __X___XX,XXXXXXXX,XX___X__,
+  __X_____,________,_____X__,
+  __X_____,________,_____X__,
+  __XXXXXX,XXXXXXXX,XXXXXX__,
+  ________,________,________};
+
 GUI_CONST_STORAGE unsigned char acGUI_Fontyouyuan24_5927[ 72] = { /* code 5927 */
   ________,________,________,
   ________,________,________,
@@ -1000,7 +1026,7 @@ GUI_CONST_STORAGE unsigned char acGUI_Fontyouyuan24_9650[ 72] = { /* code 9650 *
   __X_____,__X__XXX,___XX___,
   __X_____,__XXXX__,_____XX_};
 
-GUI_CONST_STORAGE GUI_CHARINFO GUI_Fontyouyuan24_CharInfo[37] = {
+GUI_CONST_STORAGE GUI_CHARINFO GUI_Fontyouyuan24_CharInfo[38] = {
    {  24,  24,  3, acGUI_Fontyouyuan24_4F4D } /* code 4F4D */
   ,{  24,  24,  3, acGUI_Fontyouyuan24_4F53 } /* code 4F53 */
   ,{  24,  24,  3, acGUI_Fontyouyuan24_516C } /* code 516C */
@@ -1008,6 +1034,7 @@ GUI_CONST_STORAGE GUI_CHARINFO GUI_Fontyouyuan24_CharInfo[37] = {
   ,{  24,  24,  3, acGUI_Fontyouyuan24_538B } /* code 538B */
   ,{  24,  24,  3, acGUI_Fontyouyuan24_539F } /* code 539F */
   ,{  24,  24,  3, acGUI_Fontyouyuan24_53F8 } /* code 53F8 */
+  ,{  24,  24,  3, acGUI_Fontyouyuan24_56FA } /* code 56FA */
   ,{  24,  24,  3, acGUI_Fontyouyuan24_5927 } /* code 5927 */
   ,{  24,  24,  3, acGUI_Fontyouyuan24_5BFC } /* code 5BFC */
   ,{  24,  24,  3, acGUI_Fontyouyuan24_5EA6 } /* code 5EA6 */
@@ -1040,205 +1067,212 @@ GUI_CONST_STORAGE GUI_CHARINFO GUI_Fontyouyuan24_CharInfo[37] = {
   ,{  24,  24,  3, acGUI_Fontyouyuan24_9650 } /* code 9650 */
 };
 
-GUI_CONST_STORAGE GUI_FONT_PROP GUI_Fontyouyuan24_Prop36 = {
+GUI_CONST_STORAGE GUI_FONT_PROP GUI_Fontyouyuan24_Prop37 = {
    0x9650 /* first character */
   ,0x9650 /* last character  */
-  ,&GUI_Fontyouyuan24_CharInfo[ 36] /* address of first character */
+  ,&GUI_Fontyouyuan24_CharInfo[ 37] /* address of first character */
   ,(GUI_CONST_STORAGE GUI_FONT_PROP *)0 /* pointer to next GUI_FONT_PROP */
 };
 
-GUI_CONST_STORAGE GUI_FONT_PROP GUI_Fontyouyuan24_Prop35 = {
+GUI_CONST_STORAGE GUI_FONT_PROP GUI_Fontyouyuan24_Prop36 = {
    0x963B /* first character */
   ,0x963B /* last character  */
+  ,&GUI_Fontyouyuan24_CharInfo[ 36] /* address of first character */
+  ,&GUI_Fontyouyuan24_Prop37 /* pointer to next GUI_FONT_PROP */
+};
+
+GUI_CONST_STORAGE GUI_FONT_PROP GUI_Fontyouyuan24_Prop35 = {
+   0x94F5 /* first character */
+  ,0x94F5 /* last character  */
   ,&GUI_Fontyouyuan24_CharInfo[ 35] /* address of first character */
   ,&GUI_Fontyouyuan24_Prop36 /* pointer to next GUI_FONT_PROP */
 };
 
 GUI_CONST_STORAGE GUI_FONT_PROP GUI_Fontyouyuan24_Prop34 = {
-   0x94F5 /* first character */
-  ,0x94F5 /* last character  */
+   0x9178 /* first character */
+  ,0x9178 /* last character  */
   ,&GUI_Fontyouyuan24_CharInfo[ 34] /* address of first character */
   ,&GUI_Fontyouyuan24_Prop35 /* pointer to next GUI_FONT_PROP */
 };
 
 GUI_CONST_STORAGE GUI_FONT_PROP GUI_Fontyouyuan24_Prop33 = {
-   0x9178 /* first character */
-  ,0x9178 /* last character  */
+   0x8FD8 /* first character */
+  ,0x8FD8 /* last character  */
   ,&GUI_Fontyouyuan24_CharInfo[ 33] /* address of first character */
   ,&GUI_Fontyouyuan24_Prop34 /* pointer to next GUI_FONT_PROP */
 };
 
 GUI_CONST_STORAGE GUI_FONT_PROP GUI_Fontyouyuan24_Prop32 = {
-   0x8FD8 /* first character */
-  ,0x8FD8 /* last character  */
+   0x89E3 /* first character */
+  ,0x89E3 /* last character  */
   ,&GUI_Fontyouyuan24_CharInfo[ 32] /* address of first character */
   ,&GUI_Fontyouyuan24_Prop33 /* pointer to next GUI_FONT_PROP */
 };
 
 GUI_CONST_STORAGE GUI_FONT_PROP GUI_Fontyouyuan24_Prop31 = {
-   0x89E3 /* first character */
-  ,0x89E3 /* last character  */
+   0x79D1 /* first character */
+  ,0x79D1 /* last character  */
   ,&GUI_Fontyouyuan24_CharInfo[ 31] /* address of first character */
   ,&GUI_Fontyouyuan24_Prop32 /* pointer to next GUI_FONT_PROP */
 };
 
 GUI_CONST_STORAGE GUI_FONT_PROP GUI_Fontyouyuan24_Prop30 = {
-   0x79D1 /* first character */
-  ,0x79D1 /* last character  */
+   0x795E /* first character */
+  ,0x795E /* last character  */
   ,&GUI_Fontyouyuan24_CharInfo[ 30] /* address of first character */
   ,&GUI_Fontyouyuan24_Prop31 /* pointer to next GUI_FONT_PROP */
 };
 
 GUI_CONST_STORAGE GUI_FONT_PROP GUI_Fontyouyuan24_Prop29 = {
-   0x795E /* first character */
-  ,0x795E /* last character  */
+   0x78B1 /* first character */
+  ,0x78B1 /* last character  */
   ,&GUI_Fontyouyuan24_CharInfo[ 29] /* address of first character */
   ,&GUI_Fontyouyuan24_Prop30 /* pointer to next GUI_FONT_PROP */
 };
 
 GUI_CONST_STORAGE GUI_FONT_PROP GUI_Fontyouyuan24_Prop28 = {
-   0x78B1 /* first character */
-  ,0x78B1 /* last character  */
+   0x785D /* first character */
+  ,0x785D /* last character  */
   ,&GUI_Fontyouyuan24_CharInfo[ 28] /* address of first character */
   ,&GUI_Fontyouyuan24_Prop29 /* pointer to next GUI_FONT_PROP */
 };
 
 GUI_CONST_STORAGE GUI_FONT_PROP GUI_Fontyouyuan24_Prop27 = {
-   0x785D /* first character */
-  ,0x785D /* last character  */
+   0x76D0 /* first character */
+  ,0x76D0 /* last character  */
   ,&GUI_Fontyouyuan24_CharInfo[ 27] /* address of first character */
   ,&GUI_Fontyouyuan24_Prop28 /* pointer to next GUI_FONT_PROP */
 };
 
 GUI_CONST_STORAGE GUI_FONT_PROP GUI_Fontyouyuan24_Prop26 = {
-   0x76D0 /* first character */
-  ,0x76D0 /* last character  */
+   0x7535 /* first character */
+  ,0x7535 /* last character  */
   ,&GUI_Fontyouyuan24_CharInfo[ 26] /* address of first character */
   ,&GUI_Fontyouyuan24_Prop27 /* pointer to next GUI_FONT_PROP */
 };
 
 GUI_CONST_STORAGE GUI_FONT_PROP GUI_Fontyouyuan24_Prop25 = {
-   0x7535 /* first character */
-  ,0x7535 /* last character  */
+   0x751F /* first character */
+  ,0x751F /* last character  */
   ,&GUI_Fontyouyuan24_CharInfo[ 25] /* address of first character */
   ,&GUI_Fontyouyuan24_Prop26 /* pointer to next GUI_FONT_PROP */
 };
 
 GUI_CONST_STORAGE GUI_FONT_PROP GUI_Fontyouyuan24_Prop24 = {
-   0x751F /* first character */
-  ,0x751F /* last character  */
+   0x7387 /* first character */
+  ,0x7387 /* last character  */
   ,&GUI_Fontyouyuan24_CharInfo[ 24] /* address of first character */
   ,&GUI_Fontyouyuan24_Prop25 /* pointer to next GUI_FONT_PROP */
 };
 
 GUI_CONST_STORAGE GUI_FONT_PROP GUI_Fontyouyuan24_Prop23 = {
-   0x7387 /* first character */
-  ,0x7387 /* last character  */
+   0x6EB6 /* first character */
+  ,0x6EB6 /* last character  */
   ,&GUI_Fontyouyuan24_CharInfo[ 23] /* address of first character */
   ,&GUI_Fontyouyuan24_Prop24 /* pointer to next GUI_FONT_PROP */
 };
 
 GUI_CONST_STORAGE GUI_FONT_PROP GUI_Fontyouyuan24_Prop22 = {
-   0x6EB6 /* first character */
-  ,0x6EB6 /* last character  */
+   0x6E29 /* first character */
+  ,0x6E29 /* last character  */
   ,&GUI_Fontyouyuan24_CharInfo[ 22] /* address of first character */
   ,&GUI_Fontyouyuan24_Prop23 /* pointer to next GUI_FONT_PROP */
 };
 
 GUI_CONST_STORAGE GUI_FONT_PROP GUI_Fontyouyuan24_Prop21 = {
-   0x6E29 /* first character */
-  ,0x6E29 /* last character  */
+   0x6DF1 /* first character */
+  ,0x6DF1 /* last character  */
   ,&GUI_Fontyouyuan24_CharInfo[ 21] /* address of first character */
   ,&GUI_Fontyouyuan24_Prop22 /* pointer to next GUI_FONT_PROP */
 };
 
 GUI_CONST_STORAGE GUI_FONT_PROP GUI_Fontyouyuan24_Prop20 = {
-   0x6DF1 /* first character */
-  ,0x6DF1 /* last character  */
+   0x6C2E /* first character */
+  ,0x6C2E /* last character  */
   ,&GUI_Fontyouyuan24_CharInfo[ 20] /* address of first character */
   ,&GUI_Fontyouyuan24_Prop21 /* pointer to next GUI_FONT_PROP */
 };
 
 GUI_CONST_STORAGE GUI_FONT_PROP GUI_Fontyouyuan24_Prop19 = {
-   0x6C2E /* first character */
-  ,0x6C2E /* last character  */
-  ,&GUI_Fontyouyuan24_CharInfo[ 19] /* address of first character */
+   0x6C27 /* first character */
+  ,0x6C28 /* last character  */
+  ,&GUI_Fontyouyuan24_CharInfo[ 18] /* address of first character */
   ,&GUI_Fontyouyuan24_Prop20 /* pointer to next GUI_FONT_PROP */
 };
 
 GUI_CONST_STORAGE GUI_FONT_PROP GUI_Fontyouyuan24_Prop18 = {
-   0x6C27 /* first character */
-  ,0x6C28 /* last character  */
+   0x6C14 /* first character */
+  ,0x6C14 /* last character  */
   ,&GUI_Fontyouyuan24_CharInfo[ 17] /* address of first character */
   ,&GUI_Fontyouyuan24_Prop19 /* pointer to next GUI_FONT_PROP */
 };
 
 GUI_CONST_STORAGE GUI_FONT_PROP GUI_Fontyouyuan24_Prop17 = {
-   0x6C14 /* first character */
-  ,0x6C14 /* last character  */
+   0x6709 /* first character */
+  ,0x6709 /* last character  */
   ,&GUI_Fontyouyuan24_CharInfo[ 16] /* address of first character */
   ,&GUI_Fontyouyuan24_Prop18 /* pointer to next GUI_FONT_PROP */
 };
 
 GUI_CONST_STORAGE GUI_FONT_PROP GUI_Fontyouyuan24_Prop16 = {
-   0x6709 /* first character */
-  ,0x6709 /* last character  */
+   0x6613 /* first character */
+  ,0x6613 /* last character  */
   ,&GUI_Fontyouyuan24_CharInfo[ 15] /* address of first character */
   ,&GUI_Fontyouyuan24_Prop17 /* pointer to next GUI_FONT_PROP */
 };
 
 GUI_CONST_STORAGE GUI_FONT_PROP GUI_Fontyouyuan24_Prop15 = {
-   0x6613 /* first character */
-  ,0x6613 /* last character  */
+   0x6377 /* first character */
+  ,0x6377 /* last character  */
   ,&GUI_Fontyouyuan24_CharInfo[ 14] /* address of first character */
   ,&GUI_Fontyouyuan24_Prop16 /* pointer to next GUI_FONT_PROP */
 };
 
 GUI_CONST_STORAGE GUI_FONT_PROP GUI_Fontyouyuan24_Prop14 = {
-   0x6377 /* first character */
-  ,0x6377 /* last character  */
+   0x6280 /* first character */
+  ,0x6280 /* last character  */
   ,&GUI_Fontyouyuan24_CharInfo[ 13] /* address of first character */
   ,&GUI_Fontyouyuan24_Prop15 /* pointer to next GUI_FONT_PROP */
 };
 
 GUI_CONST_STORAGE GUI_FONT_PROP GUI_Fontyouyuan24_Prop13 = {
-   0x6280 /* first character */
-  ,0x6280 /* last character  */
+   0x603B /* first character */
+  ,0x603B /* last character  */
   ,&GUI_Fontyouyuan24_CharInfo[ 12] /* address of first character */
   ,&GUI_Fontyouyuan24_Prop14 /* pointer to next GUI_FONT_PROP */
 };
 
 GUI_CONST_STORAGE GUI_FONT_PROP GUI_Fontyouyuan24_Prop12 = {
-   0x603B /* first character */
-  ,0x603B /* last character  */
+   0x6001 /* first character */
+  ,0x6001 /* last character  */
   ,&GUI_Fontyouyuan24_CharInfo[ 11] /* address of first character */
   ,&GUI_Fontyouyuan24_Prop13 /* pointer to next GUI_FONT_PROP */
 };
 
 GUI_CONST_STORAGE GUI_FONT_PROP GUI_Fontyouyuan24_Prop11 = {
-   0x6001 /* first character */
-  ,0x6001 /* last character  */
+   0x5EA6 /* first character */
+  ,0x5EA6 /* last character  */
   ,&GUI_Fontyouyuan24_CharInfo[ 10] /* address of first character */
   ,&GUI_Fontyouyuan24_Prop12 /* pointer to next GUI_FONT_PROP */
 };
 
 GUI_CONST_STORAGE GUI_FONT_PROP GUI_Fontyouyuan24_Prop10 = {
-   0x5EA6 /* first character */
-  ,0x5EA6 /* last character  */
+   0x5BFC /* first character */
+  ,0x5BFC /* last character  */
   ,&GUI_Fontyouyuan24_CharInfo[  9] /* address of first character */
   ,&GUI_Fontyouyuan24_Prop11 /* pointer to next GUI_FONT_PROP */
 };
 
 GUI_CONST_STORAGE GUI_FONT_PROP GUI_Fontyouyuan24_Prop9 = {
-   0x5BFC /* first character */
-  ,0x5BFC /* last character  */
+   0x5927 /* first character */
+  ,0x5927 /* last character  */
   ,&GUI_Fontyouyuan24_CharInfo[  8] /* address of first character */
   ,&GUI_Fontyouyuan24_Prop10 /* pointer to next GUI_FONT_PROP */
 };
 
 GUI_CONST_STORAGE GUI_FONT_PROP GUI_Fontyouyuan24_Prop8 = {
-   0x5927 /* first character */
-  ,0x5927 /* last character  */
+   0x56FA /* first character */
+  ,0x56FA /* last character  */
   ,&GUI_Fontyouyuan24_CharInfo[  7] /* address of first character */
   ,&GUI_Fontyouyuan24_Prop9 /* pointer to next GUI_FONT_PROP */
 };

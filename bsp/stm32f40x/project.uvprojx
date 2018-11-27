@@ -133,10 +133,10 @@
             <RunIndependent>0</RunIndependent>
             <UpdateFlashBeforeDebugging>1</UpdateFlashBeforeDebugging>
             <Capability>1</Capability>
-            <DriverSelection>4100</DriverSelection>
+            <DriverSelection>4096</DriverSelection>
           </Flash1>
           <bUseTDR>1</bUseTDR>
-          <Flash2>STLink\ST-LINKIII-KEIL.dll</Flash2>
+          <Flash2>BIN\UL2CM3.DLL</Flash2>
           <Flash3>"" ()</Flash3>
           <Flash4></Flash4>
           <pFcarmOut></pFcarmOut>
@@ -335,7 +335,7 @@
               <MiscControls></MiscControls>
               <Define>RT_USING_ARM_LIBC, USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>applications;.;drivers;Libraries\STM32F4xx_StdPeriph_Driver\inc;Libraries\CMSIS\ST\STM32F4xx\Include;Libraries\CMSIS\Include;..\..\include;..\..\libcpu\arm\cortex-m4;..\..\libcpu\arm\common;..\..\components\dfs\include;..\..\components\dfs\filesystems\devfs;..\..\components\dfs\filesystems\elmfat;..\..\components\drivers\include;..\..\components\drivers\include;..\..\components\drivers\include;..\..\components\finsh;..\..\components\libc\compilers\armlibc;..\..\components\libc\pthreads;..\..\components\libc\time;..\..\components\net\freemodbus\modbus\include;..\..\components\net\freemodbus\modbus\rtu;..\..\components\net\freemodbus\port;..\..\components\net\lwip-2.0.2\src;..\..\components\net\lwip-2.0.2\src\include;..\..\components\net\lwip-2.0.2\src\include\ipv4;..\..\components\net\lwip-2.0.2\src\arch\include;..\..\components\net\lwip-2.0.2\src\include\netif;..\..\components\net\sal_socket\include;..\..\components\net\sal_socket\include\socket;..\..\components\net\sal_socket\impl;..\..\components\net\sal_socket\include\dfs_net;..\..\components\net\sal_socket\include\dfs_net\sys_select;..\..\components\net\sal_socket\include\socket\sys_socket;..\..\components\drivers\spi;..\..\components\drivers\spi\sfud\inc;usr\threads\inc;usr\modules\inc;usr\kits\inc;.\Libraries\CMSIS\Lib\ARM;.\EMWIN\STemWinLibrary522\Config;.\EMWIN\STemWinLibrary522\inc;.\EMWIN\STemWinLibrary522\Lib;.\EMWIN\STemWinLibrary522\OS;.\EMWIN\Demo</IncludePath>
+              <IncludePath>applications;.;drivers;Libraries\STM32F4xx_StdPeriph_Driver\inc;Libraries\CMSIS\ST\STM32F4xx\Include;Libraries\CMSIS\Include;..\..\include;..\..\libcpu\arm\cortex-m4;..\..\libcpu\arm\common;..\..\components\dfs\include;..\..\components\dfs\filesystems\devfs;..\..\components\dfs\filesystems\elmfat;..\..\components\drivers\include;..\..\components\drivers\include;..\..\components\drivers\include;..\..\components\finsh;..\..\components\libc\compilers\armlibc;..\..\components\libc\pthreads;..\..\components\libc\time;..\..\components\net\freemodbus\modbus\include;..\..\components\net\freemodbus\modbus\rtu;..\..\components\net\freemodbus\port;..\..\components\net\lwip-2.0.2\src;..\..\components\net\lwip-2.0.2\src\include;..\..\components\net\lwip-2.0.2\src\include\ipv4;..\..\components\net\lwip-2.0.2\src\arch\include;..\..\components\net\lwip-2.0.2\src\include\netif;..\..\components\net\sal_socket\include;..\..\components\net\sal_socket\include\socket;..\..\components\net\sal_socket\impl;..\..\components\net\sal_socket\include\dfs_net;..\..\components\net\sal_socket\include\dfs_net\sys_select;..\..\components\net\sal_socket\include\socket\sys_socket;..\..\components\drivers\spi;..\..\components\drivers\spi\sfud\inc;usr\threads\inc;usr\modules\inc;usr\kits\inc;.\Libraries\CMSIS\Lib\ARM;.\EMWIN\STemWinLibrary522\Config;.\EMWIN\STemWinLibrary522\inc;.\EMWIN\STemWinLibrary522\Lib;.\EMWIN\STemWinLibrary522\OS;.\EMWIN\Demo;.\EMWIN\png</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -1459,6 +1459,16 @@
               <FileType>1</FileType>
               <FilePath>.\usr\modules\src\em_main.c</FilePath>
             </File>
+            <File>
+              <FileName>logo.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\resource\logo.c</FilePath>
+            </File>
+            <File>
+              <FileName>bkg2.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\resource\bkg2.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1698,6 +1708,191 @@
               <FileName>youyuan24.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\usr\fonts\youyuan24.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>png</GroupName>
+          <Files>
+            <File>
+              <FileName>adler32.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\EMWIN\png\adler32.c</FilePath>
+            </File>
+            <File>
+              <FileName>compress.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\EMWIN\png\compress.c</FilePath>
+            </File>
+            <File>
+              <FileName>crc32.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\EMWIN\png\crc32.c</FilePath>
+            </File>
+            <File>
+              <FileName>deflate.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\EMWIN\png\deflate.c</FilePath>
+            </File>
+            <File>
+              <FileName>GUI_PNG.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\EMWIN\png\GUI_PNG.c</FilePath>
+            </File>
+            <File>
+              <FileName>gzio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\EMWIN\png\gzio.c</FilePath>
+            </File>
+            <File>
+              <FileName>IMAGE_PNG.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\EMWIN\png\IMAGE_PNG.c</FilePath>
+            </File>
+            <File>
+              <FileName>infback.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\EMWIN\png\infback.c</FilePath>
+            </File>
+            <File>
+              <FileName>inffast.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\EMWIN\png\inffast.c</FilePath>
+            </File>
+            <File>
+              <FileName>inflate.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\EMWIN\png\inflate.c</FilePath>
+            </File>
+            <File>
+              <FileName>inftrees.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\EMWIN\png\inftrees.c</FilePath>
+            </File>
+            <File>
+              <FileName>png.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\EMWIN\png\png.c</FilePath>
+            </File>
+            <File>
+              <FileName>pngerror.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\EMWIN\png\pngerror.c</FilePath>
+            </File>
+            <File>
+              <FileName>pnggccrd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\EMWIN\png\pnggccrd.c</FilePath>
+            </File>
+            <File>
+              <FileName>pngget.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\EMWIN\png\pngget.c</FilePath>
+            </File>
+            <File>
+              <FileName>pngmem.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\EMWIN\png\pngmem.c</FilePath>
+            </File>
+            <File>
+              <FileName>pngpread.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\EMWIN\png\pngpread.c</FilePath>
+            </File>
+            <File>
+              <FileName>pngread.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\EMWIN\png\pngread.c</FilePath>
+            </File>
+            <File>
+              <FileName>pngrio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\EMWIN\png\pngrio.c</FilePath>
+            </File>
+            <File>
+              <FileName>pngrtran.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\EMWIN\png\pngrtran.c</FilePath>
+            </File>
+            <File>
+              <FileName>pngrutil.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\EMWIN\png\pngrutil.c</FilePath>
+            </File>
+            <File>
+              <FileName>pngset.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\EMWIN\png\pngset.c</FilePath>
+            </File>
+            <File>
+              <FileName>pngtrans.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\EMWIN\png\pngtrans.c</FilePath>
+            </File>
+            <File>
+              <FileName>pngvcrd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\EMWIN\png\pngvcrd.c</FilePath>
+            </File>
+            <File>
+              <FileName>pngwio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\EMWIN\png\pngwio.c</FilePath>
+            </File>
+            <File>
+              <FileName>pngwrite.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\EMWIN\png\pngwrite.c</FilePath>
+            </File>
+            <File>
+              <FileName>pngwtran.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\EMWIN\png\pngwtran.c</FilePath>
+            </File>
+            <File>
+              <FileName>pngwutil.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\EMWIN\png\pngwutil.c</FilePath>
+            </File>
+            <File>
+              <FileName>trees.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\EMWIN\png\trees.c</FilePath>
+            </File>
+            <File>
+              <FileName>uncompr.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\EMWIN\png\uncompr.c</FilePath>
+            </File>
+            <File>
+              <FileName>zutil.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\EMWIN\png\zutil.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>icons</GroupName>
+          <Files>
+            <File>
+              <FileName>mbng.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\resource\status_icon\mbng.c</FilePath>
+            </File>
+            <File>
+              <FileName>mbok.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\resource\status_icon\mbok.c</FilePath>
+            </File>
+            <File>
+              <FileName>ethng.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\resource\status_icon\ethng.c</FilePath>
+            </File>
+            <File>
+              <FileName>ethok.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\resource\status_icon\ethok.c</FilePath>
             </File>
           </Files>
         </Group>

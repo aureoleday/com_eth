@@ -71,6 +71,7 @@ enum
     GBM_TCP,
     GBM_DNS,
     GBM_LCD,
+    GBM_MBM,
 };
 
 #endif //__SYS_DEF

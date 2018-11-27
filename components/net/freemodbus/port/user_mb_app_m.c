@@ -20,6 +20,7 @@
  */
 #include "user_mb_app.h"
 #include "sys_conf.h"
+#include "bit_op.h"
 
 //Master mode:InputRegister variables
 //USHORT   usMRegInStart                              = M_REG_INPUT_START;
@@ -72,6 +73,20 @@ void mbm_thread_entry(void* parameter)
 		}
 }
 
+static int16_t mbm_sts_update(void)
+{
+    if((g_sys.conf.mbm.dev_bitmap_holding==mbm_dev_inst.sts_bitmap_hold)&&(g_sys.conf.mbm.dev_bitmap_input == mbm_dev_inst.sts_bitmap_input))
+    {
+        bit_op_set(&g_sys.stat.gen.status_bm,GBM_MBM,1);
+        return 0;
+    }
+    else
+    {
+        bit_op_set(&g_sys.stat.gen.status_bm,GBM_MBM,0);
+        return -1;
+    }
+}
+
 void mbm_fsm_thread_entry(void* parameter)
 {
 		rt_thread_delay(MBM_FSM_THREAD_DELAY+200);
@@ -81,6 +96,7 @@ void mbm_fsm_thread_entry(void* parameter)
 		{		
         mbm_reg_holding_update(&mbm_dev_inst);
         mbm_reg_input_update(&mbm_dev_inst);
+        mbm_sts_update();
 				rt_thread_delay(g_sys.conf.mbm.sample_period);
 		}
 }
