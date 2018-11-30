@@ -225,7 +225,10 @@
 #define RT_HSE_HCLK 168000000
 
 #define RT_USING_SPI1
+#define RT_USING_SPI2
 #define RT_FLASH_CS_PIN 93
+#define RT_GEO_CS_PIN 73
+#define RT_GEO_SPI_BUS_NAME "spi2"
 #define RT_FLASH_SPI_BUS_NAME "spi1"
 #define RT_USING_SFUD                 
 //#define RT_DEBUG_SFUD               1   

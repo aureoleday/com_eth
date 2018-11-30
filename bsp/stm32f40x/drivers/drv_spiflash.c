@@ -27,6 +27,7 @@
 int rt_nor_flash_init(void)
 {
     stm32_spi_bus_attach_device(RT_FLASH_CS_PIN, RT_FLASH_SPI_BUS_NAME, "norspi");
+    
 #ifdef RT_USING_W25QXX
     return w25qxx_init("flash0", "norspi");
 #elif defined(RT_USING_SFUD)

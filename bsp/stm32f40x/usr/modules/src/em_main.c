@@ -23,6 +23,7 @@ extern GUI_CONST_STORAGE GUI_FONT GUI_Fontyouyuan20;
 extern GUI_CONST_STORAGE GUI_FONT GUI_Fontyouyuan24;
 
 extern const unsigned char _aclogop[2909UL + 1];
+//extern const unsigned char _acbkg[117712UL + 1];
 //GUI_MEMDEV_Handle hMemJPEG;
 
 #include "DIALOG.h"
@@ -33,12 +34,15 @@ extern const unsigned char _aclogop[2909UL + 1];
 *
 **********************************************************************
 */
+#define ID_IMAGE_       (GUI_ID_USER + 0x100)
 #define ID_IMAGE_0      (GUI_ID_USER + 0x101)
 #define ID_IMAGE_1      (GUI_ID_USER + 0x102)
 #define ID_IMAGE_2      (GUI_ID_USER + 0x103)
 #define ID_IMAGE_3      (GUI_ID_USER + 0x104)
 #define ID_IMAGE_4      (GUI_ID_USER + 0x105)
 
+#define ID_WINDOW_2     (GUI_ID_USER + 81 )
+#define ID_WINDOW_1     (GUI_ID_USER + 80 )
 #define ID_WINDOW_0     (GUI_ID_USER + 0 )
 #define ID_TEXT_0       (GUI_ID_USER + 1 )
 #define ID_TEXT_0_U     (GUI_ID_USER + 2 )
@@ -77,6 +81,7 @@ extern const unsigned char _aclogop[2909UL + 1];
 #define ID_TEXT_10_D    (GUI_ID_USER + 35 )
 #define ID_TEXT_11_D    (GUI_ID_USER + 36 )
 #define ID_TEXT_TIME    (GUI_ID_USER + 37 )
+#define ID_TEXT_VER    (GUI_ID_USER + 38 )
 
 GUI_MEMDEV_Handle hMemdev;
 
@@ -105,46 +110,50 @@ GUI_MEMDEV_Handle hMemdev;
 
 static const GUI_WIDGET_CREATE_INFO _aDialogCreate[] = {
   { WINDOW_CreateIndirect, 	"",    			ID_WINDOW_0, 	0, 		0, 		800, 	480, 	0, 0x0,  0 },
+//  { WINDOW_CreateIndirect, 	"",    			ID_WINDOW_1, 	60, 	100, 	310, 	300, 	0, 0x0,  0 },
+//  { WINDOW_CreateIndirect, 	"",    			ID_WINDOW_2, 	460, 	100, 	310, 	300, 	0, 0x0,  0 },
+  { IMAGE_CreateIndirect, 	"BKG", 			ID_IMAGE_, 		200, 	200, 	200, 	200, 	0, 0x0,  0 },
   { IMAGE_CreateIndirect, 	"LOGO", 		ID_IMAGE_0, 	10, 	10, 	150, 	36, 	0, 0, 	 0 },
   { IMAGE_CreateIndirect, 	"eth_con_ng", 	ID_IMAGE_1, 	760, 	10, 	150, 	40, 	0, 0, 	 0 },
   { IMAGE_CreateIndirect, 	"mb_con_ng", 	ID_IMAGE_2, 	720, 	10, 	30, 	30, 	0, 0, 	 0 },
-  { TEXT_CreateIndirect, 	"大气压口",     ID_TEXT_0, 		20, 	100, 	120, 	40, 	0, 0x64, 0 },
-  { TEXT_CreateIndirect, 	"",        		ID_TEXT_0_D,	150, 	100, 	120, 	40, 	0, 0x64, 0 },
-  { TEXT_CreateIndirect, 	"mbar",        	ID_TEXT_0_U, 	300, 	100, 	120, 	40, 	0, 0x64, 0 },  
-  { TEXT_CreateIndirect, 	"温度",    		ID_TEXT_1, 		400, 	100, 	120, 	40, 	0, 0x64, 0 },
-  { TEXT_CreateIndirect, 	"",        		ID_TEXT_1_D,	550, 	100, 	120, 	40, 	0, 0x64, 0 },
-  { TEXT_CreateIndirect, 	"C",        	ID_TEXT_1_U, 	700, 	100, 	120, 	40, 	0, 0x64, 0 }, 
-  { TEXT_CreateIndirect, 	"酸碱度口",     ID_TEXT_2, 		20, 	150, 	120, 	40, 	0, 0x64, 0 },
-  { TEXT_CreateIndirect, 	"",        		ID_TEXT_2_D,	150, 	150, 	120, 	40, 	0, 0x64, 0 },
-  { TEXT_CreateIndirect, 	"NA",        	ID_TEXT_2_U, 	300,	150, 	120, 	40, 	0, 0x64, 0 }, 
-  { TEXT_CreateIndirect, 	"氧化还原",     ID_TEXT_3, 		400,	150, 	120, 	40, 	0, 0x64, 0 },
-  { TEXT_CreateIndirect, 	"",        		ID_TEXT_3_D,	550, 	150, 	120, 	40, 	0, 0x64, 0 },
-  { TEXT_CreateIndirect, 	"mv",        	ID_TEXT_3_U, 	700,	150, 	120, 	40, 	0, 0x64, 0 }, 
-  { TEXT_CreateIndirect, 	"电导率口",    	ID_TEXT_4, 		20, 	200, 	120, 	40, 	0, 0x64, 0 },
-  { TEXT_CreateIndirect, 	"",        		ID_TEXT_4_D,	150, 	200, 	120, 	40, 	0, 0x64, 0 },
-  { TEXT_CreateIndirect, 	"uS/cm",       	ID_TEXT_4_U, 	300,	200, 	120, 	40, 	0, 0x64, 0 }, 
-  { TEXT_CreateIndirect, 	"电阻率口",    	ID_TEXT_5, 		400,	200, 	120, 	40, 	0, 0x64, 0 },
-  { TEXT_CreateIndirect, 	"",        		ID_TEXT_5_D,	550, 	200, 	120, 	40, 	0, 0x64, 0 },
-  { TEXT_CreateIndirect, 	"Ω.cm",        	ID_TEXT_5_U, 	700,	200, 	120, 	40, 	0, 0x64, 0 }, 
-  { TEXT_CreateIndirect, 	"盐度",        	ID_TEXT_6, 		20, 	250, 	120, 	40, 	0, 0x64, 0 },
-  { TEXT_CreateIndirect, 	"",        		ID_TEXT_6_D,	150, 	250, 	120, 	40, 	0, 0x64, 0 },
-  { TEXT_CreateIndirect, 	"PSU",        	ID_TEXT_6_U, 	300,	250, 	120, 	40, 	0, 0x64, 0 }, 
-  { TEXT_CreateIndirect, 	"溶解固体",     ID_TEXT_7, 		400,	250, 	120, 	40, 	0, 0x64, 0 },
-  { TEXT_CreateIndirect, 	"",        		ID_TEXT_7_D,	550, 	250, 	120, 	40, 	0, 0x64, 0 },
-  { TEXT_CreateIndirect, 	"mg/L",        	ID_TEXT_7_U, 	700,	250, 	120, 	40, 	0, 0x64, 0 }, 
-  { TEXT_CreateIndirect, 	"溶解氧口",    	ID_TEXT_8, 		20, 	300, 	120, 	40, 	0, 0x64, 0 },
-  { TEXT_CreateIndirect, 	"",        		ID_TEXT_8_D,	150, 	300, 	120, 	40, 	0, 0x64, 0 },
-  { TEXT_CreateIndirect, 	"mg/L",        	ID_TEXT_8_U, 	300,	300, 	120, 	40, 	0, 0x64, 0 }, 
-  { TEXT_CreateIndirect, 	"深度",        	ID_TEXT_9, 		400,	300, 	120, 	40, 	0, 0x64, 0 },
-  { TEXT_CreateIndirect, 	"",        		ID_TEXT_9_D,	550, 	300, 	120, 	40, 	0, 0x64, 0 },
-  { TEXT_CreateIndirect, 	"cm",        	ID_TEXT_9_U, 	700,	300, 	120, 	40, 	0, 0x64, 0 }, 
-  { TEXT_CreateIndirect, 	"硝氮",        	ID_TEXT_10, 	20, 	350, 	120, 	40, 	0, 0x64, 0 },
-  { TEXT_CreateIndirect, 	"",        		ID_TEXT_10_D,	150, 	350, 	120, 	40, 	0, 0x64, 0 },
-  { TEXT_CreateIndirect, 	"mg/L",        	ID_TEXT_10_U, 	300,	350, 	120, 	40, 	0, 0x64, 0 }, 
-  { TEXT_CreateIndirect, 	"铵氮",        	ID_TEXT_11, 	400,	350, 	120, 	40, 	0, 0x64, 0 },
-  { TEXT_CreateIndirect, 	"",        		ID_TEXT_11_D,	550, 	350, 	120, 	40, 	0, 0x64, 0 },
-  { TEXT_CreateIndirect, 	"mg/L",        	ID_TEXT_11_U, 	700,	350, 	120, 	40, 	0, 0x64, 0 }, 
+  { TEXT_CreateIndirect, 	"大气压口",     ID_TEXT_0, 		70, 	100, 	120, 	40, 	0, 0x64, 0 },
+  { TEXT_CreateIndirect, 	"",        		ID_TEXT_0_D,	140, 	100, 	120, 	40, 	0, 0x64, 0 },
+  { TEXT_CreateIndirect, 	"mbar",        	ID_TEXT_0_U, 	290, 	100, 	80, 	40, 	0, 0x64, 0 },  
+  { TEXT_CreateIndirect, 	"温度",    		ID_TEXT_1, 		470, 	100, 	120, 	40, 	0, 0x64, 0 },
+  { TEXT_CreateIndirect, 	"",        		ID_TEXT_1_D,	540, 	100, 	120, 	40, 	0, 0x64, 0 },
+  { TEXT_CreateIndirect, 	"°C",        	ID_TEXT_1_U, 	690, 	100, 	80, 	40, 	0, 0x64, 0 }, 
+  { TEXT_CreateIndirect, 	"酸碱度口",     ID_TEXT_2, 		70, 	150, 	120, 	40, 	0, 0x64, 0 },
+  { TEXT_CreateIndirect, 	"",        		ID_TEXT_2_D,	140, 	150, 	120, 	40, 	0, 0x64, 0 },
+  { TEXT_CreateIndirect, 	"NA",        	ID_TEXT_2_U, 	290,	150, 	80, 	40, 	0, 0x64, 0 }, 
+  { TEXT_CreateIndirect, 	"氧化还原",     ID_TEXT_3, 		470,	150, 	120, 	40, 	0, 0x64, 0 },
+  { TEXT_CreateIndirect, 	"",        		ID_TEXT_3_D,	540, 	150, 	120, 	40, 	0, 0x64, 0 },
+  { TEXT_CreateIndirect, 	"mv",        	ID_TEXT_3_U, 	690,	150, 	80, 	40, 	0, 0x64, 0 }, 
+  { TEXT_CreateIndirect, 	"电导率口",    	ID_TEXT_4, 		70, 	200, 	120, 	40, 	0, 0x64, 0 },
+  { TEXT_CreateIndirect, 	"",        		ID_TEXT_4_D,	140, 	200, 	120, 	40, 	0, 0x64, 0 },
+  { TEXT_CreateIndirect, 	"uS/cm",       	ID_TEXT_4_U, 	290,	200, 	80, 	40, 	0, 0x64, 0 }, 
+  { TEXT_CreateIndirect, 	"电阻率口",    	ID_TEXT_5, 		470,	200, 	120, 	40, 	0, 0x64, 0 },
+  { TEXT_CreateIndirect, 	"",        		ID_TEXT_5_D,	540, 	200, 	120, 	40, 	0, 0x64, 0 },
+  { TEXT_CreateIndirect, 	"O.cm",        	ID_TEXT_5_U, 	690,	200, 	80, 	40, 	0, 0x64, 0 }, 
+  { TEXT_CreateIndirect, 	"盐度",        	ID_TEXT_6, 		70, 	250, 	120, 	40, 	0, 0x64, 0 },
+  { TEXT_CreateIndirect, 	"",        		ID_TEXT_6_D,	140, 	250, 	120, 	40, 	0, 0x64, 0 },
+  { TEXT_CreateIndirect, 	"PSU",        	ID_TEXT_6_U, 	290,	250, 	80, 	40, 	0, 0x64, 0 }, 
+  { TEXT_CreateIndirect, 	"溶解固体",     ID_TEXT_7, 		470,	250, 	120, 	40, 	0, 0x64, 0 },
+  { TEXT_CreateIndirect, 	"",        		ID_TEXT_7_D,	540, 	250, 	120, 	40, 	0, 0x64, 0 },
+  { TEXT_CreateIndirect, 	"mg/L",        	ID_TEXT_7_U, 	690,	250, 	80, 	40, 	0, 0x64, 0 }, 
+  { TEXT_CreateIndirect, 	"溶解氧口",    	ID_TEXT_8, 		70, 	300, 	120, 	40, 	0, 0x64, 0 },
+  { TEXT_CreateIndirect, 	"",        		ID_TEXT_8_D,	140, 	300, 	120, 	40, 	0, 0x64, 0 },
+  { TEXT_CreateIndirect, 	"mg/L",        	ID_TEXT_8_U, 	290,	300, 	80, 	40, 	0, 0x64, 0 }, 
+  { TEXT_CreateIndirect, 	"深度",        	ID_TEXT_9, 		470,	300, 	120, 	40, 	0, 0x64, 0 },
+  { TEXT_CreateIndirect, 	"",        		ID_TEXT_9_D,	540, 	300, 	120, 	40, 	0, 0x64, 0 },
+  { TEXT_CreateIndirect, 	"cm",        	ID_TEXT_9_U, 	690,	300, 	80, 	40, 	0, 0x64, 0 }, 
+  { TEXT_CreateIndirect, 	"硝氮",        	ID_TEXT_10, 	70, 	350, 	120, 	40, 	0, 0x64, 0 },
+  { TEXT_CreateIndirect, 	"",        		ID_TEXT_10_D,	140, 	350, 	120, 	40, 	0, 0x64, 0 },
+  { TEXT_CreateIndirect, 	"mg/L",        	ID_TEXT_10_U, 	290,	350, 	80, 	40, 	0, 0x64, 0 }, 
+  { TEXT_CreateIndirect, 	"铵氮",        	ID_TEXT_11, 	470,	350, 	120, 	40, 	0, 0x64, 0 },
+  { TEXT_CreateIndirect, 	"",        		ID_TEXT_11_D,	540, 	350, 	120, 	40, 	0, 0x64, 0 },
+  { TEXT_CreateIndirect, 	"mg/L",        	ID_TEXT_11_U, 	690,	350, 	80, 	40, 	0, 0x64, 0 }, 
   { TEXT_CreateIndirect, 	"",        	ID_TEXT_TIME, 	20,	450, 	300, 	30, 	0, 0x64, 0 }, 
+  { TEXT_CreateIndirect, 	"",        	ID_TEXT_VER, 	720,	450, 	300, 	30, 	0, 0x64, 0 }, 
   // USER START (Optionally insert additional widgets)
   // USER END
 };
@@ -155,7 +164,7 @@ static const GUI_WIDGET_CREATE_INFO _aDialogCreate[] = {
 *
 **********************************************************************
 */
-
+#define ID_IMAGE_0_IMAGE_   99
 #define ID_IMAGE_0_IMAGE_0 0x00
 #define ID_IMAGE_0_IMAGE_1 0x01
 #define ID_IMAGE_0_IMAGE_2 0x02
@@ -170,6 +179,9 @@ extern const unsigned char _acethok[682UL + 1];
 static const void * _GetImageById(U32 Id, U32 * pSize) {
   switch (Id) 
   {
+//    case ID_IMAGE_0_IMAGE_:
+//      *pSize = sizeof(_acbkg);
+//      return (const void *)_acbkg;    
     case ID_IMAGE_0_IMAGE_0:
       *pSize = sizeof(_aclogop);
       return (const void *)_aclogop;
@@ -192,15 +204,20 @@ static const void * _GetImageById(U32 Id, U32 * pSize) {
 static void gui_sprint(char* dbuf,uint32_t data,uint16_t dn)
 {
     float   temp;
-    if(dn>1)
+    if(dn==100)
     {
         temp = (float)data/dn;
-        sprintf(dbuf,"%7.2f",temp);
+        sprintf(dbuf,"%.2f",temp);
+    }
+    else if(dn==10)
+    {
+        temp = (float)data/dn;
+        sprintf(dbuf,"%.1f",temp);
     }
     else
     {
         temp = data;
-        sprintf(dbuf,"%7d",(uint32_t)temp);
+        sprintf(dbuf,"%d",(uint32_t)temp);
     }
 }
 
@@ -216,6 +233,21 @@ static void gui_print_time(WM_MESSAGE * pMsg)
     TEXT_SetText(hitem, dbuf);
 }
 
+static void gui_ver(WM_MESSAGE * pMsg)
+{
+    WM_HWIN hitem;
+    uint32_t main_ver,sub_ver;
+    char    dbuf[32];   
+
+    main_ver = SOFTWARE_VER>>16;
+    sub_ver = SOFTWARE_VER&0x0000ffff;  
+    hitem = WM_GetDialogItem(pMsg->hWin, ID_TEXT_VER);
+    TEXT_SetTextColor(hitem, (0x00FFFFFF));
+    TEXT_SetTextAlign(hitem, GUI_TA_LEFT | GUI_TA_VCENTER);
+    TEXT_SetFont(hitem,&GUI_Font20_1);	  
+    sprintf(dbuf,"V%d.%d",main_ver,sub_ver);
+    TEXT_SetText(hitem, dbuf);
+}
 
 static void gui_dupdate(WM_MESSAGE * pMsg)
 {
@@ -223,8 +255,7 @@ static void gui_dupdate(WM_MESSAGE * pMsg)
     WM_HWIN hitem;
     char dbuf[32];
     static char i=0;
-  
-//    GUI_MEMDEV_Select(hMemdev);
+
     for(i=0;i<=11;i++)
     {
         hitem = WM_GetDialogItem(pMsg->hWin, (ID_TEXT_0_D+i));
@@ -232,8 +263,8 @@ static void gui_dupdate(WM_MESSAGE * pMsg)
         TEXT_SetText(hitem, dbuf);
         GUI_Exec();
     }
-    gui_print_time(pMsg);    
-//    GUI_MEMDEV_Select(0);
+    gui_print_time(pMsg); 
+    GUI_Exec();
 }
 
 static void icon_update(WM_MESSAGE * pMsg)
@@ -268,7 +299,7 @@ static void icon_update(WM_MESSAGE * pMsg)
         else
             pData = _GetImageById(ID_IMAGE_0_IMAGE_4, &FileSize);
         IMAGE_SetPNG(hitem, pData, FileSize);
-    }    
+    }
 }
 
 static void gui_img_init(WM_MESSAGE * pMsg)
@@ -280,7 +311,20 @@ static void gui_img_init(WM_MESSAGE * pMsg)
   
     hItem = pMsg->hWin;
     WINDOW_SetBkColor(hItem, GUI_LIGHTBLUE);
-      
+//    GUI_Clear();
+//    GUI_SetColor(GUI_GREEN);
+//    GUI_DrawHLine(20, 0, 700);
+//    hItem = WM_GetDialogItem(pMsg->hWin, ID_WINDOW_1);
+//    WINDOW_SetBkColor(hItem, 0x00FFFFFF);
+
+//    hItem = WM_GetDialogItem(pMsg->hWin, ID_WINDOW_2);
+//    WINDOW_SetBkColor(hItem, 0x00FFFFFF);  
+//    GUI_FillRect(80,120,160,200);
+  
+//    hItem = WM_GetDialogItem(pMsg->hWin, ID_IMAGE_);
+//    pData = _GetImageById(ID_IMAGE_0_IMAGE_0, &FileSize);
+//    IMAGE_SetPNG(hItem, pData, FileSize);
+  
     hItem = WM_GetDialogItem(pMsg->hWin, ID_IMAGE_0);
     pData = _GetImageById(ID_IMAGE_0_IMAGE_0, &FileSize);
     IMAGE_SetPNG(hItem, pData, FileSize);
@@ -307,7 +351,7 @@ static void gui_text_init(WM_MESSAGE * pMsg)
     for(i=ID_TEXT_0;i<=ID_TEXT_11;i=i+2)
     {
         hItem = WM_GetDialogItem(pMsg->hWin, i);
-        TEXT_SetTextColor(hItem, (0x00FFFFFF));
+        TEXT_SetTextColor(hItem, (GUI_WHITE));
         TEXT_SetTextAlign(hItem, GUI_TA_LEFT | GUI_TA_VCENTER);
         TEXT_SetFont(hItem,&GUI_Fontyouyuan24);		
     }	
@@ -315,8 +359,8 @@ static void gui_text_init(WM_MESSAGE * pMsg)
     for(i=ID_TEXT_0_D;i<=ID_TEXT_11_D;i++)
     {
         hItem = WM_GetDialogItem(pMsg->hWin, i);
-        TEXT_SetTextColor(hItem, (0x00FFFFFF));
-        TEXT_SetTextAlign(hItem, GUI_TA_LEFT | GUI_TA_VCENTER);
+        TEXT_SetTextColor(hItem, (GUI_LIGHTYELLOW));
+        TEXT_SetTextAlign(hItem, GUI_TA_RIGHT | GUI_TA_VCENTER);
 //        TEXT_SetWrapMode(hItem,GUI_WRAPMODE_WORD);
         TEXT_SetFont(hItem,&GUI_Font24_1);		
     }  
@@ -324,7 +368,7 @@ static void gui_text_init(WM_MESSAGE * pMsg)
     for(i=ID_TEXT_0_U;i<=ID_TEXT_11_U;i=i+2)
     {
         hItem = WM_GetDialogItem(pMsg->hWin, i);
-        TEXT_SetTextColor(hItem, (0x00FFFFFF));
+        TEXT_SetTextColor(hItem, GUI_WHITE);
         TEXT_SetTextAlign(hItem, GUI_TA_LEFT | GUI_TA_VCENTER);
         TEXT_SetFont(hItem,&GUI_Font24_1);		
     }   
@@ -333,6 +377,8 @@ static void gui_text_init(WM_MESSAGE * pMsg)
     TEXT_SetTextColor(hItem, (0x00FFFFFF));
     TEXT_SetTextAlign(hItem, GUI_TA_LEFT | GUI_TA_VCENTER);
     TEXT_SetFont(hItem,&GUI_Font20_1);	
+    
+    gui_ver(pMsg);
 }
 
 /*********************************************************************
