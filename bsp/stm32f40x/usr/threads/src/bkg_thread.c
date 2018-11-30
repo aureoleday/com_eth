@@ -33,7 +33,7 @@ void bkg_thread_entry(void* parameter)
     
 //    touch_timer_init();
  
-    watchdog_init();
+//    watchdog_init();
 		
 		while(1)
 		{

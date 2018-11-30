@@ -85,7 +85,7 @@ static rt_err_t spitxrx1b(struct stm32_spi *hspi, void *rcvb, const void *sndb)
     while (SPI_I2S_GetFlagStatus(hspi->Instance, SPI_I2S_FLAG_TXE) == RESET)
         ;
     SPISEND_1(hspi->Instance->DR, sndb, hspi->cfg->data_width);
-    while (SPI_I2S_GetFlagStatus(hspi->Instance, SPI_I2S_FLAG_TXE) == RESET)
+    while (SPI_I2S_GetFlagStatus(hspi->Instance, SPI_I2S_FLAG_RXNE) == RESET)
         ;
     SPIRECV_1(hspi->Instance->DR, rcvb, hspi->cfg->data_width);
     return RT_EOK;
@@ -198,8 +198,8 @@ void lc_SPI2_Setclock(u8 SPI_Prescaler)
 {
   assert_param(IS_SPI_BAUDRATE_PRESCALER(SPI_Prescaler));
 	SPI2->CR1&=0XFFC7;                           //先将bit3-5清零 
-	SPI2->CR1|=SPI_Prescaler;	                   //设置SPI1速度 
-	SPI_Cmd(SPI2,ENABLE);                        //使能SPI1
+	SPI2->CR1|=SPI_Prescaler;	                   //设置SPI2速度 
+	SPI_Cmd(SPI2,ENABLE);                        //使能SPI2
 } 
 
 
@@ -256,7 +256,7 @@ void HAL_SPI_MspInit(void)
     lc_SPI1_Init();
     lc_SPI1_Setclock(SPI_BaudRatePrescaler_2);
     lc_SPI2_Init();
-    lc_SPI2_Setclock(SPI_BaudRatePrescaler_2);  
+    lc_SPI2_Setclock(SPI_BaudRatePrescaler_8);  
 }
 
 void HAL_SPI_MspDeInit(void)
