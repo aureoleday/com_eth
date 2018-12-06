@@ -46,6 +46,7 @@ static rt_uint8_t mbm_fsm_stack[ 512 ];
 static rt_uint8_t lcd_stack[ 4096 ];
 static rt_uint8_t bkg_stack[ 512 ];
 static rt_uint8_t test_stack[ 512 ];
+static rt_uint8_t geo_stack[ 512 ];
 
 static struct rt_thread tcpclient_thread;
 static struct rt_thread cmd_thread;
@@ -54,6 +55,7 @@ static struct rt_thread mbm_fsm_thread;
 static struct rt_thread lcd_thread;
 static struct rt_thread bkg_thread;
 static struct rt_thread test_thread;
+static struct rt_thread geo_thread;
 
 void rt_init_thread_entry(void* parameter)
 {
@@ -112,45 +114,58 @@ int rt_application_init()
         rt_thread_startup(&cmd_thread);
     }    
 
-    result = rt_thread_init(&mbm_thread,
-                            "th_mbm",
-                            mbm_thread_entry,
-                            RT_NULL,
-                            (rt_uint8_t*)&mbm_stack[0],
-                            sizeof(mbm_stack),
-                            MBM_THREAD_PRIO,
-                            5);
-    if (result == RT_EOK)
-    {
-        rt_thread_startup(&mbm_thread);
-    }    
+//    result = rt_thread_init(&mbm_thread,
+//                            "th_mbm",
+//                            mbm_thread_entry,
+//                            RT_NULL,
+//                            (rt_uint8_t*)&mbm_stack[0],
+//                            sizeof(mbm_stack),
+//                            MBM_THREAD_PRIO,
+//                            5);
+//    if (result == RT_EOK)
+//    {
+//        rt_thread_startup(&mbm_thread);
+//    }    
     
-    result = rt_thread_init(&mbm_fsm_thread,
-                            "th_mbm_fsm",
-                            mbm_fsm_thread_entry,
-                            RT_NULL,
-                            (rt_uint8_t*)&mbm_fsm_stack[0],
-                            sizeof(mbm_fsm_stack),
-                            MBM_FSM_THREAD_PRIO,
-                            5);
-    if (result == RT_EOK)
-    {
-        rt_thread_startup(&mbm_fsm_thread);
-    }
+//    result = rt_thread_init(&mbm_fsm_thread,
+//                            "th_mbm_fsm",
+//                            mbm_fsm_thread_entry,
+//                            RT_NULL,
+//                            (rt_uint8_t*)&mbm_fsm_stack[0],
+//                            sizeof(mbm_fsm_stack),
+//                            MBM_FSM_THREAD_PRIO,
+//                            5);
+//    if (result == RT_EOK)
+//    {
+//        rt_thread_startup(&mbm_fsm_thread);
+//    }
 
-    result = rt_thread_init(&lcd_thread,
-                            "th_lcd",
-                            lcd_thread_entry,
+//    result = rt_thread_init(&lcd_thread,
+//                            "th_lcd",
+//                            lcd_thread_entry,
+//                            RT_NULL,
+//                            (rt_uint8_t*)&lcd_stack[0],
+//                            sizeof(lcd_stack),
+//                            LCD_THREAD_PRIO,
+//                            5);
+//    if (result == RT_EOK)
+//    {
+//        rt_thread_startup(&lcd_thread);
+//    }	   
+    
+    result = rt_thread_init(&geo_thread,
+                            "th_geo",
+                            geo_thread_entry,
                             RT_NULL,
-                            (rt_uint8_t*)&lcd_stack[0],
-                            sizeof(lcd_stack),
-                            LCD_THREAD_PRIO,
+                            (rt_uint8_t*)&geo_stack[0],
+                            sizeof(geo_stack),
+                            GEO_THREAD_PRIO,
                             5);
     if (result == RT_EOK)
     {
-        rt_thread_startup(&lcd_thread);
-    }	   
-    
+        rt_thread_startup(&geo_thread);
+    }	    
+
     result = rt_thread_init(&bkg_thread,
                             "th_bkg",
                             bkg_thread_entry,

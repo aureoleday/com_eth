@@ -31,7 +31,7 @@ enum
 
 #define CMD_FRAME_OVSIZE                3
 
-#define CMD_RTX_BUF_DEPTH 					    256
+#define CMD_RTX_BUF_DEPTH 					    512
 #define CMD_FSM_TIMEOUT	 					      2
 
 #define CMD_FRAME_TAG_M_SYNC 			      0x1bdf9bdf
@@ -47,6 +47,7 @@ enum
 #define CMD_RD_SER        0x0003
 #define CMD_WR_SER        0x0004
 #define CMD_RP_PKG        0x0080
+#define CMD_RP_GEO        0x0100
 
 fifo32_cb_td cmd_rx_fifo;
 fifo32_cb_td cmd_tx_fifo;
@@ -110,6 +111,12 @@ static void cmd_timeout(void* parameter)
     report_data();
 }
 
+static void geo_timeout(void* parameter)
+{
+    uint16_t report_geo_data(void);
+    report_geo_data();
+}
+
 /**
   * @brief   sample interval timer initialization, expires in 6 miliseconds pieriod
   * @param  none
@@ -129,6 +136,20 @@ static uint16_t	cmd_timer_init(void)
 		return 1;
 }
 
+rt_timer_t tm_geo_repo;
+static uint16_t	geo_timer_init(void)
+{   
+    extern sys_reg_st  g_sys; 
+//		rt_timer_t tm_tcp_repo;
+		tm_geo_repo = rt_timer_create("tm_geo_repo", 
+									geo_timeout, 
+									RT_NULL,
+									(g_sys.conf.geo.geo_period),
+									RT_TIMER_FLAG_PERIODIC); 
+		rt_timer_start(tm_geo_repo);
+		return 1;
+}
+
 
 /**
   * @brief  cmd uart send interface
@@ -140,6 +161,7 @@ void cmd_dev_init(void)
 {
 		cmd_buf_init();
     cmd_timer_init();
+    geo_timer_init();
 }
 
 /**
@@ -652,6 +674,45 @@ uint16_t report_data(void)
         return 0;
     
     cmd_reg_inst.tx_cmd	= CMD_RP_PKG;
+    cmd_reg_inst.tx_cnt = rd_cnt;
+    cmd_reg_inst.tx_errcode = err_code;
+		cmd_response();
+		return err_code;
+}
+
+static int16_t get_geo_data(uint32_t * buf_ptr)
+{
+    extern fifo32_cb_td geo_rx_fifo;
+    uint32_t temp;
+    uint16_t i;
+    uint16_t fifo_len;
+  
+    fifo_len = get_fifo32_length(&geo_rx_fifo);
+  
+    for(i=0;i<fifo_len;i++)
+    {
+        fifo32_pop(&geo_rx_fifo,&temp);
+        *(buf_ptr+i) = temp;
+    }  
+    return fifo_len;
+}
+
+uint16_t report_geo_data(void)
+{
+    extern sys_reg_st	  g_sys;
+		uint8_t err_code;
+		uint16_t rd_cnt;
+	
+    err_code = CMD_ERR_NOERR;
+    if(bit_op_get(g_sys.stat.gen.status_bm,GBM_TCP) == 0)
+        return CMD_NOT_READY;
+  
+    rd_cnt = get_geo_data(&cmd_reg_inst.tx_buf[FRAME_D_AL_POS]);
+    
+    if(rd_cnt == 0)
+        return 0;
+    
+    cmd_reg_inst.tx_cmd	= CMD_RP_GEO;
     cmd_reg_inst.tx_cnt = rd_cnt;
     cmd_reg_inst.tx_errcode = err_code;
 		cmd_response();

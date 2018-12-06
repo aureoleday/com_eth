@@ -2,7 +2,7 @@
 #include "sys_conf.h"
 #include <rtdevice.h>
 #include "drv_led.h"
-#include "touch.h"
+
 
 /**
   * @brief 	
@@ -17,8 +17,8 @@ void test_thread_entry(void* parameter)
     
 //    rt_pin_mode(74,0); 
 //    rt_pin_mode(28,0); 
-//    rt_pin_mode(29,0);
-  
+//    rt_pin_mode(29,0);    
+    
 		while(1)
 		{        
         rt_thread_delay(1000);

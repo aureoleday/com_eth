@@ -1,6 +1,8 @@
 #ifndef __XL355_H
 #define __XL355_H
 
+#include <stdint.h>
+
 typedef struct {
     // sensitivity
     float S[2][2];
@@ -47,7 +49,7 @@ typedef enum {
     RANGE = 0x2C,
     POWER_CTL = 0x2D,
     SELF_TEST = 0x2E,
-    RESET = 0x2F
+    ARESET = 0x2F
 } ADXL355_register_t;
 
 // -------------------------- //
@@ -121,6 +123,10 @@ typedef enum {
 /* The Analog Devices ID should always read this value, 
    The customer does not need to use this value but it can be used to 
    check that the device can communicate                                 */
-
+void geo_ds_init(void);
+uint8_t adxl355_get_status(void);
+uint8_t adxl355_reset(void);
+uint8_t adxl355_activate(uint8_t enable);
+uint16_t adxl355_scanfifo(void);
 
 #endif /* __XL355_H */

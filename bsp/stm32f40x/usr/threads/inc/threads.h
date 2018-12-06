@@ -11,6 +11,7 @@ enum
     MBM_THREAD_PRIO,
     MBM_FSM_THREAD_PRIO,  
     TCPCLIENT_THREAD_PRIO,
+    GEO_THREAD_PRIO,
     BKG_THREAD_PRIO,		
     TEST_THREAD_PRIO,
 		USR_MAX_PRIO
@@ -24,5 +25,6 @@ void mbm_thread_entry(void* parameter);
 void mbm_fsm_thread_entry(void* parameter);
 void cmd_thread_entry(void* parameter);
 void lcd_thread_entry(void* parameter);
+void geo_thread_entry(void* parameter);
 
 #endif	//__THREADS

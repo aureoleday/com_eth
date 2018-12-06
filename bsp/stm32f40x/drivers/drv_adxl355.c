@@ -4,13 +4,20 @@
 #include "drv_adxl355.h"
 #include "fifo.h"
 
-#define DEV_GEO_RTX_SIZE    8
-#define DEV_GEO_FIFO_SIZE   128
+#define DEV_GEO_RTX_SIZE    2048
+#define DEV_GEO_FIFO_SIZE   256
 //const static float t_sens = -9.05;    
 //const static float t_bias = 1852;  
 
 fifo32_cb_td geo_rx_fifo;
-static uint8_t rxd_temp[512];
+static uint8_t rxd_temp[DEV_GEO_RTX_SIZE];
+
+typedef struct
+{
+    uint32_t  x;
+    uint32_t  y;
+    uint32_t  z;
+}geo_loc_st;
 
 struct spi_geo_device
 {
@@ -26,7 +33,7 @@ struct spi_geo_device
 
 struct spi_geo_device spi_geo_device;
 
-static void geo_ds_init(void)
+void geo_ds_init(void)
 {
     fifo32_init(&geo_rx_fifo,1,DEV_GEO_FIFO_SIZE);
 }
@@ -46,14 +53,13 @@ rt_err_t adxl_wr_reg(uint8_t addr, uint8_t* data, uint8_t cnt)
 
 uint8_t adxl_rd_reg(uint8_t addr, uint8_t * rx_buf, uint8_t cnt)
 {  
-    rt_err_t ret;
     uint8_t i;
     spi_geo_device.txd[0] = (addr<<1)|0x01;  
     for(i=0;i<cnt;i++)
     {
         spi_geo_device.txd[1+i] = 0;
     }
-    ret = rt_spi_transfer(spi_geo_device.rt_spi_device,spi_geo_device.txd,rx_buf,(cnt+1));
+    rt_spi_transfer(spi_geo_device.rt_spi_device,spi_geo_device.txd,rx_buf,(cnt+1));
     return *(rx_buf+1);
 }
 
@@ -137,29 +143,46 @@ uint16_t adxl355_scant(){
     return ret;
 }
 
-uint16_t adxl355_scanfifo(void){
-
+uint16_t adxl355_scanfifo(void)
+{
     uint16_t ret;
     uint16_t i;
-    uint32_t total_cnt;  
+    uint16_t total_cnt;  
     uint8_t  sample_cnt;
     uint32_t buf_temp;
+    uint8_t status;
   
-    sample_cnt = adxl_rd_reg(FIFO_SAMPLES,rxd_temp,1);
+    status = adxl_rd_reg(STATUS,rxd_temp,1);
+    if((status&0x6) != 0)
+        rt_kprintf("adxl_fifo fuov!\n");
+    
+    sample_cnt = adxl_rd_reg(FIFO_ENTRIES,rxd_temp,1);
+    
     total_cnt = sample_cnt*3*3;
   
     if(rxd_temp[1] > 0)
     {
-        total_cnt = rxd_temp[1]*3*3;
         adxl_rd_reg(FIFO_DATA, rxd_temp, total_cnt);
     }
     
     for(i=0;i<sample_cnt;i++)
     {
-        buf_temp = (rxd_temp[1+i]<<16)|(rxd_temp[2+i]<<8)|(rxd_temp[3+i]);
-        fifo32_push(&geo_rx_fifo,&buf_temp);
+        buf_temp = (rxd_temp[1+i*3]<<16)|(rxd_temp[2+i*3]<<8)|(rxd_temp[3+i*3]);
+        if(fifo32_push(&geo_rx_fifo,&buf_temp) == 0)
+            rt_kprintf("geo fifo full\n");
     }
     return ret;
+}
+
+static void fifo_peak(uint16_t cnt)
+{
+    uint16_t i;
+    uint32_t temp;
+    for(i=0;i<cnt;i++)
+    {
+        fifo32_pop(&geo_rx_fifo,&temp);
+        rt_kprintf("d: %x\n",temp);
+    }
 }
 
 /** ----------------------------------- */
@@ -197,12 +220,34 @@ void adxl355_set_inactivity(void)
     adxl_wr_reg(ACT_EN, &temp,1); 
 }
 
+
+uint8_t adxl355_reset(void)
+{
+    uint8_t buf;
+    buf = 0x52;
+    adxl_wr_reg(ARESET,&buf,1);
+    return 0;
+}
+
+uint8_t adxl355_activate(uint8_t enable)
+{
+    uint8_t buf;
+    if(enable)
+        buf = 0;
+    else
+    {
+        buf =  1;
+        fifo32_reset(&geo_rx_fifo);
+    }
+    adxl_wr_reg(POWER_CTL,&buf,1);
+    
+    return 0;
+}
+
 int adxl355_init(void)
 {
     struct rt_spi_device * rt_spi_device;
-    char spi_device_name[] = "geo_spi";
-      
-    geo_ds_init();
+    char spi_device_name[] = "geo_spi";    
   
     stm32_spi_bus_attach_device(RT_GEO_CS_PIN, RT_GEO_SPI_BUS_NAME, spi_device_name);
   
@@ -219,9 +264,11 @@ int adxl355_init(void)
         struct rt_spi_configuration cfg;
         cfg.data_width = 8;
         cfg.mode = RT_SPI_MODE_0 | RT_SPI_MSB; /* SPI Compatible: Mode 0 and Mode 3 */
-        cfg.max_hz = 10 * 1000 * 1000; /* 50M */
+        cfg.max_hz = 40 * 1000 * 1000; /* 50M */
         rt_spi_configure(spi_geo_device.rt_spi_device, &cfg);
     }
+    
+    geo_ds_init();
     return RT_EOK;
 }
 
@@ -233,40 +280,18 @@ static void ad_wr_reg(uint8_t addr, uint8_t data)
 
 static void ad_rd_reg(uint8_t addr,uint8_t cnt)
 {
-    uint8_t data[8];
+    uint8_t data[16];
     uint8_t i;
     adxl_rd_reg(addr,data,cnt);
+    rt_kprintf("reg : value\n");
     for(i=0;i<cnt;i++)
     {
-        rt_kprintf("reg %x: %x:\n",(addr+i),data[i+1]);
+        rt_kprintf(" %x  : %x\n",(addr+i),data[i+1]);
     }  
 }
 
-//static void ad_rtx(uint8_t addr,uint8_t data,uint8_t rx_len,uint8_t rw)
-//{
-//    uint8_t tx_buf[8];
-//    uint8_t rx_buf[8];
-//    uint8_t tx_len,i;
-//  
-//    tx_buf[0] = ((addr<<1)|rw);
-//    tx_buf[1] = data;
-//    
-//    if(rw == 0)
-//        tx_len = 2;
-//    else
-//        tx_len = 1;    
-//  
-//    rt_spi_send_then_recv(spi_geo_device.rt_spi_device,tx_buf,tx_len,rx_buf,rx_len);
-//    
-//    rt_kprintf("reg %x:\n",addr);
-//    for(i=0;i<rx_len;i++)
-//    {
-//        rt_kprintf("%d: %x:\n",i,rx_buf[i]);
-//    }  
-//}
-
-
 INIT_DEVICE_EXPORT(adxl355_init);
-//FINSH_FUNCTION_EXPORT(ad_rtx, spi test.);
+FINSH_FUNCTION_EXPORT(adxl355_scanfifo, scan fifo.);
+FINSH_FUNCTION_EXPORT(fifo_peak, peak fifo content.);
 FINSH_FUNCTION_EXPORT(ad_wr_reg, geo spi reg wr.);
 FINSH_FUNCTION_EXPORT(ad_rd_reg, geo spi reg rd.);

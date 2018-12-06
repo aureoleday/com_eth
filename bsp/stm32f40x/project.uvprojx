@@ -1414,6 +1414,11 @@
               <FileType>1</FileType>
               <FilePath>.\usr\threads\src\test_thread.c</FilePath>
             </File>
+            <File>
+              <FileName>geo_thread.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\usr\threads\src\geo_thread.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

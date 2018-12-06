@@ -5,6 +5,7 @@
 #include "global_var.h"
 #include "usr_init.h"
 #include "plc.h"
+#include "drv_adxl355.h"
 
 extern    sys_reg_st					g_sys; 
 //
@@ -73,6 +74,23 @@ uint16_t tcp_timer_opt(uint32_t pram)
     uint32_t period;
     period = pram*RT_TICK_PER_SECOND;
     rt_timer_control(tm_tcp_repo,RT_TIMER_CTRL_SET_TIME,(void*)&period);
+    return 1;
+}
+
+
+uint16_t geo_timer_opt(uint32_t pram)
+{
+    extern rt_timer_t tm_geo_repo;
+    uint32_t period;
+    period = pram;
+    rt_timer_control(tm_geo_repo,RT_TIMER_CTRL_SET_TIME,(void*)&period);
+    return 1;
+}
+
+uint16_t geo_pwr_opt(uint32_t pram)
+{
+    uint8_t enable = pram;
+    adxl355_activate(enable);
     return 1;
 }
 

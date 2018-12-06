@@ -6,6 +6,7 @@
 //application delay
 #define		CMD_THREAD_DELAY            400
 #define		BKG_THREAD_DELAY            700
+#define		GEO_THREAD_DELAY            800
 #define		LCD_THREAD_DELAY            300
 #define		TCPCLIENT_THREAD_DELAY      600
 #define		TEST_THREAD_DELAY		        800
@@ -46,9 +47,16 @@ typedef struct
 
 typedef struct
 {
+    uint32_t    geo_en;
+    uint32_t    geo_period;
+}conf_geo_st;
+
+typedef struct
+{
     conf_gen_st       gen;
     conf_mbm_st       mbm;
     conf_eth_st       eth;
+    conf_geo_st       geo;
 }config_st;
 
 
