@@ -60,7 +60,7 @@ void Clear_Screen(void)
 void Draw_Point(u16 x,u16 y,u16 color)
 {	    	
 	u8 i=0;
-  u16 color_temp;
+//  u16 color_temp;
   
 //  color_temp = BRUSH_COLOR;
 	BRUSH_COLOR=color;

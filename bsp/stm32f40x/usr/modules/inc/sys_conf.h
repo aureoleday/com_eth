@@ -21,6 +21,7 @@ typedef struct
 
 typedef struct
 {
+    uint32_t 	  enable;
     uint32_t 		baudrate;
     uint32_t    sample_period;
     uint32_t 		dev_bitmap_holding;         //0: disable; 1:enable

@@ -156,27 +156,27 @@ static void  int_test(int x_exp, int y_exp)
     dst_ysize = y_size * y_exp - (y_exp - 1) ;
   
     rt_kprintf("src\n");
-    print_mat(&arr_test[0],x_size,y_size);
-  
-    expansion(&arr_test[0],&int_buf[0],x_size,y_size,x_exp,y_exp);  
+    print_mat(arr_test,x_size,y_size);
+ 
+    expansion(arr_test,int_buf,x_size,y_size,x_exp,y_exp);  
     rt_kprintf("dest, %d x %d\n",dst_xsize,dst_ysize);
-    print_mat(&int_buf[0],dst_xsize,dst_ysize);
-//    print_mat_ex(&int_buf[0],dst_xsize,dst_ysize);
+    print_mat(int_buf,dst_xsize,dst_ysize);
+//    print_mat_ex(int_buf,dst_xsize,dst_ysize);
     
     rt_kprintf("intp_mat, axis= 0\n");
-    cal_mat(&int_buf[0],dst_xsize,dst_ysize,0);
-    print_mat(&int_buf[0],dst_xsize,dst_ysize);  
+    cal_mat(int_buf,dst_xsize,dst_ysize,0);
+    print_mat(int_buf,dst_xsize,dst_ysize);  
     
-    expansion(&arr_test[0],&int_buf[0],x_size,y_size,x_exp,y_exp);
+    expansion(arr_test,int_buf,x_size,y_size,x_exp,y_exp);
     rt_kprintf("intp_mat, axis= 1\n");
-    cal_mat(&int_buf[0],dst_xsize,dst_ysize,1);
-    print_mat(&int_buf[0],dst_xsize,dst_ysize);      
+    cal_mat(int_buf,dst_xsize,dst_ysize,1);
+    print_mat(int_buf,dst_xsize,dst_ysize);      
     
-    expansion(&arr_test[0],&int_buf[0],x_size,y_size,x_exp,y_exp);
-    expansion(&arr_test[0],&int_buf_d[0],x_size,y_size,x_exp,y_exp); 
+    expansion(arr_test,int_buf,x_size,y_size,x_exp,y_exp);
+    expansion(arr_test,int_buf_d,x_size,y_size,x_exp,y_exp); 
     rt_kprintf("bilin_mat\n");
-    bilin_calc(&int_buf[0],&int_buf_d[0],dst_xsize,dst_ysize);
-    print_mat(&int_buf[0],dst_xsize,dst_ysize);  
+    bilin_calc(int_buf,int_buf_d,dst_xsize,dst_ysize);
+    print_mat(int_buf,dst_xsize,dst_ysize);  
 }
 
 #ifdef RT_USING_FINSH

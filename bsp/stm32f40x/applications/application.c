@@ -130,44 +130,44 @@ int rt_application_init()
         rt_thread_startup(&cmd_thread);
     }    
 
-//    result = rt_thread_init(&mbm_thread,
-//                            "th_mbm",
-//                            mbm_thread_entry,
-//                            RT_NULL,
-//                            (rt_uint8_t*)&mbm_stack[0],
-//                            sizeof(mbm_stack),
-//                            MBM_THREAD_PRIO,
-//                            5);
-//    if (result == RT_EOK)
-//    {
-//        rt_thread_startup(&mbm_thread);
-//    }    
+    result = rt_thread_init(&mbm_thread,
+                            "th_mbm",
+                            mbm_thread_entry,
+                            RT_NULL,
+                            (rt_uint8_t*)&mbm_stack[0],
+                            sizeof(mbm_stack),
+                            MBM_THREAD_PRIO,
+                            5);
+    if (result == RT_EOK)
+    {
+        rt_thread_startup(&mbm_thread);
+    }    
     
-//    result = rt_thread_init(&mbm_fsm_thread,
-//                            "th_mbm_fsm",
-//                            mbm_fsm_thread_entry,
-//                            RT_NULL,
-//                            (rt_uint8_t*)&mbm_fsm_stack[0],
-//                            sizeof(mbm_fsm_stack),
-//                            MBM_FSM_THREAD_PRIO,
-//                            5);
-//    if (result == RT_EOK)
-//    {
-//        rt_thread_startup(&mbm_fsm_thread);
-//    }
+    result = rt_thread_init(&mbm_fsm_thread,
+                            "th_mbm_fsm",
+                            mbm_fsm_thread_entry,
+                            RT_NULL,
+                            (rt_uint8_t*)&mbm_fsm_stack[0],
+                            sizeof(mbm_fsm_stack),
+                            MBM_FSM_THREAD_PRIO,
+                            5);
+    if (result == RT_EOK)
+    {
+        rt_thread_startup(&mbm_fsm_thread);
+    }
 
-//    result = rt_thread_init(&lcd_thread,
-//                            "th_lcd",
-//                            lcd_thread_entry,
-//                            RT_NULL,
-//                            (rt_uint8_t*)&lcd_stack[0],
-//                            sizeof(lcd_stack),
-//                            LCD_THREAD_PRIO,
-//                            5);
-//    if (result == RT_EOK)
-//    {
-//        rt_thread_startup(&lcd_thread);
-//    }	   
+    result = rt_thread_init(&lcd_thread,
+                            "th_lcd",
+                            lcd_thread_entry,
+                            RT_NULL,
+                            (rt_uint8_t*)&lcd_stack[0],
+                            sizeof(lcd_stack),
+                            LCD_THREAD_PRIO,
+                            5);
+    if (result == RT_EOK)
+    {
+        rt_thread_startup(&lcd_thread);
+    }	   
     
     result = rt_thread_init(&geo_thread,
                             "th_geo",

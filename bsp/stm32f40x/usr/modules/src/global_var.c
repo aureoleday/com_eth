@@ -30,7 +30,7 @@ const conf_reg_map_st conf_reg_map_inst[CONF_REG_MAP_NUM]=
 	{	14,		&g_sys.conf.mbm.dev_bitmap_input,            0,		    0xffffffff,   1,			      0,      NULL   	          },
 	{	15,		&g_sys.conf.mbm.baudrate,   	               1200,    115200,		    9600,			    0,      NULL   	          },
 	{	16,		&g_sys.conf.mbm.sample_period,               0,		    1000000,      1000,			    0,      NULL   	          },
-	{	17,		NULL,                                        0,		    0,				    0,				    0,      NULL   	          },
+	{	17,		&g_sys.conf.mbm.enable,                      0,		    1,				    0,				    0,      NULL   	          },
 	{	18,		NULL,                                        0,		    0,				    0,				    0,      NULL   	          },
 	{	19,		NULL,                                        0,		    0,				    0,				    0,      NULL   	          },   
 	{	20,		&g_sys.conf.geo.geo_en,                      0,		    1,            0,			      0,      geo_pwr_opt       },
