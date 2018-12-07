@@ -64,14 +64,14 @@ void mbm_thread_entry(void* parameter)
 		}
 		while(1)
 		{ 
-//        if(g_sys.conf.mbm.enable == 1)
-//        {
+        if(g_sys.conf.mbm.enable == 1)
+        {
             eStatus = eMBMasterPoll();	
             if(eStatus != MB_ENOERR)
             {
                 rt_kprintf("MBM poll err!\n");
             }
-//        }
+        }
 				rt_thread_delay(10);
 		}
 }
@@ -97,12 +97,12 @@ void mbm_fsm_thread_entry(void* parameter)
     
 		while(1)
 		{		
-//        if(g_sys.conf.mbm.enable == 1)
-//        {
+        if(g_sys.conf.mbm.enable == 1)
+        {
             mbm_reg_holding_update(&mbm_dev_inst);
             mbm_reg_input_update(&mbm_dev_inst);
             mbm_sts_update();
-//        }
+        }
 				rt_thread_delay(g_sys.conf.mbm.sample_period);
 		}
 }
