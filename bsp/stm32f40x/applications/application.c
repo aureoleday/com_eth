@@ -40,6 +40,7 @@
 #include "usr_init.h"
 
 static rt_uint8_t tcpclient_stack[ 2048 ];
+static rt_uint8_t udpsrv_stack[ 1024 ];
 static rt_uint8_t cmd_stack[ 2048 ];
 static rt_uint8_t mbm_stack[ 1024 ];
 static rt_uint8_t mbm_fsm_stack[ 512 ];
@@ -49,6 +50,7 @@ static rt_uint8_t test_stack[ 512 ];
 static rt_uint8_t geo_stack[ 512 ];
 
 static struct rt_thread tcpclient_thread;
+static struct rt_thread udpsrv_thread;
 static struct rt_thread cmd_thread;
 static struct rt_thread mbm_thread;
 static struct rt_thread mbm_fsm_thread;
@@ -100,6 +102,20 @@ int rt_application_init()
     {
         rt_thread_startup(&tcpclient_thread);
     }
+    
+    result = rt_thread_init(&udpsrv_thread,
+                            "th_udp",
+                            udpsrv_thread_entry,
+                            RT_NULL,
+                            (rt_uint8_t*)&udpsrv_stack[0],
+                            sizeof(udpsrv_stack),                              
+                            UDPSRV_THREAD_PRIO,
+                            5);
+
+    if (result == RT_EOK)
+    {
+        rt_thread_startup(&udpsrv_thread);
+    }    
     
     result = rt_thread_init(&cmd_thread,
                             "th_cmd",

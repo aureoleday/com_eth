@@ -1419,6 +1419,11 @@
               <FileType>1</FileType>
               <FilePath>.\usr\threads\src\geo_thread.c</FilePath>
             </File>
+            <File>
+              <FileName>udpsrv_thread.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\usr\threads\src\udpsrv_thread.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1498,6 +1503,11 @@
               <FileName>bit_op.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\usr\kits\src\bit_op.c</FilePath>
+            </File>
+            <File>
+              <FileName>interpolate.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\usr\kits\src\interpolate.c</FilePath>
             </File>
           </Files>
         </Group>

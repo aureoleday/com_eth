@@ -233,11 +233,15 @@ uint8_t adxl355_activate(uint8_t enable)
 {
     uint8_t buf;
     if(enable)
+    {
+//        buf = 0x52;
+//        adxl_wr_reg(ARESET,&buf,1);
+        fifo32_reset(&geo_rx_fifo);
         buf = 0;
+    }
     else
     {
-        buf =  1;
-        fifo32_reset(&geo_rx_fifo);
+        buf =  1;        
     }
     adxl_wr_reg(POWER_CTL,&buf,1);
     

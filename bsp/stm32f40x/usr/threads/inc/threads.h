@@ -11,6 +11,7 @@ enum
     MBM_THREAD_PRIO,
     MBM_FSM_THREAD_PRIO,  
     TCPCLIENT_THREAD_PRIO,
+    UDPSRV_THREAD_PRIO,
     GEO_THREAD_PRIO,
     BKG_THREAD_PRIO,		
     TEST_THREAD_PRIO,
@@ -21,6 +22,7 @@ enum
 void bkg_thread_entry(void* parameter);
 void test_thread_entry(void* parameter);
 void tcpclient_thread_entry(void* parameter);
+void udpsrv_thread_entry(void* parameter);
 void mbm_thread_entry(void* parameter);
 void mbm_fsm_thread_entry(void* parameter);
 void cmd_thread_entry(void* parameter);
