@@ -49,8 +49,10 @@ typedef struct
 
 typedef struct
 {
-    uint32_t    geo_en;
-    uint32_t    geo_period;
+    uint32_t    enable;
+    uint32_t    pkg_period;
+    uint32_t    sample_period;
+    uint32_t    filter;
 }conf_geo_st;
 
 typedef struct

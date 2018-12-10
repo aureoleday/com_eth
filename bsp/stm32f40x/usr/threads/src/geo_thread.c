@@ -12,10 +12,10 @@ void geo_thread_entry(void* parameter)
   
 		while(1)
 		{            
-        if((bit_op_get(g_sys.stat.gen.status_bm,GBM_TCP) == 1)&&(g_sys.conf.geo.geo_en == 1))
+        if((bit_op_get(g_sys.stat.gen.status_bm,GBM_TCP) == 1)&&(g_sys.conf.geo.enable == 1))
         {
             adxl355_scanfifo();
-            rt_thread_delay(1);
+            rt_thread_delay(g_sys.conf.geo.sample_period);
         }
         else
             rt_thread_delay(100);

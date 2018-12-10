@@ -2,10 +2,6 @@
 
 #define MAX_IND 8
 
-const int32_t arr_test[12] = {1,50,20,40,25,66,21,38,9,22,1,203};
-int32_t int_buf[256];
-int32_t int_buf_d[256];
-
 static void expansion(const int32_t* src_mat, int32_t * dst_mat,int x_size, int y_size, int x_exp, int y_exp)
 {
     int i,j;
@@ -144,10 +140,16 @@ static void print_mat(const int32_t* src_buf, int x, int y)
 //    rt_kprintf("\n");
 //}
 
+
+
 static void  int_test(int x_exp, int y_exp)
 {
     int x_size,y_size;
     int dst_xsize,dst_ysize; 
+  
+    const int32_t arr_test[12] = {1,50,20,40,25,66,21,38,9,22,1,203};
+    int32_t int_buf[256];
+    int32_t int_buf_d[256];  
       
     x_size = 3;
     y_size = 4;  

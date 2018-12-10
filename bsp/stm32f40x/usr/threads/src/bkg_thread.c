@@ -12,7 +12,7 @@
 #include "display.h"
 
 static void update_sys_status(void);
-static uint16_t	touch_timer_init(void);
+//static uint16_t	touch_timer_init(void);
 
 /**
   * @brief 	output control module components cooldown 
@@ -62,37 +62,37 @@ static void update_sys_status(void)
   * @param  none
   * @retval none
   */
-static void touch_timeout(void* parameter)
-{
-    extern touch_st touch_inst;
-    touch_scan();
-    if(touch_inst.x_down<lcd_width&&touch_inst.y_down<lcd_height)
-		{	
-			if(touch_inst.x_down>(lcd_width-40)&&touch_inst.y_down>lcd_height-18)
-          Clear_Screen();  //Çå¿ÕÆÁÄ»
-			else 
-          Draw_Point(touch_inst.x_down,touch_inst.y_down,RED);		//»­Í¼
-		}
-    if(touch_inst.x_up<lcd_width&&touch_inst.y_up<lcd_height)
-        Draw_Point(touch_inst.x_up,touch_inst.y_up,GREEN);
-}
+//static void touch_timeout(void* parameter)
+//{
+//    extern touch_st touch_inst;
+//    touch_scan();
+//    if(touch_inst.x_down<lcd_width&&touch_inst.y_down<lcd_height)
+//		{	
+//			if(touch_inst.x_down>(lcd_width-40)&&touch_inst.y_down>lcd_height-18)
+//          Clear_Screen();  //Çå¿ÕÆÁÄ»
+//			else 
+//          Draw_Point(touch_inst.x_down,touch_inst.y_down,RED);		//»­Í¼
+//		}
+//    if(touch_inst.x_up<lcd_width&&touch_inst.y_up<lcd_height)
+//        Draw_Point(touch_inst.x_up,touch_inst.y_up,GREEN);
+//}
 
 /**
   * @brief   sample interval timer initialization, expires in 6 miliseconds pieriod
   * @param  none
   * @retval none
   */
-rt_timer_t tm_touch;
-static uint16_t	touch_timer_init(void)
-{
-    extern sys_reg_st  g_sys;
-		tm_touch = rt_timer_create("tm_touch",
-									touch_timeout,
-									RT_NULL,
-									5,
-									RT_TIMER_FLAG_PERIODIC);
-		rt_timer_start(tm_touch);
-		return 1;
-}
+//rt_timer_t tm_touch;
+//static uint16_t	touch_timer_init(void)
+//{
+//    extern sys_reg_st  g_sys;
+//		tm_touch = rt_timer_create("tm_touch",
+//									touch_timeout,
+//									RT_NULL,
+//									5,
+//									RT_TIMER_FLAG_PERIODIC);
+//		rt_timer_start(tm_touch);
+//		return 1;
+//}
 
 

@@ -124,6 +124,8 @@ typedef enum {
    The customer does not need to use this value but it can be used to 
    check that the device can communicate                                 */
 void geo_ds_init(void);
+uint8_t adxl_wr_reg(uint8_t addr, uint8_t* data, uint8_t cnt);
+uint8_t adxl_rd_reg(uint8_t addr, uint8_t * rx_buf, uint8_t cnt);
 uint8_t adxl355_get_status(void);
 uint8_t adxl355_reset(void);
 uint8_t adxl355_activate(uint8_t enable);

@@ -38,7 +38,7 @@ void geo_ds_init(void)
     fifo32_init(&geo_rx_fifo,1,DEV_GEO_FIFO_SIZE);
 }
 
-rt_err_t adxl_wr_reg(uint8_t addr, uint8_t* data, uint8_t cnt)
+uint8_t adxl_wr_reg(uint8_t addr, uint8_t* data, uint8_t cnt)
 {  
     rt_err_t ret;
     uint8_t i;

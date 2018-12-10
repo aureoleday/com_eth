@@ -87,6 +87,19 @@ uint16_t geo_timer_opt(uint32_t pram)
     return 1;
 }
 
+uint16_t geo_filter_opt(uint32_t pram)
+{
+    uint8_t data = pram&0x0ff;
+  
+    adxl355_activate(0);
+    rt_thread_delay(1);
+    adxl_wr_reg(ARESET,&data,1);
+    rt_thread_delay(1);
+    adxl355_activate(1);
+    
+    return 1;
+}
+
 uint16_t geo_pwr_opt(uint32_t pram)
 {
     uint8_t enable = pram;

@@ -10,4 +10,5 @@ uint16_t set_timestamp(uint32_t pram);
 uint16_t tcp_timer_opt(uint32_t pram);
 uint16_t geo_timer_opt(uint32_t pram);
 uint16_t geo_pwr_opt(uint32_t pram);
+uint16_t geo_filter_opt(uint32_t pram);
 #endif

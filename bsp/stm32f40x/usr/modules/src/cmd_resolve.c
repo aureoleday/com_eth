@@ -144,7 +144,7 @@ static uint16_t	geo_timer_init(void)
 		tm_geo_repo = rt_timer_create("tm_geo_repo", 
 									geo_timeout, 
 									RT_NULL,
-									(g_sys.conf.geo.geo_period),
+									(g_sys.conf.geo.pkg_period),
 									RT_TIMER_FLAG_PERIODIC); 
 		rt_timer_start(tm_geo_repo);
 		return 1;
