@@ -140,8 +140,25 @@ static void print_mat(const int32_t* src_buf, int x, int y)
 //    rt_kprintf("\n");
 //}
 
+static void semi_transpose(const int32_t* src_ptr, int32_t* dst_ptr, int x_size, int y_size)
+{
+    int i,j;
+    for(j=0;j<y_size;j++)
+    {
+        for(i=0;i<x_size;i++)
+            *(dst_ptr + j*x_size + i) = *(src_ptr + (y_size-j-1)*x_size + (x_size-i-1));
+    }
+}
 
-
+static void transpose(const int32_t* src_ptr, int32_t* dst_ptr, int x_size, int y_size)
+{
+    int i,j;
+    for(j=0;j<x_size;j++)
+    {
+        for(i=0;i<y_size;i++)
+            *(dst_ptr + j*y_size + i) = *(src_ptr + i*x_size + x_size - 1 - j);
+    }
+}
 static void  int_test(int x_exp, int y_exp)
 {
     int x_size,y_size;
@@ -152,7 +169,7 @@ static void  int_test(int x_exp, int y_exp)
     int32_t int_buf_d[256];  
       
     x_size = 3;
-    y_size = 4;  
+    y_size = 4;
 
     dst_xsize = x_size * x_exp - (x_exp - 1) ;
     dst_ysize = y_size * y_exp - (y_exp - 1) ;
@@ -178,8 +195,13 @@ static void  int_test(int x_exp, int y_exp)
     expansion(arr_test,int_buf_d,x_size,y_size,x_exp,y_exp); 
     rt_kprintf("bilin_mat\n");
     bilin_calc(int_buf,int_buf_d,dst_xsize,dst_ysize);
-    print_mat(int_buf,dst_xsize,dst_ysize);  
+    print_mat(int_buf,dst_xsize,dst_ysize);
+    rt_kprintf("trans_mat\n");
+    transpose(int_buf,int_buf_d,dst_xsize,dst_ysize);
+    print_mat(int_buf_d,dst_ysize,dst_xsize);
 }
+
+
 
 #ifdef RT_USING_FINSH
 #include <finsh.h>

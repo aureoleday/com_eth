@@ -93,7 +93,7 @@ uint16_t geo_filter_opt(uint32_t pram)
   
     adxl355_activate(0);
     rt_thread_delay(1);
-    adxl_wr_reg(ARESET,&data,1);
+    adxl_wr_reg(FILTER,&data,1);
     rt_thread_delay(1);
     adxl355_activate(1);
     
