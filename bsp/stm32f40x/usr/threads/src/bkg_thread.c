@@ -3,7 +3,7 @@
 #include "sys_conf.h"
 #include "stm32f4xx.h"
 #include "drv_wtd.h"
-#include "plc.h"
+#include "usr_com.h"
 #include "fifo.h"
 #include "ethernetif.h"
 #include "drv_led.h"
@@ -42,6 +42,7 @@ void bkg_thread_entry(void* parameter)
         update_sys_status();
         dog();
         led_toggle(0);
+        
         rt_thread_delay(500);
 		}
 }
@@ -49,12 +50,8 @@ void bkg_thread_entry(void* parameter)
 static void update_sys_status(void)
 {
     extern sys_reg_st  g_sys;
-    int32_t temp;
 
-    g_sys.stat.gen.time = time(RT_NULL);
-    temp = get_plc_status();
-    if(temp>=0)
-        g_sys.stat.mbm.plc_bitmap = temp;
+    g_sys.stat.gen.time = time(RT_NULL);    
 }
 
 /**

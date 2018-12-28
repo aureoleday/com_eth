@@ -41,6 +41,8 @@ extern const unsigned char _aclogop[2909UL + 1];
 #define ID_IMAGE_3      (GUI_ID_USER + 0x104)
 #define ID_IMAGE_4      (GUI_ID_USER + 0x105)
 
+#define ID_USR_TEXT_BASE      (GUI_ID_USER + 0x200)
+
 #define ID_WINDOW_2     (GUI_ID_USER + 81 )
 #define ID_WINDOW_1     (GUI_ID_USER + 80 )
 #define ID_WINDOW_0     (GUI_ID_USER + 0 )
@@ -81,7 +83,14 @@ extern const unsigned char _aclogop[2909UL + 1];
 #define ID_TEXT_10_D    (GUI_ID_USER + 35 )
 #define ID_TEXT_11_D    (GUI_ID_USER + 36 )
 #define ID_TEXT_TIME    (GUI_ID_USER + 37 )
-#define ID_TEXT_VER    (GUI_ID_USER + 38 )
+#define ID_TEXT_VER    	(GUI_ID_USER + 38 )
+
+//#define ID_USR_TEXT_0      (ID_USR_TEXT_BASE + 0)
+//#define ID_USR_TEXT_0_U    (ID_USR_TEXT_BASE + 1)
+//#define ID_USR_TEXT_0_D    (ID_USR_TEXT_BASE + 2)
+//#define ID_USR_TEXT_1      (ID_USR_TEXT_BASE + 3)
+//#define ID_USR_TEXT_1_U    (ID_USR_TEXT_BASE + 4)
+//#define ID_USR_TEXT_1_D    (ID_USR_TEXT_BASE + 5)
 
 GUI_MEMDEV_Handle hMemdev;
 
@@ -152,8 +161,14 @@ static const GUI_WIDGET_CREATE_INFO _aDialogCreate[] = {
   { TEXT_CreateIndirect, 	"铵氮",        	ID_TEXT_11, 	470,	350, 	120, 	40, 	0, 0x64, 0 },
   { TEXT_CreateIndirect, 	"",        		ID_TEXT_11_D,	540, 	350, 	120, 	40, 	0, 0x64, 0 },
   { TEXT_CreateIndirect, 	"mg/L",        	ID_TEXT_11_U, 	690,	350, 	80, 	40, 	0, 0x64, 0 }, 
-  { TEXT_CreateIndirect, 	"",        	ID_TEXT_TIME, 	20,	450, 	300, 	30, 	0, 0x64, 0 }, 
-  { TEXT_CreateIndirect, 	"",        	ID_TEXT_VER, 	720,	450, 	300, 	30, 	0, 0x64, 0 }, 
+//  { TEXT_CreateIndirect, 	"BARO",        ID_USR_TEXT_0, 	70, 	400, 	120, 	40, 	0, 0x64, 0 },
+//  { TEXT_CreateIndirect, 	"",        		ID_USR_TEXT_0_D,140, 	400, 	120, 	40, 	0, 0x64, 0 },
+//  { TEXT_CreateIndirect, 	"mbar",        	ID_USR_TEXT_0_U,290,	400, 	80, 	40, 	0, 0x64, 0 },
+//  { TEXT_CreateIndirect, 	"TEMP",        	ID_USR_TEXT_1, 	470,	400, 	120, 	40, 	0, 0x64, 0 },
+//  { TEXT_CreateIndirect, 	"",        		ID_USR_TEXT_1_D,540, 	400, 	120, 	40, 	0, 0x64, 0 },
+//  { TEXT_CreateIndirect, 	"°C",        	ID_USR_TEXT_1_U,690,	400, 	80, 	40, 	0, 0x64, 0 },    
+  { TEXT_CreateIndirect, 	"",        	  	ID_TEXT_TIME, 	20,		450, 	300, 	30, 	0, 0x64, 0 }, 
+  { TEXT_CreateIndirect, 	"",        	  	ID_TEXT_VER, 	720,	450, 	300, 	30, 	0, 0x64, 0 }, 
   // USER START (Optionally insert additional widgets)
   // USER END
 };
@@ -263,6 +278,15 @@ static void gui_dupdate(WM_MESSAGE * pMsg)
         TEXT_SetText(hitem, dbuf);
         GUI_Exec();
     }
+
+//    for(i=0;i<=2;i++)
+//    {
+//        hitem = WM_GetDialogItem(pMsg->hWin, (ID_USR_TEXT_0_D+3*i));
+//        gui_sprint(dbuf,disp_sen_inst.sid[i].val,disp_sen_inst.sid[i].opt);
+//        TEXT_SetText(hitem, dbuf);
+//        GUI_Exec();
+//    }    
+    
     gui_print_time(pMsg); 
     GUI_Exec();
 }
@@ -364,14 +388,40 @@ static void gui_text_init(WM_MESSAGE * pMsg)
 //        TEXT_SetWrapMode(hItem,GUI_WRAPMODE_WORD);
         TEXT_SetFont(hItem,&GUI_Font24_1);		
     }  
-    
+
     for(i=ID_TEXT_0_U;i<=ID_TEXT_11_U;i=i+2)
     {
         hItem = WM_GetDialogItem(pMsg->hWin, i);
         TEXT_SetTextColor(hItem, GUI_WHITE);
         TEXT_SetTextAlign(hItem, GUI_TA_LEFT | GUI_TA_VCENTER);
         TEXT_SetFont(hItem,&GUI_Font24_1);		
-    }   
+    }
+    
+
+//    for(i=ID_USR_TEXT_0;i<=ID_USR_TEXT_1;i=i+3)
+//    {
+//        hItem = WM_GetDialogItem(pMsg->hWin, i);
+//        TEXT_SetTextColor(hItem, (GUI_WHITE));
+//        TEXT_SetTextAlign(hItem, GUI_TA_LEFT | GUI_TA_VCENTER);
+//        TEXT_SetFont(hItem,&GUI_Font24_1);		
+//    }	
+//    
+//    for(i=ID_USR_TEXT_0_D;i<=ID_USR_TEXT_1_D;i=i+3)
+//    {
+//        hItem = WM_GetDialogItem(pMsg->hWin, i);
+//        TEXT_SetTextColor(hItem, (GUI_LIGHTYELLOW));
+//        TEXT_SetTextAlign(hItem, GUI_TA_RIGHT | GUI_TA_VCENTER);
+//        TEXT_SetFont(hItem,&GUI_Font24_1);		
+//    }  
+
+//    for(i=ID_USR_TEXT_0_U;i<=ID_USR_TEXT_1_U;i=i+3)
+//    {
+//        hItem = WM_GetDialogItem(pMsg->hWin, i);
+//        TEXT_SetTextColor(hItem, GUI_WHITE);
+//        TEXT_SetTextAlign(hItem, GUI_TA_LEFT | GUI_TA_VCENTER);
+//        TEXT_SetFont(hItem,&GUI_Font24_1);		
+//    }    
+    
     
     hItem = WM_GetDialogItem(pMsg->hWin, ID_TEXT_TIME);
     TEXT_SetTextColor(hItem, (0x00FFFFFF));

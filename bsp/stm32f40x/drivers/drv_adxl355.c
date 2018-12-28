@@ -220,6 +220,21 @@ void adxl355_set_inactivity(void)
     adxl_wr_reg(ACT_EN, &temp,1); 
 }
 
+#include <stdio.h>
+float adxl355_get_temp(void)
+{
+    uint8_t buf[3];
+    uint16_t buf_16;
+    float temp;
+    adxl_rd_reg(TEMP2,buf,2);
+  
+    buf_16 = ((buf[1]&0xf)<<8)|buf[2];
+    temp = 25 + (buf_16 - 1852)/9.05;
+    printf("temp:%x\n",buf_16);
+    printf("temp:%.2f\n",temp);
+  
+    return temp;
+}
 
 uint8_t adxl355_reset(void)
 {
@@ -299,3 +314,4 @@ FINSH_FUNCTION_EXPORT(adxl355_scanfifo, scan fifo.);
 FINSH_FUNCTION_EXPORT(fifo_peak, peak fifo content.);
 FINSH_FUNCTION_EXPORT(ad_wr_reg, geo spi reg wr.);
 FINSH_FUNCTION_EXPORT(ad_rd_reg, geo spi reg rd.);
+FINSH_FUNCTION_EXPORT(adxl355_get_temp, get geo temp.);

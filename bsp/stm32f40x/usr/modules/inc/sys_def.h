@@ -28,7 +28,7 @@ typedef uint32_t          time_t;
 //#define SYS_DEBUG
 #define STAT_REG_MAP_NUM        64
 #define CONF_REG_MAP_NUM				96
-#define SOFTWARE_VER						0x00010003
+#define SOFTWARE_VER						0x00010004
 #define HARDWARE_VER						0x00010000
 #define SERIAL_NO							  0
 #define MAN_DATE							  0
@@ -59,6 +59,8 @@ enum
 {    
     SENSOR_NONE = 0,    
     SENSOR_MULTI,
+    SENSOR_ADDR2,
+    SENSOR_BT,
     SENSOR_PH,
     SENSOR_DO2
 };

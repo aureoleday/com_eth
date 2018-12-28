@@ -129,26 +129,15 @@ static void print_mat(const int32_t* src_buf, int x, int y)
     rt_kprintf("\n");
 }
 
-//static void print_mat_ex(const int32_t* src_buf, int x, int y)
+//static void semi_transpose(const int32_t* src_ptr, int32_t* dst_ptr, int x_size, int y_size)
 //{
 //    int i,j;
-//    j = x*y;
-//    for(i=0;i<j;i++)
+//    for(j=0;j<y_size;j++)
 //    {
-//        rt_kprintf(" %3d ", *(src_buf+i));
+//        for(i=0;i<x_size;i++)
+//            *(dst_ptr + j*x_size + i) = *(src_ptr + (y_size-j-1)*x_size + (x_size-i-1));
 //    }
-//    rt_kprintf("\n");
 //}
-
-static void semi_transpose(const int32_t* src_ptr, int32_t* dst_ptr, int x_size, int y_size)
-{
-    int i,j;
-    for(j=0;j<y_size;j++)
-    {
-        for(i=0;i<x_size;i++)
-            *(dst_ptr + j*x_size + i) = *(src_ptr + (y_size-j-1)*x_size + (x_size-i-1));
-    }
-}
 
 static void transpose(const int32_t* src_ptr, int32_t* dst_ptr, int x_size, int y_size)
 {

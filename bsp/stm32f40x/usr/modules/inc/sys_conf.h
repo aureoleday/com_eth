@@ -16,7 +16,9 @@
 
 typedef struct
 {	
-    uint32_t 		power_mode;					
+    uint32_t 		disp_dev;
+    uint32_t 		temp_offset;
+    uint32_t 		temp_win;
 }conf_gen_st;
 
 typedef struct
@@ -26,7 +28,6 @@ typedef struct
     uint32_t    sample_period;
     uint32_t 		dev_bitmap_holding;         //0: disable; 1:enable
     uint32_t 		dev_bitmap_input;           //0: disable; 1:enable
-    uint32_t    plc_bitmap;
     uint32_t    arr_slave_hbase_regn[MBM_TOTAL_SLAVE_NUM];
     uint32_t    arr_slave_ibase_regn[MBM_TOTAL_SLAVE_NUM];    
 }conf_mbm_st;
@@ -57,7 +58,15 @@ typedef struct
 
 typedef struct
 {
+    uint32_t    usr_com;
+    uint32_t    eth;
+    uint32_t    mbm;
+}conf_dbg_st;
+
+typedef struct
+{
     conf_gen_st       gen;
+    conf_dbg_st       dbg;
     conf_mbm_st       mbm;
     conf_eth_st       eth;
     conf_geo_st       geo;
@@ -78,7 +87,7 @@ typedef struct
 
 typedef struct
 {	
-	uint32_t 		plc_bitmap;					
+	uint32_t 		tbd_bitmap;					
 }stat_mbm_st;
 
 typedef struct

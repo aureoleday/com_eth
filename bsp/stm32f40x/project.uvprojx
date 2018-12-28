@@ -1455,11 +1455,6 @@
               <FilePath>.\usr\modules\src\display.c</FilePath>
             </File>
             <File>
-              <FileName>plc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\usr\modules\src\plc.c</FilePath>
-            </File>
-            <File>
               <FileName>net_utils.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\usr\modules\src\net_utils.c</FilePath>
@@ -1478,6 +1473,11 @@
               <FileName>bkg2.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\resource\bkg2.c</FilePath>
+            </File>
+            <File>
+              <FileName>usr_com.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\usr\modules\src\usr_com.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1508,6 +1508,11 @@
               <FileName>interpolate.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\usr\kits\src\interpolate.c</FilePath>
+            </File>
+            <File>
+              <FileName>matrix.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\usr\kits\src\matrix.c</FilePath>
             </File>
           </Files>
         </Group>

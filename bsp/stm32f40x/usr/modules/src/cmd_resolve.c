@@ -4,7 +4,8 @@
 #include "bit_op.h"
 #include "fifo.h"
 #include "user_mb_app.h"
-#include "plc.h"
+#include "usr_com.h"
+#include <sys/socket.h> /* 使用BSD socket，需要包含socket.h头文件 */
 
 //cpad err code
 enum
@@ -44,9 +45,9 @@ enum
 
 #define CMD_RD_REG        0x0001
 #define CMD_WR_REG        0x0002
-#define CMD_RD_SER        0x0003
-#define CMD_WR_SER        0x0004
 #define CMD_RP_PKG        0x0080
+#define CMD_TP_STX        0x0090
+#define CMD_TP_SRX        0x0091
 #define CMD_RP_GEO        0x0100
 
 fifo32_cb_td cmd_rx_fifo;
@@ -117,6 +118,12 @@ static void geo_timeout(void* parameter)
     report_geo_data();
 }
 
+static void tprx_timeout(void* parameter)
+{
+    uint16_t report_tprx_data(void);
+    report_tprx_data();
+}
+
 /**
   * @brief   sample interval timer initialization, expires in 6 miliseconds pieriod
   * @param  none
@@ -150,6 +157,18 @@ static uint16_t	geo_timer_init(void)
 		return 1;
 }
 
+rt_timer_t tm_tprx_repo;
+static uint16_t	tprx_timer_init(void)
+{   
+		tm_tprx_repo = rt_timer_create("tm_tprx_repo", 
+									tprx_timeout, 
+									RT_NULL,
+									100,
+									RT_TIMER_FLAG_PERIODIC); 
+		rt_timer_start(tm_tprx_repo);
+		return 1;
+}
+
 
 /**
   * @brief  cmd uart send interface
@@ -162,6 +181,7 @@ void cmd_dev_init(void)
 		cmd_buf_init();
     cmd_timer_init();
     geo_timer_init();
+    tprx_timer_init();
 }
 
 /**
@@ -366,26 +386,26 @@ static uint16_t cmd_rd_reg(void)
     `CMD_ERR_WR_OR		   : write operation prohibited
     `CMD_ERR_UNKNOWN	   : unknown error
   */
-static uint16_t cmd_wr_ser(void)
+
+static uint16_t cmd_tp_stx(void)
 {
 		uint8_t err_code;
-		uint8_t tx_cnt,i;
-    uint8_t tx_buf[32];
+		uint8_t tx_cnt;
+    uint16_t i;
     
 		extern sys_reg_st	 g_sys; 
 	
     err_code = CMD_ERR_NOERR;					
 
-		tx_cnt = cmd_reg_inst.rx_buf[FRAME_C_ATL_POS]&0x0000ffff;
+		tx_cnt = cmd_reg_inst.rx_buf[FRAME_D_AL_POS]&0x0000ffff;
 
 		cmd_reg_inst.rx_cnt = 0;																																            //clear rx_buffer
 		cmd_reg_inst.rx_tag = 0;
   
     for(i=0;i<tx_cnt;i++)
-    {
-        tx_buf[i] = (uint8_t)cmd_reg_inst.rx_buf[FRAME_D_AL_POS+i];
-    }
-    err_code = plc_tx(tx_buf,tx_cnt);
+        cmd_reg_inst.rx_buf[FRAME_D_PL_POS+i] = ntohl(cmd_reg_inst.rx_buf[FRAME_D_PL_POS+i]);
+  
+    err_code = com_tx((uint8_t *)&(cmd_reg_inst.rx_buf[FRAME_D_PL_POS]),tx_cnt);
   
     cmd_reg_inst.tx_cnt = 0;
     cmd_reg_inst.tx_cmd	= (cmd_reg_inst.rx_buf[FRAME_C_ATL_POS]>>16)&0x0fff;
@@ -394,48 +414,6 @@ static uint16_t cmd_wr_ser(void)
 
 		cmd_response();
 		return err_code;
-}
-
-/**
-  * @brief  cmd command write reg operation
-	* @param  none
-  * @retval 
-		`CMD_ERR_NOERR			 : operation OK
-		`CMD_ERR_ADDR_OR	   : requested address out of range
-    `CMD_ERR_DATA_OR	   : requested data out of range
-    `CMD_ERR_PERM_OR	   : request permission denied
-    `CMD_ERR_WR_OR		   : write operation prohibited
-    `CMD_ERR_UNKNOWN	   : unknown error
-  */
-static uint16_t cmd_rd_ser(void)
-{
-//		uint8_t err_code;
-//		uint8_t tx_cnt,i;
-//    uint8_t tx_buf[32];
-//    
-//		extern sys_reg_st	 g_sys; 
-//	
-//    err_code = CMD_ERR_NOERR;					
-
-//		tx_cnt = cmd_reg_inst.rx_buf[FRAME_C_ATL_POS]&0x0000ffff;
-
-//		cmd_reg_inst.rx_cnt = 0;																																            //clear rx_buffer
-//		cmd_reg_inst.rx_tag = 0;
-//  
-//    for(i=0;i<tx_cnt;i++)
-//    {
-//        tx_buf[i] = (uint8_t)cmd_reg_inst.rx_buf[FRAME_D_AL_POS+i];
-//    }
-//    err_code = plc_tx(tx_buf,tx_cnt);
-//  
-//    cmd_reg_inst.tx_cnt = 0;
-//    cmd_reg_inst.tx_cmd	= (cmd_reg_inst.rx_buf[FRAME_C_ATL_POS]>>16)&0x0fff;
-//    
-//    cmd_reg_inst.tx_errcode = err_code;
-
-//		cmd_response();
-//		return err_code;
-      return 0;
 }
 
 
@@ -478,18 +456,12 @@ uint16_t cmd_frame_resolve(void)
 						rt_kprintf("console: write reg.\n");
 						break;
 				}
-				case (CMD_RD_SER):
+				case (CMD_TP_STX):
 				{	
-						err_code = cmd_rd_ser();
-						rt_kprintf("console: read ser.\n");
+						err_code = cmd_tp_stx();
+						rt_kprintf("console: write usr_com.\n");
 						break;
-				}
-				case (CMD_WR_SER):
-				{	
-						err_code = cmd_wr_ser();
-						rt_kprintf("console: write ser.\n");
-						break;
-				}
+				}        
 				default:
 				{
 						err_code = CMD_ERR_UNKNOWN;
@@ -719,5 +691,30 @@ uint16_t report_geo_data(void)
 		return err_code;
 }
 
+uint16_t report_tprx_data(void)
+{
+    extern sys_reg_st	  g_sys;
+		uint8_t err_code;
+		uint16_t rd_cnt;
+	
+    err_code = CMD_ERR_NOERR;  
+    
+    rd_cnt = com_recv((uint8_t *)&(cmd_reg_inst.tx_buf[FRAME_D_PL_POS])); 
+    
+    if(rd_cnt <= 0)
+        return 0;
+    
+    cmd_reg_inst.tx_buf[FRAME_D_AL_POS] = rd_cnt;
+    cmd_reg_inst.tx_cmd	= CMD_TP_SRX;
+    
+    if((rd_cnt&0x03) == 0)
+        cmd_reg_inst.tx_cnt = (rd_cnt>>2) + 1;
+    else
+        cmd_reg_inst.tx_cnt = (rd_cnt>>2) + 2;
+    
+    cmd_reg_inst.tx_errcode = err_code;
+		cmd_response();
+		return err_code;
+}
 
 //FINSH_FUNCTION_EXPORT(show_cmd_info, show cmd information.);

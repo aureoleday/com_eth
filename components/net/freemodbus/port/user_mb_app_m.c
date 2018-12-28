@@ -78,7 +78,7 @@ void mbm_thread_entry(void* parameter)
 
 static int16_t mbm_sts_update(void)
 {
-    if((g_sys.conf.mbm.dev_bitmap_holding==mbm_dev_inst.sts_bitmap_hold)&&(g_sys.conf.mbm.dev_bitmap_input == mbm_dev_inst.sts_bitmap_input))
+    if((g_sys.conf.mbm.dev_bitmap_holding==mbm_dev_inst.sts_bitmap_hold)&&(g_sys.conf.mbm.dev_bitmap_input == mbm_dev_inst.sts_bitmap_input)&&(g_sys.conf.mbm.enable == 1))
     {
         bit_op_set(&g_sys.stat.gen.status_bm,GBM_MBM,1);
         return 0;
@@ -100,9 +100,9 @@ void mbm_fsm_thread_entry(void* parameter)
         if(g_sys.conf.mbm.enable == 1)
         {
             mbm_reg_holding_update(&mbm_dev_inst);
-            mbm_reg_input_update(&mbm_dev_inst);
-            mbm_sts_update();
+            mbm_reg_input_update(&mbm_dev_inst);            
         }
+        mbm_sts_update();
 				rt_thread_delay(g_sys.conf.mbm.sample_period);
 		}
 }
