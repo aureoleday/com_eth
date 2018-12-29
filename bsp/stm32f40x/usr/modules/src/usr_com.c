@@ -50,48 +50,78 @@ int16_t com_recv(uint8_t *rx_ptr)
 {
     extern sys_reg_st  g_sys; 
     int16_t ret;
-    uint16_t flen[2];
-    uint16_t timeout;
+    static uint8_t timeout = 0;
+    static uint8_t fsm = 0;
+    static uint16_t flen = 0;
     uint16_t i;
-  
+    uint16_t c_fifo_len;
     ret = 0;
-    flen[0] = 0;
-    flen[1] = 0;
-    flen[0] = get_fifo8_length(&com_rx_fifo);
-    timeout = 5;
-  
-    if(flen[0] > 0)
-    {
-        while(timeout > 0)
+    c_fifo_len = get_fifo8_length(&com_rx_fifo);
+    switch (fsm)
+		{
+        case 0:
         {
-            flen[1] = get_fifo8_length(&com_rx_fifo);
-            if(flen[1] > flen[0])
+            if(c_fifo_len > 0)
             {
-                flen[0] = flen[1];
-                timeout--;
+                fsm = 1;
+                flen = c_fifo_len;
+                timeout = 5;
             }
             else
             {
-                for(i=0;i<flen[1];i++)
+                fsm = 0;
+                flen = 0;
+                timeout = 0;
+            }
+            break;
+        }
+        case 1:
+        {
+            if(timeout <= 0)
+            {
+                fsm = 0;
+                flen = 0;
+                timeout=0;
+                if(g_sys.conf.dbg.usr_com)
+                    rt_kprintf("\nusr_com timeout!\n");
+            }
+            else if(c_fifo_len > flen)
+            {
+                fsm = 1;
+                flen = c_fifo_len;
+                timeout--;
+                if(g_sys.conf.dbg.usr_com)
+                    rt_kprintf("\nusr_com wait %d...\n",timeout);
+            }
+            else
+            {
+                for(i=0;i<flen;i++)
                 {
                     fifo8_pop(&com_rx_fifo,(rx_ptr+i));   
                 }
                 if(g_sys.conf.dbg.usr_com)
                 {
                     rt_kprintf("\nusr_com rxd:\n");
-                    for(i=0;i<flen[1];i++)
+                    for(i=0;i<flen;i++)
                     {
                         rt_kprintf("%x ",*(rx_ptr+i));     
                     }
                     rt_kprintf("\n");
                 }
-                ret = flen[1];
-                break;
+                ret = flen;
+                fsm = 0;
+                flen = 0;
+                timeout=0;                
             }
-            rt_thread_delay(10);
+            break;
         }
-        if(timeout == 0)
-            ret = -1;
+        default:
+        {
+            fsm = 0;
+            flen = 0;
+            timeout=0;
+            break;
+        }
     }
     return ret;
 }

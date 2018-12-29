@@ -41,7 +41,7 @@
 
 static rt_uint8_t tcpclient_stack[ 2048 ];
 static rt_uint8_t udpsrv_stack[ 1024 ];
-static rt_uint8_t cmd_stack[ 2048 ];
+static rt_uint8_t cmd_stack[ 4096 ];
 static rt_uint8_t mbm_stack[ 1024 ];
 static rt_uint8_t mbm_fsm_stack[ 512 ];
 static rt_uint8_t lcd_stack[ 4096 ];

@@ -133,7 +133,6 @@ rt_timer_t tm_tcp_repo;
 static uint16_t	cmd_timer_init(void)
 {   
     extern sys_reg_st  g_sys; 
-//		rt_timer_t tm_tcp_repo;
 		tm_tcp_repo = rt_timer_create("tm_tcp_repo", 
 									cmd_timeout, 
 									RT_NULL,
@@ -147,7 +146,6 @@ rt_timer_t tm_geo_repo;
 static uint16_t	geo_timer_init(void)
 {   
     extern sys_reg_st  g_sys; 
-//		rt_timer_t tm_tcp_repo;
 		tm_geo_repo = rt_timer_create("tm_geo_repo", 
 									geo_timeout, 
 									RT_NULL,
@@ -163,7 +161,7 @@ static uint16_t	tprx_timer_init(void)
 		tm_tprx_repo = rt_timer_create("tm_tprx_repo", 
 									tprx_timeout, 
 									RT_NULL,
-									100,
+									20,
 									RT_TIMER_FLAG_PERIODIC); 
 		rt_timer_start(tm_tprx_repo);
 		return 1;
@@ -407,12 +405,12 @@ static uint16_t cmd_tp_stx(void)
   
     err_code = com_tx((uint8_t *)&(cmd_reg_inst.rx_buf[FRAME_D_PL_POS]),tx_cnt);
   
-    cmd_reg_inst.tx_cnt = 0;
-    cmd_reg_inst.tx_cmd	= (cmd_reg_inst.rx_buf[FRAME_C_ATL_POS]>>16)&0x0fff;
-    
-    cmd_reg_inst.tx_errcode = err_code;
+//    cmd_reg_inst.tx_cnt = 0;
+//    cmd_reg_inst.tx_cmd	= (cmd_reg_inst.rx_buf[FRAME_C_ATL_POS]>>16)&0x0fff;
+//    
+//    cmd_reg_inst.tx_errcode = err_code;
 
-		cmd_response();
+//		cmd_response();
 		return err_code;
 }
 
@@ -714,7 +712,7 @@ uint16_t report_tprx_data(void)
     
     cmd_reg_inst.tx_errcode = err_code;
 		cmd_response();
-		return err_code;
+		return rd_cnt;
 }
 
 //FINSH_FUNCTION_EXPORT(show_cmd_info, show cmd information.);
