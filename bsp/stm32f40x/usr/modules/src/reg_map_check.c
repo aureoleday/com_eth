@@ -6,6 +6,7 @@
 #include "usr_init.h"
 #include "usr_com.h"
 #include "drv_adxl355.h"
+#include "cmd_resolve.h"
 
 extern    sys_reg_st					g_sys; 
 //
@@ -56,6 +57,12 @@ uint16_t tcp_timer_opt(uint32_t pram)
     uint32_t period;
     period = pram*RT_TICK_PER_SECOND;
     rt_timer_control(tm_tcp_repo,RT_TIMER_CTRL_SET_TIME,(void*)&period);
+    return 1;
+}
+
+uint16_t update_data_opt(uint32_t pram)
+{
+    report_data();
     return 1;
 }
 
